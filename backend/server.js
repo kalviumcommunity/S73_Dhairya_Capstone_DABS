@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import connectDB from './config/mongodb.js'
 import dotenv from 'dotenv'
+
 import userRoutes from './routes/userRoutes.js'
 import doctorRoutes from './routes/doctorRoutes.js'
 import appointmentRoutes from './routes/appointmentRoutes.js'
@@ -10,6 +11,9 @@ dotenv.config();
 
 // Add this line to check if the environment variable is loaded
 console.log('MongoDB URI:', process.env.MONGODB_URI);
+
+
+dotenv.config();    
 
 connectDB()
 
