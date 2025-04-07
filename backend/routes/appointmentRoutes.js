@@ -23,5 +23,17 @@ router.get('/user/:userId', async (req, res) => {
     }
 });
 
+// Create new appointment
+router.post('/', async (req, res) => {
+    try {
+        const appointment = new appointmentModel(req.body);
+        await appointment.save();
+        res.status(201).json(appointment);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
 
 export default router;

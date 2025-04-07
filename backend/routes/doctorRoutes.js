@@ -24,5 +24,16 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// Create new doctor
+router.post('/', async (req, res) => {
+    try {
+        const doctor = new doctorModel(req.body);
+        await doctor.save();
+        res.status(201).json(doctor);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
 
 export default router;
