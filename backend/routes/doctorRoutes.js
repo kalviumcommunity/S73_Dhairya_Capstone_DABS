@@ -36,4 +36,16 @@ router.post('/', async (req, res) => {
 });
 
 
+// Update doctor
+router.put('/:id', async (req, res) => {
+    try {
+        const doctor = await doctorModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
+        res.json(doctor);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
+
+
 export default router;

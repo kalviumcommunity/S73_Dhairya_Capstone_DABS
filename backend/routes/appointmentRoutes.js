@@ -34,6 +34,15 @@ router.post('/', async (req, res) => {
     }
 });
 
-
+// Update appointment
+router.put('/:id', async (req, res) => {
+    try {
+        const appointment = await appointmentModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!appointment) return res.status(404).json({ message: 'Appointment not found' });
+        res.json(appointment);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+});
 
 export default router;
