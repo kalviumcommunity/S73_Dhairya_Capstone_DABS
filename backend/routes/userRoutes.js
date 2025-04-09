@@ -10,6 +10,10 @@ const router = express.Router();
 // Middleware to parse JSON payloads
 router.use(express.json());
 
+
+
+const router = express.Router();
+
 // Get all users
 router.get('/', async (req, res) => {
     try {
@@ -51,6 +55,16 @@ router.post('/', async (req, res) => {
         res.status(201).json({ message: 'User registered successfully', user });
     } catch (error) {
         res.status(500).json({ message: error.message });
+
+// Create new user
+router.post('/', async (req, res) => {
+    try {
+        const user = new userModel(req.body);
+        await user.save();
+        res.status(201).json(user);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+
     }
 });
 
@@ -64,6 +78,7 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
+
 
 // Combined login route for both users and doctors
 router.post('/login', async (req, res) => {
@@ -162,5 +177,6 @@ router.post('/register-doctor', async (req, res) => {
         });
     }
 });
+
 
 export default router;
