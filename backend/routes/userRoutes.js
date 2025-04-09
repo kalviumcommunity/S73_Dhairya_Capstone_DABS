@@ -91,9 +91,9 @@ router.post('/login', async (req, res) => {
         // Create token
         const token = jwt.sign(
             { id: account._id, role },
-            'your_jwt_secret',
+            'your_jwt_secret',  
             { expiresIn: '1d' }
-        );
+        );  
 
         // Remove password from response
         const accountData = account.toObject();

@@ -32,6 +32,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // api endpoints
 app.use('/api/users', userRoutes)
+app.use('/api/doctors', doctorRoutes)  // <-- Add this line
 app.use('/api/appointments', appointmentRoutes)
 
 app.get('/',(req,res)=>{

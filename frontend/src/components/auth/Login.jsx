@@ -22,11 +22,11 @@ const Login = () => {
         // Log success message and token
         console.log('Login Status:', message)
         console.log('User Role:', user.role)
-        console.log('JWT Token:', token)
+        console.log('JWT Token:', token)  
         
         // Store user data and token
         localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('token', token)
+        localStorage.setItem('token', token)   
         
         // Redirect based on role
         if (user.role === 'doctor') {
