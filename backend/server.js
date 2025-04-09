@@ -1,12 +1,17 @@
 import express from 'express'
 import cors from 'cors'
 import connectDB from './config/mongodb.js'
+import userRoutes from './routes/userRoutes.js'
+import doctorRoutes from './routes/doctorRoutes.js'
+import appointmentRoutes from './routes/appointmentRoutes.js'
 import dotenv from 'dotenv'
+
 import userRoutes from './routes/userRoutes.js'
 import doctorRoutes from './routes/doctorRoutes.js'
 import appointmentRoutes from './routes/appointmentRoutes.js'
 import path from 'path'
 import { fileURLToPath } from 'url';
+
 
 dotenv.config();    
 
@@ -32,7 +37,12 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // api endpoints
 app.use('/api/users', userRoutes)
+
 app.use('/api/doctors', doctorRoutes)  // <-- Add this line
+
+app.use('/api/doctors', doctorRoutes)
+
+
 app.use('/api/appointments', appointmentRoutes)
 
 app.get('/',(req,res)=>{
@@ -42,3 +52,4 @@ app.get('/',(req,res)=>{
 app.listen(PORT, ()=>{
     console.log("Started at",`http://localhost:${PORT}`)
 })
+
