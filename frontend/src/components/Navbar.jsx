@@ -8,7 +8,7 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-indigo-500">
-              Book My Doctor
+              DocDock
             </Link>
           </div>
 
