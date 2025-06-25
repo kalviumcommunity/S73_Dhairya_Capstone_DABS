@@ -1,11 +1,13 @@
-# Doctor Appointment Booking System (DABS) (MERN Stack)
+# QuickDoc
 
-## 🚀 Overview
+## Doctor Appointment Booking System (DABS) (MERN Stack)
+
+## Overview
 The **Doctor Appointment Booking System** is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
 
 ***
 
-## 🎯 Problem Statement
+## Problem Statement
 - Booking doctor appointments manually can be time-consuming and inefficient.
 - Patients struggle to find available doctors quickly and schedule appointments.
 - Doctors need a structured system to manage appointments and avoid scheduling conflicts.
@@ -13,7 +15,7 @@ The **Doctor Appointment Booking System** is a full-stack web application built 
 
 ***
 
-## 🛠️ Tech Stack
+## Tech Stack
 ### **Frontend:**
 - **React.js** with Tailwind CSS for a responsive UI.
 - **React Router** for navigation.
@@ -33,32 +35,32 @@ The **Doctor Appointment Booking System** is a full-stack web application built 
 
 ***
 
-## 🌟 Core Features
+## Core Features
 ### **User Roles & Authentication:**
-✅ Secure login and registration using JWT.
-✅ Role-based access (Patient, Doctor, Admin).
+- Secure login and registration using JWT.
+- Role-based access (Patient, Doctor, Admin).
 
 ### **Doctor Management:**
-✅ Doctors can register and update their profiles.
-✅ Admin can approve or reject doctor registrations.
-✅ Doctors can set availability and manage appointments.
+- Doctors can register and update their profiles.
+- Admin can approve or reject doctor registrations.
+- Doctors can set availability and manage appointments.
 
 ### **Appointment Booking System:**
-✅ Patients can browse doctors by specialty, location, and availability.
-✅ Patients can book, cancel, or reschedule appointments.
-✅ Doctors can accept or reject appointments.
+- Patients can browse doctors by specialty, location, and availability.
+- Patients can book, cancel, or reschedule appointments.
+- Doctors can accept or reject appointments.
 
 ### **Dashboard & Notifications:**
-✅ Separate dashboards for Patients, Doctors, and Admins.
-✅ Email notifications for appointment confirmations.
-✅ Admin panel to manage users, doctors, and appointments.
+- Separate dashboards for Patients, Doctors, and Admins.
+- Email notifications for appointment confirmations.
+- Admin panel to manage users, doctors, and appointments.
 
 ### **Payment Integration (Optional):**
-✅ Patients can make payments for consultations via Stripe/PayPal.
+- Patients can make payments for consultations via Stripe/PayPal.
 
 ***
 
-## 📅 Capstone Journey: Day-by-Day Plan
+## Capstone Journey: Day-by-Day Plan
 
 ### **Week 1: Project Setup & Planning**
 - Finalize project scope and requirements.
@@ -108,7 +110,7 @@ The **Doctor Appointment Booking System** is a full-stack web application built 
 
 ***
 
-## **🚀 Advanced Future Plans**  
+## ** Advanced Future Plans**  
 
 ### **1️⃣ AI-Powered Doctor Recommendations**  
 🔹 **Use Case:** Suggest the best doctor based on patient symptoms and past appointments.  
@@ -151,7 +153,7 @@ The **Doctor Appointment Booking System** is a full-stack web application built 
 🔹 **Tech:** Use **AI API, Rasa, or Dialogflow** for chatbot integration.  
 
 
-## 📌 Conclusion
+## Conclusion
 The **Doctor Appointment Booking System** streamlines the process of scheduling and managing doctor consultations, making it efficient for both patients and healthcare providers. This capstone project follows a structured development approach, ensuring a well-rounded and functional application upon completion. 🚀
 
 ***
