@@ -1,4 +1,4 @@
-# QuickDoc
+# DocDock
 
 ## Doctor Appointment Booking System (DABS) (MERN Stack)
 
