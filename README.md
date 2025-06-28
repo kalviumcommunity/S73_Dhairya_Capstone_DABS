@@ -5,7 +5,7 @@
   <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
 </p>
 
-<table width="100%">
+<table width="100%" align="right">
   <tr>
     <td align="left">
       <a href="#"><strong>FRONTEND</strong> (on July 4)</a>
