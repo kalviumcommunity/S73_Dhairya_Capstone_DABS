@@ -10,33 +10,6 @@
     <td align="left">
       <a href="#"><strong>FRONTEND</strong> (on July 4)</a>
     </td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>    
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
     <td align="right">
       <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
     </td>
