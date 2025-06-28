@@ -1,4 +1,51 @@
-# BookMyDoc
+
+
+<h1 align="center">BookMyDoc</h1>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
+</p>
+
+<table width="100%">
+  <tr>
+    <td align="left">
+      <a href="#"><strong>FRONTEND</strong> (on July 4)</a>
+    </td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>    
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td align="right">
+      <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
+    </td>
+  </tr>
+</table>
+
+
+
+#
 
 ## Doctor Appointment Booking System (DABS) (MERN Stack)
 
