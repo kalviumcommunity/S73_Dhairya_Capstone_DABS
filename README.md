@@ -110,7 +110,7 @@ The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 
 ***
 
-## ** Advanced Future Plans**  
+## **Advanced Future Plans**  
 
 ### **1️⃣ AI-Powered Doctor Recommendations**  
 🔹 **Use Case:** Suggest the best doctor based on patient symptoms and past appointments.  
