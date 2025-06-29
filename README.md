@@ -17,12 +17,10 @@
 </table>
 
 
-
 #
 
-## Doctor Appointment Booking System (DABS) (MERN Stack)
 
-## Overview
+## Doctor Appointment Booking System (DABS) (MERN Stack)
 The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
 
 ***
