@@ -1,16 +1,18 @@
-<table width="100%" align="center">
-  <tr>
-    <td align="center">
-      <a href="https://github.com/dhairyasquad73" target="_blank"><strong><samp>dhairya</samp></strong></a>
-    </td>
-  </tr>
-</table>
 
 
 <h1 align="center">BookMyDoc</h1>
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
 </p>
+
+
+<table width="80%" align="left">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/dhairyasquad73" target="_blank"> <img src="https://github.com/user-attachments/assets/bcac7b80-855f-4d0d-a43a-b7a1120c330c" alt="GitHub" width="37"> </a>
+    </td>
+  </tr>
+</table>
 
 <table width="100%" align="right">
   <tr>
@@ -27,7 +29,7 @@
 #
 
 
-## Doctor Appointment Booking System (DABS) (MERN Stack)
+##  Doctor Appointment Booking System (DABS)
 The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
 
 ***
