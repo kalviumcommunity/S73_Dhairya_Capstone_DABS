@@ -1,3 +1,10 @@
+<table width="100%" align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/dhairyasquad73" target="_blank"><strong><samp>dhairya</samp></strong></a>
+    </td>
+  </tr>
+</table>
 
 
 <h1 align="center">BookMyDoc</h1>
