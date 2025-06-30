@@ -1,6 +1,5 @@
 import express from 'express';
 import doctorModel from '../model/doctorModel.js';
-
 import bcrypt from 'bcrypt';
 import multer from 'multer';
 import path from 'path';
@@ -22,15 +21,6 @@ const upload = multer({ storage });
 router.get('/', async (req, res) => {
     try {
         const doctors = await doctorModel.find({ available: true });
-
-
-const router = express.Router();
-
-// Get all doctors
-router.get('/', async (req, res) => {
-    try {
-        const doctors = await doctorModel.find();
-
         res.json(doctors);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -47,7 +37,6 @@ router.get('/:id', async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
-
 
 // Get doctors by specialty
 router.get('/specialty/:specialty', async (req, res) => {
@@ -77,19 +66,12 @@ router.post('/', upload.single('image'), async (req, res) => {
             password: hashedPassword,
             image: req.file ? req.file.path : null,
         });
-
-// Create new doctor
-router.post('/', async (req, res) => {
-    try {
-        const doctor = new doctorModel(req.body);
-
         await doctor.save();
         res.status(201).json(doctor);
     } catch (error) {
         res.status(400).json({ message: error.message });
     }
 });
-
 
 // Update doctor availability
 router.patch('/:id/availability', async (req, res) => {
@@ -122,7 +104,6 @@ router.patch('/:id/slots', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
 
 // Update doctor
 router.put('/:id', async (req, res) => {

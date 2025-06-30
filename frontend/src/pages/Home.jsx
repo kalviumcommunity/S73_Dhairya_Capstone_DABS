@@ -12,11 +12,11 @@ const Home = () => {
             {/* Text Section */}
             <div className="text-center lg:text-left">
               <h1 className="text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl lg:text-6xl">
-                <span className="block">Book Your Doctor</span>
+                <span className="block">Book your Doctor</span>
                 <span className="block text-indigo-600">Appointment Online</span>
               </h1>
               <p className="mt-6 text-lg text-gray-600 sm:text-xl">
-                Effortlessly find and book appointments with trusted doctors near you. Healthcare made simple.
+                Tap into quantum health - our doctors might not be radioactive, but they are brilliant!
               </p>
               <div className="mt-8 flex justify-center lg:justify-start">
                 <Link
@@ -24,7 +24,7 @@ const Home = () => {
                   className="inline-flex items-center px-6 py-3 bg-indigo-600 text-white text-lg font-semibold rounded-xl shadow-lg hover:bg-indigo-700 transition duration-300"
                 >
                   Get Started
-                  <ArrowRight className="ml-2 w-5 h-5" />
+                  <ArrowRight className="ml-3 w-6 h-7" />
                 </Link>
               </div>
             </div>
@@ -32,9 +32,9 @@ const Home = () => {
             {/* Illustration */}
             <div className="hidden lg:block">
               <img
-                src="./src/assets/female-doctor.png"
+                src="./src/assets/Doctor-Manhattan.png" 
                 alt="Doctor appointment illustration"
-                className="w-full h-auto rounded-2xl "
+                className="w-auto h-max rounded-2xl "
               />
             </div>
 
@@ -45,4 +45,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Home;

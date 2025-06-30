@@ -8,34 +8,22 @@ const Navbar = () => {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link to="/" className="text-2xl font-bold text-indigo-500">
-              DocDock
+              BookMyDoc
             </Link>
           </div>
 
           {/* Navigation Links */}
           <div className="hidden md:flex space-x-4">
-            <Link
-              to="/"
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
+            <Link to="/" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
               Home
             </Link>
-            <Link
-              to="/find-doctors"
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
+            <Link to="/find-doctors" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
               Find Doctors
             </Link>
-            <Link
-              to="/login"
-              className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-            >
+            <Link to="/login" className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium">
               Login
             </Link>
-            <Link
-              to="/register"
-              className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700"
-            >
+            <Link to="/register" className="bg-indigo-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-indigo-700">
               Signup
             </Link>
           </div>
@@ -69,4 +57,4 @@ const Navbar = () => {
   )
 }
 
-export default Navbar
+export default Navbar;

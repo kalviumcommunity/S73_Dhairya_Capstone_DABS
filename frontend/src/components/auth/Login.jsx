@@ -46,7 +46,7 @@ const Login = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 px-4">
       <div className="w-full max-w-md bg-gray-850 rounded-2xl shadow-2xl p-8 space-y-6 animate-fade-in">
         <div className="text-center">
-        <div className="flex justify-center mb-2"><img src="./src/assets/logo.png" alt="Logo" className="w-10 h-10"/></div>
+        <div className="flex justify-center mb-2"><img src="./src/assets/logo.png" alt="Logo" className="w-12 h-12"/></div>
           <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
           <p className="text-gray-400 text-sm">Sign in to manage your appointments</p>
         </div>
