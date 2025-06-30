@@ -1,3 +1,7 @@
+import doctorImage from '../assets/Doctor-Manhattan.png';
+import React from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 
@@ -32,12 +36,11 @@ const Home = () => {
             {/* Illustration */}
             <div className="hidden lg:block">
               <img
-                src="./src/assets/Doctor-Manhattan.png" 
+                src={doctorImage} 
                 alt="Doctor appointment illustration"
                 className="w-auto h-max rounded-2xl "
               />
             </div>
-
           </div>
         </div>
       </div>
