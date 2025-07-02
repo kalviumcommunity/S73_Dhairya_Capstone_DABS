@@ -5,15 +5,6 @@
   <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
 </p>
 
-
-<table width="80%" align="left">
-  <tr>
-    <td align="center">
-      <a href="https://github.com/dhairyasquad73" target="_blank"> <img src="https://github.com/user-attachments/assets/bcac7b80-855f-4d0d-a43a-b7a1120c330c" alt="GitHub" width="37"> </a>
-    </td>
-  </tr>
-</table>
-
 <table width="100%" align="right">
   <tr>
     <td align="left">
@@ -28,13 +19,12 @@
 
 #
 
-
 ##  Doctor Appointment Booking System (DABS)
 The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
 
 ***
 
-## Problem Statement
+## > Problem Statement
 - Booking doctor appointments manually can be time-consuming and inefficient.
 - Patients struggle to find available doctors quickly and schedule appointments.
 - Doctors need a structured system to manage appointments and avoid scheduling conflicts.
@@ -42,27 +32,48 @@ The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 
 ***
 
-## Tech Stack
-### **Frontend:**
-- **React.js** with Tailwind CSS for a responsive UI.
-- **React Router** for navigation.
-- **Redux Toolkit** for state management.
+## > Tech Stack
 
-### **Backend:**
-- **Node.js** with Express.js for building API endpoints.
-- **MongoDB** for data storage.
-- **Mongoose** for MongoDB object modeling.
-- **JWT Authentication** for secure login.
-- **Nodemailer** for email notifications.
+<h3 align="left">Frontend </h3>
+<table width="100%" align="left">
+  <tr>
+    <td align="center">React.js (responsive UI)</td>
+    <td align="center">Tailwind CSS (styling)</td>
+    <td align="center">React Router (navigation)</td>
+    <td align="center">Redux Toolkit (state mgmt)</td>
+  </tr>
+</table>
 
-### **Additional Technologies:**
-- **Stripe/PayPal** (optional) for online payments.
-- **Socket.io** (optional) for real-time notifications.
-- **Docker & CI/CD** (for deployment, optional).
+<br><br>
+
+<h3 align="left">Backend </h3>
+<table width="80%" align="left">
+  <tr>
+    <td align="center">Node.js (backend logic)</td>
+    <td align="center">Express.js (API endpoints)</td>
+    <td align="center">MongoDB (data storage)</td>
+    <td align="center">Mongoose (MongoDB object modeling)</td>
+    <td align="center">JWT (secure auth)</td>
+    <td align="center">Nodemailer (email notifications)</td>
+  </tr>
+</table>
+
+<br><br><br>
+
+<h3 align="left">Additions</h3>
+<table width="100%" align="left">
+  <tr>
+    <td align="center">PayPal (online payments)</td>
+    <td align="center">Socket.io (real time notifications)</td>
+    <td align="center">Docker & CI/CD (deployment)</td>
+  </tr>
+</table>
+
+<br><br>
 
 ***
 
-## Core Features
+## > Core Features
 ### **User Roles & Authentication:**
 - Secure login and registration using JWT.
 - Role-based access (Patient, Doctor, Admin).
@@ -82,62 +93,12 @@ The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 - Email notifications for appointment confirmations.
 - Admin panel to manage users, doctors, and appointments.
 
-### **Payment Integration (Optional):**
-- Patients can make payments for consultations via Stripe/PayPal.
+### **Payment Integration:**
+- Patients can make payments for consultations via PayPal / card payments.
 
 ***
 
-## Capstone Journey: Day-by-Day Plan
-
-### **Week 1: Project Setup & Planning**
-- Finalize project scope and requirements.
-- Create database schema and ER diagrams.
-- Set up MERN stack environment and initialize Git repository.
-- Design wireframes and low-fidelity prototypes using Figma.
-
-### **Week 2: Backend Development - Authentication & User Management**
-- Implement JWT authentication (register, login, logout).
-- Create User models (Patients, Doctors, Admins) with role-based access.
-- Develop API routes for authentication and user management.
-- Set up MongoDB connection and configure Mongoose models.
-
-### **Week 3: Doctor & Appointment Management APIs**
-- Develop Doctor schema and APIs for registration and profile management.
-- Implement appointment booking system with CRUD operations.
-- Create admin panel APIs to approve/reject doctor applications.
-- Set up email notifications using Nodemailer.
-
-### **Week 4: Frontend Development - User Interface & Authentication**
-- Set up React.js project with Tailwind CSS.
-- Implement login and signup pages with authentication workflows.
-- Develop patient and doctor dashboards with basic UI.
-- Connect frontend with backend APIs.
-
-### **Week 5: Appointment Booking & Doctor Management UI**
-- Implement doctor search and filtering functionality.
-- Develop doctor profile pages with booking options.
-- Create appointment scheduling UI.
-- Develop appointment management pages for doctors and patients.
-
-### **Week 6: Admin Panel & Payment Integration**
-- Implement admin dashboard for managing users and doctors.
-- Add Stripe/PayPal integration for appointment payments (optional).
-- Implement real-time notifications using Socket.io (optional).
-
-### **Week 7: Testing, Optimization & Documentation**
-- Perform unit and integration testing.
-- Optimize performance and fix bugs.
-- Write documentation and update the README.
-
-### **Week 8: Deployment & Final Presentation**
-- Set up Docker and CI/CD pipelines (optional).
-- Deploy the application to a cloud service (Heroku, Vercel, AWS).
-- Conduct final project presentation and submit the capstone.
-
-
-***
-
-## **Advanced Future Plans**  
+## > **Advanced Future Plans**  
 
 ### **1️⃣ AI-Powered Doctor Recommendations**  
 🔹 **Use Case:** Suggest the best doctor based on patient symptoms and past appointments.  
@@ -179,9 +140,18 @@ The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 🔹 **Use Case:** AI chatbot provides **basic medical advice** and guides users on whether they need a doctor.  
 🔹 **Tech:** Use **AI API, Rasa, or Dialogflow** for chatbot integration.  
 
+***
 
-## Conclusion
+## > Conclusion
 The **Doctor Appointment Booking System** streamlines the process of scheduling and managing doctor consultations, making it efficient for both patients and healthcare providers. This capstone project follows a structured development approach, ensuring a well-rounded and functional application upon completion. 
 
 ***
 
+
+<table width="150%" align="center">
+  <tr>
+    <td align="center">
+      <a href="https://github.com/dhairyasquad73" target="_blank"> TheBest </a>
+    </td>
+  </tr>
+</table>
