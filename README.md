@@ -8,7 +8,7 @@
 <table width="100%" align="right">
   <tr>
     <td align="left">
-      <a href="#"><strong>FRONTEND</strong> (on July 4)</a>
+      <a href="#"><strong>FRONTEND</strong> (very soon)</a>
     </td>
     <td align="right">
       <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
