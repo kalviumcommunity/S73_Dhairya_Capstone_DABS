@@ -19,18 +19,21 @@ const Login = () => {
         password
       });
 
+      // Debug: Log the full response from backend
+      console.log('Login response:', response.data);
+
       if (response.data) {
         const { user, token, message } = response.data;
         console.log('Login Status:', message);
-        console.log('User Role:', user.role);
+        console.log('User Role:', user?.role);
         console.log('JWT Token:', token);
 
         localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
 
-        if (user.role === 'doctor') {
+        if (user && user.role === 'doctor') {
           navigate('/doctor-dashboard');
-        } else if (user.role === 'user' || user.role === 'patient') {
+        } else if (user && (user.role === 'user' || user.role === 'patient')) {
           navigate('/patient-dashboard');
         } else {
           navigate('/');
