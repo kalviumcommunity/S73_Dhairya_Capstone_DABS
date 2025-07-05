@@ -47,9 +47,10 @@ const Register = () => {
             });
         }
 
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
         const endpoint = formData.role === 'Doctor' 
-            ? 'http://localhost:4000/api/users/register-doctor'
-            : 'http://localhost:4000/api/users';
+            ? `${API_BASE_URL}/api/users/register-doctor`
+            : `${API_BASE_URL}/api/users`;
 
         const response = await axios.post(endpoint, payload);
         console.log('Registration successful:', response.data.message);

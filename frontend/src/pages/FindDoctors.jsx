@@ -6,16 +6,19 @@ export default function FindDoctors() {
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
 
+
+  // Use environment variable for API base URL
+  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
   useEffect(() => {
-    fetch('http://localhost:4000/api/doctors')
+    fetch(`${API_BASE_URL}/api/doctors`)
       .then(res => res.json())
       .then(data => {
         setDoctors(data);
         setFiltered(data);
       });
-  }, []);
+  }, [API_BASE_URL]);
 
-  
+
   useEffect(() => {
     if (!search) {
       setFiltered(doctors);
