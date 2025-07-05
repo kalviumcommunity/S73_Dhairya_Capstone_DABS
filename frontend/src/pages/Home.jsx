@@ -33,7 +33,6 @@ const Home = () => {
               </div>
             </div>
 
-            {/* Illustration */}
             <div className="hidden lg:block">
               <img
                 src={doctorImage} 

@@ -1,55 +1,83 @@
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { Eye, EyeOff } from 'lucide-react'
-import logo from '../../assets/logo.png'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Eye, EyeOff } from 'lucide-react';
+import logo from '../../assets/logo.png';
 
 const Login = () => {
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [showPassword, setShowPassword] = useState(false)
-  const navigate = useNavigate()
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
     try {
       const response = await axios.post('http://localhost:4000/api/users/login', {
         email,
         password
-      })
+      });
 
       if (response.data) {
-        const { user, token, message } = response.data
-        // Log success message and token
-        console.log('Login Status:', message)
-        console.log('User Role:', user.role)
-        console.log('JWT Token:', token)  
-        
-        // Store user data and token
-        localStorage.setItem('user', JSON.stringify(user))
-        localStorage.setItem('token', token)   
-        
-        // Redirect based on role
+        const { user, token, message } = response.data;
+        console.log('Login Status:', message);
+        console.log('User Role:', user.role);
+        console.log('JWT Token:', token);
+
+        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('token', token);
+
         if (user.role === 'doctor') {
-          navigate('/doctor-dashboard')
+          navigate('/doctor-dashboard');
+        } else if (user.role === 'user' || user.role === 'patient') {
+          navigate('/patient-dashboard');
         } else {
-          navigate('/')
+          navigate('/');
         }
       }
     } catch (error) {
-      const errorMessage = error.response?.data?.message || 'Login failed'
-      console.error('Login error:', errorMessage)
-      alert(errorMessage)
+      const errorMessage = error.response?.data?.message || 'Login failed';
+      console.error('Login error:', errorMessage);
+      alert(errorMessage);
     }
-  }
+  };
+
+  const demoAccounts = [
+    // { email: 'admin@bookmydoc.com', role: 'Admin', color: 'text-red-400' },
+    { email: 'dr.dhairya@hospital.com', role: 'Doctor', color: 'text-blue-400' },
+    { email: 'dhairya@email.com', role: 'Patient', color: 'text-green-400' },
+  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 px-4">
       <div className="w-full max-w-md bg-gray-850 rounded-2xl shadow-2xl p-8 space-y-6 animate-fade-in">
         <div className="text-center">
-        <div className="flex justify-center mb-2"><img src={logo} alt="Logo" className="w-12 h-12"/></div>
+          <div className="flex justify-center mb-2">
+            <img src={logo} alt="Logo" className="w-12 h-12" />
+          </div>
           <h2 className="text-3xl font-bold text-white">Welcome Back</h2>
           <p className="text-gray-400 text-sm">Sign in to manage your appointments</p>
+
+          {/* Demo Accounts Section */}
+          <div className="max-w-md mx-auto mt-6 mb-8 opacity-75">
+            <div className="bg-blue-800/60 border border-blue-700/50 rounded-lg p-4 shadow-inner backdrop-blur-sm">
+              <h3 className="text-white/90 font-semibold mb-2 justify-left">
+                Demo Accounts{' '}
+                <span className="font-normal text-gray-300">
+                  (Password: <span className="font-mono text-white/80">password123</span>)
+                </span>
+              </h3>
+              <div className="flex flex-col gap-1 text-sm">
+                {demoAccounts.map((account) => (
+                  <div key={account.email} className="flex items-center justify-between text-white/80">
+                    <span>{account.email}</span>
+                    <span className={`ml-2 font-medium ${account.color}`}>{account.role}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
         </div>
 
         <form className="space-y-5" onSubmit={handleSubmit}>
@@ -108,7 +136,7 @@ const Login = () => {
         </p>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

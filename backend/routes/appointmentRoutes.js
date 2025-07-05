@@ -23,6 +23,16 @@ router.get('/user/:userId', async (req, res) => {
     }
 });
 
+// Get appointments by doctor ID
+router.get('/doctor/:docId', async (req, res) => {
+    try {
+        const appointments = await appointmentModel.find({ docId: req.params.docId });
+        res.json(appointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 // Create new appointment
 router.post('/', async (req, res) => {
     try {

@@ -12,7 +12,7 @@ dotenv.config();
 
 console.log('MongoDB URI:', process.env.MONGODB_URI);
 
-connectDB()
+connectDB();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
