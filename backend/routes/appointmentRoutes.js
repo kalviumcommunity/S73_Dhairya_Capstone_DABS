@@ -23,6 +23,7 @@ router.get('/user/:userId', async (req, res) => {
     }
 });
 
+
 // Get appointments by doctor ID
 router.get('/doctor/:docId', async (req, res) => {
     try {

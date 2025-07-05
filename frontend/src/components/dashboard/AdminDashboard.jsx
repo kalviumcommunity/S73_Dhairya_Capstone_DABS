@@ -194,6 +194,7 @@ export default function AdminDashboard() {
               </div>
             </div>
 
+
             {/* Recent Activity */}
             <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
               <div className="p-6 border-b border-[#2F3B4D]">

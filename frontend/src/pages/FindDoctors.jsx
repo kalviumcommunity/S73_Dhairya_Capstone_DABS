@@ -15,6 +15,7 @@ export default function FindDoctors() {
       });
   }, []);
 
+  
   useEffect(() => {
     if (!search) {
       setFiltered(doctors);
