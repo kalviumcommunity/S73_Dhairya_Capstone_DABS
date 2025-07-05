@@ -35,7 +35,7 @@ app.use('/api/appointments', appointmentRoutes)
 
 
 app.use(cors({
-  origin: ['https://fixmyhealth.netlify.app/'],
+  origin: ['https://bookmydoc-frontend-dm5l.onrender.com'],
   credentials: true
 }));
 
