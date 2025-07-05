@@ -7,7 +7,7 @@
 <table width="100%" align="right">
   <tr>
     <td align="left">
-      <a href="https://fixmyhealth.netlify.app/"><strong>FRONTEND</strong></a>
+      <a href="https://bookmydoc-frontend-dm5l.onrender.com"><strong>FRONTEND</strong></a>
     </td>
     <td align="right">
       <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
