@@ -100,45 +100,45 @@ The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 
 ## > **Advanced Future Plans**  
 
-### **1️⃣ AI-Powered Doctor Recommendations**  
-🔹 **Use Case:** Suggest the best doctor based on patient symptoms and past appointments.  
-🔹 **Tech:** Integrate **AI/ML models** (like OpenAI’s GPT, Google Gemini, or Hugging Face models) for recommendations.  
+### **AI-Powered Doctor Recommendations**  
+- **Use Case:** Suggest the best doctor based on patient symptoms and past appointments.  
+- **Tech:** Integrate **AI/ML models** (like OpenAI’s GPT, Google Gemini, or Hugging Face models) for recommendations.  
 
-### **2️⃣ Telemedicine & Video Consultations**  
-🔹 **Use Case:** Allow patients to consult doctors via **video calls** instead of in-person visits.  
-🔹 **Tech:** Use **WebRTC, Twilio, or Zoom API** for real-time video conferencing.  
+### **Telemedicine & Video Consultations**  
+- **Use Case:** Allow patients to consult doctors via **video calls** instead of in-person visits.  
+- **Tech:** Use **WebRTC, Twilio, or Zoom API** for real-time video conferencing.  
 
-### **3️⃣ Blockchain-Based Medical Records**  
-🔹 **Use Case:** Store **medical history** securely and make it accessible across different healthcare providers.  
-🔹 **Tech:** Implement **Hyperledger Fabric or Ethereum smart contracts** for secure, decentralized medical records.  
+### **Blockchain-Based Medical Records**  
+- **Use Case:** Store **medical history** securely and make it accessible across different healthcare providers.  
+- **Tech:** Implement **Hyperledger Fabric or Ethereum smart contracts** for secure, decentralized medical records.  
 
-### **4️⃣ Smart Appointment Scheduling with AI**  
-🔹 **Use Case:** AI-powered scheduling to **reduce wait times** and find the most optimal slot for doctors & patients.  
-🔹 **Tech:** Use **Google Calendar API, AI-based scheduling algorithms** to predict best slots.  
+### **Smart Appointment Scheduling with AI**  
+- **Use Case:** AI-powered scheduling to **reduce wait times** and find the most optimal slot for doctors & patients.  
+- **Tech:** Use **Google Calendar API, AI-based scheduling algorithms** to predict best slots.  
 
-### **5️⃣ Voice Assistant for Booking Appointments**  
-🔹 **Use Case:** Patients can book appointments using voice commands via **Alexa, Siri, or Google Assistant**.  
-🔹 **Tech:** Use **Dialogflow, Google Assistant API, or Alexa Skills Kit** for voice integration.  
+### **Voice Assistant for Booking Appointments**  
+- **Use Case:** Patients can book appointments using voice commands via **Alexa, Siri, or Google Assistant**.  
+- **Tech:** Use **Dialogflow, Google Assistant API, or Alexa Skills Kit** for voice integration.  
 
-### **6️⃣ Predictive Health Insights & Reminders**  
-🔹 **Use Case:** AI predicts potential health risks based on past symptoms and **sends reminders** for check-ups.  
-🔹 **Tech:** Machine Learning with **Scikit-learn, TensorFlow, or PyTorch** for predictive analysis.  
+### **Predictive Health Insights & Reminders**  
+- **Use Case:** AI predicts potential health risks based on past symptoms and **sends reminders** for check-ups.  
+- **Tech:** Machine Learning with **Scikit-learn, TensorFlow, or PyTorch** for predictive analysis.  
 
-### **7️⃣ Multi-Language & Accessibility Support**  
-🔹 **Use Case:** Make the app accessible to a **global audience** by supporting multiple languages.  
-🔹 **Tech:** Implement **Google Translate API or i18next** for language translation.  
+### **Multi-Language & Accessibility Support**  
+- **Use Case:** Make the app accessible to a **global audience** by supporting multiple languages.  
+- **Tech:** Implement **Google Translate API or i18next** for language translation.  
 
-### **8️⃣ Subscription-Based Healthcare Plans**  
-🔹 **Use Case:** Offer **premium plans** for exclusive doctor consultations, quicker response times, or additional services.  
-🔹 **Tech:** Use **Stripe or PayPal Subscriptions** for payment integration.  
+### **Subscription-Based Healthcare Plans**  
+- **Use Case:** Offer **premium plans** for exclusive doctor consultations, quicker response times, or additional services.  
+- **Tech:** Use **Stripe or PayPal Subscriptions** for payment integration.  
 
-### **9️⃣ Wearable Device Integration**  
-🔹 **Use Case:** Sync **Apple Watch, Fitbit, or Google Fit** data for real-time health monitoring.  
-🔹 **Tech:** Use **Google Fit API, Apple HealthKit, or Fitbit API**.  
+### **Wearable Device Integration**  
+- **Use Case:** Sync **Apple Watch, Fitbit, or Google Fit** data for real-time health monitoring.  
+- **Tech:** Use **Google Fit API, Apple HealthKit, or Fitbit API**.  
 
-### **🔟 AI Chatbot for Instant Medical Advice**  
-🔹 **Use Case:** AI chatbot provides **basic medical advice** and guides users on whether they need a doctor.  
-🔹 **Tech:** Use **AI API, Rasa, or Dialogflow** for chatbot integration.  
+### **AI Chatbot for Instant Medical Advice**  
+- **Use Case:** AI chatbot provides **basic medical advice** and guides users on whether they need a doctor.  
+- **Tech:** Use **AI API, Rasa, or Dialogflow** for chatbot integration.  
 
 ***
 
