@@ -1,12 +1,89 @@
-# React + Vite
+# BookMyDoc Frontend
+## Setup & Installation
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Prerequisites
 
-Currently, two official plugins are available:
+* Node.js & npm installed
+* Backend server running
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Steps
 
-## Expanding the ESLint configuration
+1. Clone the repository:
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+   ```bash
+   git clone https://github.com/your-username/S73_Dhairya_Capstone_DABS.git
+   cd frontend
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Create `.env` file at the root of the `frontend/` directory and add:
+
+   ```env
+   REACT_APP_API_BASE_URL=http://localhost:4000/api
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm start
+   ```
+
+---
+
+## Folder Structure
+
+```
+frontend/
+├── node_modules/
+├── public/
+├── src/
+│   ├── assets/                    
+│   ├── components/
+│   │   ├── auth/                 
+│   │   │   ├── Login.jsx
+│   │   │   └── Register.jsx
+│   │   ├── dashboard/           
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── DoctorDashboard.jsx
+│   │   │   └── PatientDashboard.jsx
+│   │   ├── Home.jsx
+│   │   └── Navbar.jsx
+│   ├── pages/
+│   │   ├── FindDoctors.jsx
+│   │   └── Home.jsx
+│   ├── App.css
+│   ├── App.jsx
+│   ├── index.css
+│   └── main.jsx
+├── .env
+├── .gitignore
+├── eslint.config.js
+├── index.html
+├── package.json
+├── package-lock.json
+├── postcss.config.js
+├── tailwind.config.js
+├── vite.config.js
+└── README.md
+
+```
+
+---
+
+## Build for Production
+
+```bash
+npm run build
+```
+
+---
+
+## Author
+
+**[Dhairya Jangir]([url](https://github.com/dhairyasquad73))**
+Capstone Project @ [Kalvium]([url](https://github.com/kalviumcommunity)) Community
