@@ -1,48 +1,56 @@
+
 # Project Architecture
 
 ## 1. Overview
 
-This document outlines the high-level architecture of the S73_Dhairya_Capstone_DABS project.
+This document outlines the high-level architecture of the `BookMyDoc` project.
+
+---
 
 ## 2. Main Components
 
 ### a. Frontend
-- **Framework:** (React)
-- **Responsibilities:**
-  - User authentication & authorization
-  - UI/UX rendering
-  - API communication with backend
-  - State management
+
+| Property         | Details                                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Framework        | React                                                                                                                      |
+| Responsibilities | - User authentication & authorization <br> - UI/UX rendering <br> - API communication with backend <br> - State management |
+
+---
 
 ### b. Backend / API Server
-- **Language/Framework:** (Node.js/Express)
-- **Responsibilities:**
-  - Business logic
-  - RESTful or GraphQL API endpoints
-  - Authentication & session management
-  - Data validation
-  - Communicating with the database
+
+| Property           | Details                                                                                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Language/Framework | Node.js / Express                                                                                                                                                 |
+| Responsibilities   | - Business logic <br> - RESTful or GraphQL API endpoints <br> - Authentication & session management <br> - Data validation <br> - Communicating with the database |
+
+---
 
 ### c. Database
-- **Type:** (MongoDB)
-- **Responsibilities:**
-  - Store user data
-  - Store application data
-  - Maintain data integrity
+
+| Property         | Details                                                                        |
+| ---------------- | ------------------------------------------------------------------------------ |
+| Type             | MongoDB                                                                        |
+| Responsibilities | - Store user data <br> - Store application data <br> - Maintain data integrity |
+
+---
 
 ### d. Authentication
-- **Method:** (JWT, Session cookies)
-- **Responsibilities:**
-  - Secure login/signup
-  - Token/session management
-  - Role-based access control
+
+| Property         | Details                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| Method           | JWT, Session cookies                                                                   |
+| Responsibilities | - Secure login/signup <br> - Token/session management <br> - Role-based access control |
+
+---
 
 ### e. DevOps / Deployment
-- **Tools:** (GitHub Actions, Render)
-- **Responsibilities:**
-  - Automated testing & deployment
-  - Environment management (dev, staging, prod)
-  - Monitoring & logging
+
+| Property         | Details                                                                                                         |
+| ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| Tools            | GitHub Actions, Render                                                                                          |
+| Responsibilities | - Automated testing & deployment <br> - Environment management (dev, staging, prod) <br> - Monitoring & logging |
 
 ---
 
@@ -50,17 +58,38 @@ This document outlines the high-level architecture of the S73_Dhairya_Capstone_D
 
 ```mermaid
 flowchart TD
-    subgraph Frontend
-      A[User Interface] --> B[API Calls]
+
+    %% FRONTEND
+    subgraph UI[Frontend – React + Vite]
+        A1[Patient UI]
+        A2[Doctor UI]
+        A3[Admin UI]
+        B1[API Calls]
+        A1 --> B1
+        A2 --> B1
+        A3 --> B1
     end
-    subgraph Backend
-      B --> C[API Server]
-      C --> D[Authentication]
-      C --> E[Business Logic]
-      E --> F[Database]
+
+    %% BACKEND
+    subgraph Server[Backend – Node.js + Express]
+        B1 --> C1[API Router]
+        C1 --> D1[JWT Auth Middleware]
+        C1 --> E1["Role-Based Access (Patient/Doctor/Admin)"]
+        E1 --> F1[Business Logic Layer]
+        F1 --> G1[Appointment Controller]
+        F1 --> G2[User Controller]
+        F1 --> G3[Doctor Controller]
+        G1 --> H1[MongoDB Query Handler]
+        G2 --> H1
+        G3 --> H1
     end
-    subgraph Database
-      F[Database]
+
+    %% DATABASE
+    subgraph DB[MongoDB Atlas]
+        H1 --> I1[Users Collection]
+        H1 --> I2[Doctors Collection]
+        H1 --> I3[Appointments Collection]
+        H1 --> I4[Admin Configs]
     end
 ```
 
@@ -77,7 +106,7 @@ flowchart TD
 
 ---
 
-## 5. Folder Structure 
+## 5. Folder Structure
 
 ```
 S73_Dhairya_Capstone_DABS/
@@ -131,18 +160,20 @@ S73_Dhairya_Capstone_DABS/
 │   └── eslint.config.js
 │
 ├── README.md                             # Project overview and setup guide
-
 ```
 
 ---
 
 ## 6. Technology Choices
 
-- **Frontend:** (React)
-- **Backend:** (Node.js/Express, JavaScript)
-- **Database:** (MongoDB)
-- **Auth:** (JWT)
-- **CI/CD:** (GitHub Actions)
-- **Hosting:** (Render)
-      
+| Category       | Technology Used  |
+| -------------- | ---------------- |
+| Frontend       | React            |
+| Backend        | Node.js, Express |
+| Database       | MongoDB          |
+| Authentication | JWT              |
+| CI/CD          | GitHub Actions   |
+| Hosting        | Render           |
+
 ---
+
