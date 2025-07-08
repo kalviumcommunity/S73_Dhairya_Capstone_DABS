@@ -14,15 +14,17 @@
   "description": "",
   "dependencies": {
     "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.2",
     "cloudinary": "^2.6.0",
     "cors": "^2.8.5",
-    "dotenv": "^16.4.7",
+    "dotenv": "^16.6.1",
     "express": "^4.21.2",
     "jsonwebtoken": "^9.0.2",
     "middleware": "^1.0.0",
-    "mongoose": "^8.12.1",
+    "mongoose": "^8.16.2",
     "multer": "^1.4.5-lts.1",
     "nodemon": "^3.1.9",
+    "react-router-dom": "^7.6.3",
     "validator": "^13.12.0"
   }
 }

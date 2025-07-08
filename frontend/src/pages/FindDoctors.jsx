@@ -8,13 +8,62 @@ export default function FindDoctors() {
 
 
   // Use environment variable for API base URL
-  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+  const API_BASE_URL = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL
+    ? import.meta.env.VITE_API_BASE_URL
+    : (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_BASE_URL
+      ? process.env.REACT_APP_API_BASE_URL
+      : '');
+  // Demo doctors to show if backend returns none
+  const demoDoctors = [
+    {
+      _id: 'demo1',
+      name: 'Dr. Ayesha Sharma',
+      speciality: 'Cardiologist',
+      address: { line1: 'Apollo Hospital, Delhi' },
+      experience: '10 years',
+      degree: 'MBBS, MD',
+      fees: 800
+    },
+    {
+      _id: 'demo2',
+      name: 'Dr. Rohan Mehta',
+      speciality: 'Dermatologist',
+      address: { line1: 'Fortis, Mumbai' },
+      experience: '7 years',
+      degree: 'MBBS, DDVL',
+      fees: 600
+    },
+    {
+      _id: 'demo3',
+      name: 'Dr. Priya Singh',
+      speciality: 'Pediatrician',
+      address: { line1: 'Max Hospital, Bangalore' },
+      experience: '12 years',
+      degree: 'MBBS, DCH',
+      fees: 700
+    }
+  ];
+
   useEffect(() => {
+    if (!API_BASE_URL) {
+      setDoctors(demoDoctors);
+      setFiltered(demoDoctors);
+      return;
+    }
     fetch(`${API_BASE_URL}/api/doctors`)
       .then(res => res.json())
       .then(data => {
-        setDoctors(data);
-        setFiltered(data);
+        if (Array.isArray(data) && data.length > 0) {
+          setDoctors(data);
+          setFiltered(data);
+        } else {
+          setDoctors(demoDoctors);
+          setFiltered(demoDoctors);
+        }
+      })
+      .catch(() => {
+        setDoctors(demoDoctors);
+        setFiltered(demoDoctors);
       });
   }, [API_BASE_URL]);
 
@@ -63,7 +112,7 @@ export default function FindDoctors() {
           {filtered.map(doc => (
             <div
               key={doc._id}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex gap-5 border border-gray-100 dark:border-gray-700 hover:scale-[1.02] transition-transform"
+              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex gap-5 border border-gray-100 dark:border-gray-700 hover:scale-[1.04] transition-shadow transform"
             >
               <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900">
                 <User className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />

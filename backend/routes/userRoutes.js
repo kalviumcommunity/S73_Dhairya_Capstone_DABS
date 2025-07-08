@@ -30,25 +30,44 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Create new user (Patient)
+// Create new user (Patient) - Patient Registration
 router.post('/', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
-
+        const { name, email, password, role = 'patient' } = req.body;
+        
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'Name, email, and password are required.' });
         }
 
+        // Check if user already exists
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists with this email.' });
         }
 
+        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = new userModel({ name, email, password: hashedPassword });
+        
+        // Create user
+        const user = new userModel({ 
+            name, 
+            email, 
+            password: hashedPassword, 
+            role: role || 'patient' 
+        });
+        
         await user.save();
-        res.status(201).json({ message: 'User registered successfully', user });
+
+        // Remove password from response
+        const userResponse = user.toObject();
+        delete userResponse.password;
+
+        res.status(201).json({ 
+            message: 'User registered successfully', 
+            user: userResponse 
+        });
     } catch (error) {
+        console.error('User registration error:', error);
         res.status(500).json({ message: error.message });
     }
 });
@@ -69,44 +88,62 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Check in both collections
-        let user = await userModel.findOne({ email });
-        let doctor = await doctorModel.findOne({ email });
-        
-        // If no user or doctor found
-        if (!user && !doctor) {
-            return res.status(404).json({ message: 'User not found' });
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Email and password are required.' });
         }
 
-        const account = user || doctor;
-        const role = user ? 'user' : 'doctor';
+        // First try to find user in userModel
+        let user = await userModel.findOne({ email });
+        let doctor = null;
+        let loginUser = null;
+        let role = null;
+
+        if (user) {
+            loginUser = user;
+            role = user.role || 'patient';
+        } else {
+            // If not found in userModel, try doctorModel
+            doctor = await doctorModel.findOne({ email });
+            if (doctor) {
+                loginUser = doctor;
+                role = 'doctor';
+            }
+        }
+
+        if (!loginUser) {
+            return res.status(401).json({ message: 'Invalid email or password.' });
+        }
 
         // Verify password
-        const isMatch = await bcrypt.compare(password, account.password);
+        const isMatch = await bcrypt.compare(password, loginUser.password);
         if (!isMatch) {
-            return res.status(401).json({ message: 'Invalid password' });
+            return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // Create token
+        // Generate JWT token
         const token = jwt.sign(
-            { id: account._id, role },
-            'your_jwt_secret',  
+            { id: loginUser._id, role }, 
+            process.env.JWT_SECRET || 'your-secret-key', 
             { expiresIn: '1d' }
-        );  
+        );
 
         // Remove password from response
-        const accountData = account.toObject();
-        delete accountData.password;
+        const userResponse = loginUser.toObject();
+        delete userResponse.password;
 
         res.json({
             message: 'Login successful',
-            user: { ...accountData, role },
+            user: { 
+                id: loginUser._id, 
+                name: loginUser.name, 
+                email: loginUser.email, 
+                role 
+            },
             token
         });
-
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error', error: error.message });
+        res.status(500).json({ message: 'Server error.' });
     }
 });
 
@@ -120,10 +157,16 @@ router.post('/register-doctor', async (req, res) => {
             return res.status(400).json({ message: 'All fields are required for doctor registration.' });
         }
 
-        // Check if doctor exists
+        // Check if doctor already exists
         const existingDoctor = await doctorModel.findOne({ email });
         if (existingDoctor) {
             return res.status(400).json({ message: 'Doctor already exists with this email.' });
+        }
+
+        // Also check if email exists in user model
+        const existingUser = await userModel.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email already in use.' });
         }
 
         // Hash password
@@ -140,7 +183,8 @@ router.post('/register-doctor', async (req, res) => {
             about,
             fees: Number(fees),
             address,
-            date: Date.now()
+            date: Date.now(),
+            available: true
         });
 
         await doctor.save();
