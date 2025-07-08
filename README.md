@@ -3,6 +3,13 @@
 <p align="center">
   <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
 </p>
+<p align="left">
+  <a href="https://github.com/dhairyasquad73/CuraLink" title="upgraded" target="_blank">
+    <img src="https://img.shields.io/badge/Better%20Version-%F0%9F%A5%9A%20-pink?style=for-the-badge&logo=github" alt="Easter Egg Button"/>
+  </a>
+</p>
+
+
 
 <table width="100%" align="right">
   <tr>
