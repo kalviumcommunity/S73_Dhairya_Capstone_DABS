@@ -8,7 +8,7 @@
 
 <!--
 <p align="left">
-  <a href="https://github.com/dhairyasquad73/CuraLink" title="upgraded" target="_blank">
+  <a href="https://github.com/dhairyajangir/CuraLink" title="upgraded" target="_blank">
     <img src="https://img.shields.io/badge/Better%20Version-%F0%9F%A5%9A%20-pink?style=for-the-badge&logo=github" alt="Easter Egg Button"/>
   </a>
 </p>
@@ -161,7 +161,7 @@ The **Doctor Appointment Booking System** streamlines the process of scheduling 
 <table width="150%" align="center">
   <tr>
     <td align="center">
-      <a href="https://github.com/dhairyasquad73" target="_blank"> TheBest </a>
+      <a href="https://github.com/dhairyajangir" target="_blank"> TheBest </a>
     </td>
   </tr>
 </table>
