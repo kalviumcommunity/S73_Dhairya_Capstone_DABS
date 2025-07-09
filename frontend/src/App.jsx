@@ -4,7 +4,7 @@ import FindDoctors from './pages/FindDoctors'
 import Navbar from './components/Navbar'
 import Login from './components/auth/Login'
 import Register from './components/auth/Register'
-
+import BookAppointment from './pages/BookAppointment'
 import DoctorDashboard from './components/dashboard/DoctorDashboard'
 import PatientDashboard from './components/dashboard/PatientDashboard'
 import AdminDashboard from './components/dashboard/AdminDashboard'
@@ -21,7 +21,7 @@ function App() {
         <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
         <Route path="/patient-dashboard" element={<PatientDashboard />} />
         <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
+        <Route path="/book-appointment" element={<BookAppointment />} />
       </Routes>
     </Router>
   )

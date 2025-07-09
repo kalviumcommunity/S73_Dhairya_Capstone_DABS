@@ -4,6 +4,70 @@ import bcrypt from 'bcrypt';
 import multer from 'multer';
 import path from 'path';
 
+
+// for seed demo doctors
+import doctorModel from '../model/doctorModel.js';
+
+router.post('/seed-demo', async (req, res) => {
+    try {
+        const demoDoctors = [
+            {
+                name: 'Dr. Ayesha Sharma',
+                email: 'ayesha.sharma@demo.com',
+                password: await bcrypt.hash('password123', 10),
+                speciality: 'Cardiologist',
+                degree: 'MBBS, MD',
+                experience: '10 years',
+                about: 'Experienced cardiologist at Apollo Hospital, Delhi.',
+                fees: 800,
+                address: { line1: 'Apollo Hospital, Delhi', line2: '' },
+                date: Date.now(),
+                available: true
+            },
+            {
+                name: 'Dr. Rohan Mehta',
+                email: 'rohan.mehta@demo.com',
+                password: await bcrypt.hash('password123', 10),
+                speciality: 'Dermatologist',
+                degree: 'MBBS, DDVL',
+                experience: '7 years',
+                about: 'Dermatologist at Fortis, Mumbai.',
+                fees: 600,
+                address: { line1: 'Fortis, Mumbai', line2: '' },
+                date: Date.now(),
+                available: true
+            },
+            {
+                name: 'Dr. Priya Singh',
+                email: 'priya.singh@demo.com',
+                password: await bcrypt.hash('password123', 10),
+                speciality: 'Pediatrician',
+                degree: 'MBBS, DCH',
+                experience: '12 years',
+                about: 'Pediatrician at Max Hospital, Bangalore.',
+                fees: 700,
+                address: { line1: 'Max Hospital, Bangalore', line2: '' },
+                date: Date.now(),
+                available: true
+            }
+        ];
+        let created = 0;
+        for (const doc of demoDoctors) {
+            const exists = await doctorModel.findOne({ email: doc.email });
+            if (!exists) {
+                await doctorModel.create(doc);
+                created++;
+            }
+        }
+        res.json({ message: `Seeded ${created} demo doctors.` });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+
+
+
 const router = express.Router();
 
 // Configure multer for file uploads
