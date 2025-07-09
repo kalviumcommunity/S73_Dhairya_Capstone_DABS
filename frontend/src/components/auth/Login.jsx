@@ -209,7 +209,7 @@ const Login = () => {
       </div>
       
       <button
-        onClick={() => window.open('https://github.com/dhairyasquad73/CuraLink', '_blank')}
+        onClick={() => window.open('https://github.com/dhairyajangir/CuraLink', '_blank')}
         className="fixed bottom-6 right-6 z-50 bg-white/70 backdrop-blur-lg border border-pink-300 text-xl rounded-full shadow-2xl hover:bg-pink-100 hover:scale-110 hover:rotate-12 transition-all duration-300 ease-in-out cursor-pointer animate-bounce"
         title="🐣 upgrading"
         style={{
