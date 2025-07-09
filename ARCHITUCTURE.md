@@ -7,54 +7,7 @@ This document outlines the high-level architecture of the `BookMyDoc` project.
 
 ---
 
-## 2. Main Components
-
-### a. Frontend
-
-| Property         | Details                                                                                                                    |
-| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
-| Framework        | React                                                                                                                      |
-| Responsibilities | - User authentication & authorization <br> - UI/UX rendering <br> - API communication with backend <br> - State management |
-
----
-
-### b. Backend / API Server
-
-| Property           | Details                                                                                                                                                           |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Language/Framework | Node.js / Express                                                                                                                                                 |
-| Responsibilities   | - Business logic <br> - RESTful or GraphQL API endpoints <br> - Authentication & session management <br> - Data validation <br> - Communicating with the database |
-
----
-
-### c. Database
-
-| Property         | Details                                                                        |
-| ---------------- | ------------------------------------------------------------------------------ |
-| Type             | MongoDB                                                                        |
-| Responsibilities | - Store user data <br> - Store application data <br> - Maintain data integrity |
-
----
-
-### d. Authentication
-
-| Property         | Details                                                                                |
-| ---------------- | -------------------------------------------------------------------------------------- |
-| Method           | JWT, Session cookies                                                                   |
-| Responsibilities | - Secure login/signup <br> - Token/session management <br> - Role-based access control |
-
----
-
-### e. DevOps / Deployment
-
-| Property         | Details                                                                                                         |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| Tools            | GitHub Actions, Render                                                                                          |
-| Responsibilities | - Automated testing & deployment <br> - Environment management (dev, staging, prod) <br> - Monitoring & logging |
-
----
-
-## 3. Architecture Diagram
+## 2. Architecture Diagram
 
 ```mermaid
 flowchart TD
@@ -92,6 +45,52 @@ flowchart TD
         H1 --> I4[Admin Configs]
     end
 ```
+---
+
+## 3. Main Components
+
+### a. Frontend
+
+| Property         | Details                                                                                                                    |
+| ---------------- | -------------------------------------------------------------------------------------------------------------------------- |
+| Framework        | React                                                                                                                      |
+| Responsibilities | - User authentication & authorization <br> - UI/UX rendering <br> - API communication with backend <br> - State management |
+
+#
+
+### b. Backend / API Server
+
+| Property           | Details                                                                                                                                                           |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Language/Framework | Node.js / Express                                                                                                                                                 |
+| Responsibilities   | - Business logic <br> - RESTful or GraphQL API endpoints <br> - Authentication & session management <br> - Data validation <br> - Communicating with the database |
+
+#
+
+### c. Database
+
+| Property         | Details                                                                        |
+| ---------------- | ------------------------------------------------------------------------------ |
+| Type             | MongoDB                                                                        |
+| Responsibilities | - Store user data <br> - Store application data <br> - Maintain data integrity |
+
+#
+
+### d. Authentication
+
+| Property         | Details                                                                                |
+| ---------------- | -------------------------------------------------------------------------------------- |
+| Method           | JWT, Session cookies                                                                   |
+| Responsibilities | - Secure login/signup <br> - Token/session management <br> - Role-based access control |
+
+#
+
+### e. DevOps / Deployment
+
+| Property         | Details                                                                                                         |
+| ---------------- | --------------------------------------------------------------------------------------------------------------- |
+| Tools            | GitHub Actions, Render                                                                                          |
+| Responsibilities | - Automated testing & deployment <br> - Environment management (dev, staging, prod) <br> - Monitoring & logging |
 
 ---
 
