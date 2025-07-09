@@ -1,5 +1,5 @@
+<h1 align="center">Doctor Appointment Booking System (DABS)</h1>
 
-<h1 align="center">BookMyDoc</h1>
 <p align="center">
   <a href="https://bookmydoc-frontend-dm5l.onrender.com" target="_blank" rel="noopener noreferrer">
     <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
@@ -14,7 +14,7 @@
 </p>
 -->
 
-
+<!--
 <table width="100%" align="right">
   <tr>
     <td align="left">
@@ -25,12 +25,14 @@
     </td>
   </tr>
 </table>
+-->
 
 
-#
+<h1 align="left">
+  BookMyDoc
+</h1>
 
-##  Doctor Appointment Booking System (DABS)
-The **bookMyDoc** (formerly QuickDoc) is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
+The **BookMyDoc** (formerly QuickDoc) is a full-stack web application built using the **MERN (MongoDB, Express.js, React.js, Node.js) stack**. The system allows **patients** to book appointments with available doctors, **doctors** to manage their schedules, and **admins** to oversee the entire system.
 
 ***
 
