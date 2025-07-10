@@ -1,9 +1,6 @@
-// register.jsx
-// This file handles user registration for both patients and doctors in the BookMyDoc application.
-import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import axios from 'axios'
-import { UserPlus } from 'lucide-react'
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -20,11 +17,16 @@ const Register = () => {
     addressLine1: '',
     addressLine2: '',
     fees: '',
-  })
+  });
 
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState('')
-  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+    if (error) setError('');
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,285 +34,251 @@ const Register = () => {
     setError('');
 
     try {
-      // Validate required fields
-      if (!formData.firstName || !formData.lastName || !formData.email || !formData.password) {
-        throw new Error('Please fill in all required fields');
+      const { firstName, lastName, email, password, role } = formData;
+
+      if (!firstName || !lastName || !email || !password) {
+        throw new Error('Please fill in all required fields.');
       }
 
-      if (formData.role === 'Doctor') {
-        if (!formData.specialty || !formData.experience || !formData.degree || !formData.about || !formData.addressLine1 || !formData.fees) {
-          throw new Error('Please fill in all required doctor fields');
+      if (role === 'Doctor') {
+        const { specialty, experience, degree, about, addressLine1, fees } = formData;
+        if (!specialty || !experience || !degree || !about || !addressLine1 || !fees) {
+          throw new Error('Please fill in all required doctor fields.');
         }
       }
 
-      // Use a more reliable way to get the API base URL
-      const API_BASE_URL = window.location.origin.includes('localhost') 
-        ? 'http://localhost:5000' 
+      const API_BASE_URL = window.location.origin.includes('localhost')
+        ? 'http://localhost:5000'
         : window.location.origin;
 
-      let endpoint;
-      let payload;
+      const endpoint = role === 'Doctor'
+        ? `${API_BASE_URL}/api/users/register-doctor`
+        : `${API_BASE_URL}/api/users`;
 
-      if (formData.role === 'Doctor') {
-        // Doctor registration
-        endpoint = `${API_BASE_URL}/api/users/register-doctor`;
-        payload = {
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          password: formData.password,
-          speciality: formData.specialty,
-          experience: formData.experience,
-          degree: formData.degree,
-          about: formData.about,
-          address: {
-            line1: formData.addressLine1,
-            line2: formData.addressLine2 || ''
-          },
-          fees: parseInt(formData.fees),
-        };
-      } else {
-        // Patient registration
-        endpoint = `${API_BASE_URL}/api/users`;
-        payload = {
-          name: `${formData.firstName} ${formData.lastName}`,
-          email: formData.email,
-          password: formData.password,
-          role: 'patient'
-        };
-      }
+      const payload = role === 'Doctor'
+        ? {
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+            password: formData.password,
+            speciality: formData.specialty,
+            experience: formData.experience,
+            degree: formData.degree,
+            about: formData.about,
+            address: {
+              line1: formData.addressLine1,
+              line2: formData.addressLine2 || ''
+            },
+            fees: parseInt(formData.fees),
+          }
+        : {
+            name: `${formData.firstName} ${formData.lastName}`,
+            email: formData.email,
+            password: formData.password,
+            role: 'patient'
+          };
 
-      console.log('Sending registration request to:', endpoint);
-      console.log('Payload:', payload);
-
-      const response = await axios.post(endpoint, payload, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        timeout: 10000, // 10 second timeout
+      await axios.post(endpoint, payload, {
+        headers: { 'Content-Type': 'application/json' },
+        timeout: 10000,
       });
 
-      console.log('Registration successful:', response.data);
       alert('Registration successful!');
       navigate('/login');
-      
     } catch (error) {
-      console.error('Registration error:', error);
-      
-      let errorMsg = 'Registration failed. Please try again.';
-      
       if (error.response) {
-        // Server responded with error status
-        errorMsg = error.response.data?.message || `Server error: ${error.response.status}`;
+        setError(error.response.data?.message || `Server error: ${error.response.status}`);
       } else if (error.request) {
-        // Request was made but no response received
-        errorMsg = 'Unable to connect to server. Please check your connection.';
+        setError('Unable to connect to server. Please check your connection.');
       } else if (error.message) {
-        // Other error
-        errorMsg = error.message;
+        setError(error.message);
+      } else {
+        setError('Registration failed. Please try again.');
       }
-      
-      setError(errorMsg);
-      alert(errorMsg);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value })
-    // Clear error when user starts typing
-    if (error) setError('')
-  }
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800 px-4">
-      <div className="w-full max-w-md bg-gray-850 rounded-2xl shadow-2xl p-8 space-y-6 animate-fade-in">
-        <div className="text-center">
-          <div className="text-blue-500 text-5xl mb-2"><UserPlus className="mx-auto w-10 h-10" /></div>
-          <h2 className="text-3xl font-bold text-white">Create an Account</h2>
-          <p className="text-gray-400 text-sm">Enter your details to get started</p>
-        </div>
+    <div style={{
+      background: 'linear-gradient(to right, #e0e0e0, #ffffff)',
+      minHeight: '100vh',
+      fontFamily: 'Times New Roman, serif',
+      padding: '30px'
+    }}>
+      <center>
+        <marquee behavior="alternate" scrollamount="8" style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>
+          Welcome to Registration Portal
+        </marquee>
 
-        {error && (
-          <div className="bg-red-900/50 border border-red-700 rounded-lg p-3 text-red-300 text-sm">
-            {error}
-          </div>
-        )}
+        <hr width="60%" />
 
-        <form className="space-y-4" onSubmit={handleSubmit}>
-          <div className="flex justify-center gap-2">
-            {['Patient', 'Doctor'].map((role) => (
-              <button
-                key={role}
-                type="button"
-                onClick={() => setFormData({ ...formData, role })}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                  formData.role === role
-                    ? 'bg-blue-600 text-white'
-                    : 'bg-gray-700 text-gray-300 hover:bg-gray-600'
-                }`}
-              >
-                {role}
-              </button>
-            ))}
-          </div>
+        <table
+          border="2"
+          cellPadding="10"
+          cellSpacing="0"
+          style={{
+            backgroundColor: '#ffffe0',
+            border: '3px ridge gray',
+            width: '480px',
+            textAlign: 'left'
+          }}
+        >
+          <thead>
+            <tr style={{ backgroundColor: '#00008B', color: 'white' }}>
+              <th colSpan="2">
+                <font face="Courier New" size="5">Register</font>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colSpan="2"><i>Create your account to book or offer consultations</i></td>
+            </tr>
 
-          <div className="flex gap-2">
-            <input
-              name="firstName"
-              type="text"
-              placeholder="First name"
-              value={formData.firstName}
-              onChange={handleChange}
-              required
-              className="w-1/2 px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <input
-              name="lastName"
-              type="text"
-              placeholder="Last name"
-              value={formData.lastName}
-              onChange={handleChange}
-              required
-              className="w-1/2 px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+            {error && (
+              <tr>
+                <td colSpan="2" style={{ backgroundColor: '#ffcccc', color: 'darkred', fontWeight: 'bold', textAlign: 'center' }}>
+                  Oops! there's an error in registration. Contact the supreme master
+                </td>
+              </tr>
+            )}
 
-          <input
-            type="email"
-            name="email"
-            placeholder="you@example.com"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            <tr>
+              <td><b>Role:</b></td>
+              <td>
+                <select
+                  name="role"
+                  value={formData.role}
+                  onChange={handleChange}
+                  style={{ padding: '5px', fontSize: '14px' }}
+                >
+                  <option value="Patient">Patient</option>
+                  <option value="Doctor">Doctor</option>
+                </select>
+              </td>
+            </tr>
 
-          <input
-            type="password"
-            name="password"
-            placeholder="Password (min 6 characters)"
-            value={formData.password}
-            onChange={handleChange}
-            required
-            minLength="6"
-            className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
+            <tr>
+              <td><b>First Name:</b></td>
+              <td><input name="firstName" value={formData.firstName} onChange={handleChange} style={inputStyle} /></td>
+            </tr>
 
-          {formData.role === 'Doctor' && (
-            <>
-              <select
-                name="specialty"
-                value={formData.specialty}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
-              >
-                <option value="" disabled>Select specialty</option>
-                <option value="Cardiologist">Cardiologist</option>
-                <option value="Dermatologist">Dermatologist</option>
-                <option value="Psychiatrist">Psychiatrist</option>
-                <option value="Pediatrician">Pediatrician</option>
-                <option value="Orthopedic">Orthopedic</option>
-                <option value="Neurologist">Neurologist</option>
-                <option value="General Physician">General Physician</option>
-              </select>
+            <tr>
+              <td><b>Last Name:</b></td>
+              <td><input name="lastName" value={formData.lastName} onChange={handleChange} style={inputStyle} /></td>
+            </tr>
 
-              <input
-                name="licenseNumber"
-                type="text"
-                placeholder="License Number"
-                value={formData.licenseNumber}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <tr>
+              <td><b>Email:</b></td>
+              <td><input type="email" name="email" value={formData.email} onChange={handleChange} style={inputStyle} /></td>
+            </tr>
 
-              <input
-                name="experience"
-                type="number"
-                placeholder="Years of Experience"
-                value={formData.experience}
-                onChange={handleChange}
-                required
-                min="0"
-                max="50"
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            <tr>
+              <td><b>Password:</b></td>
+              <td><input type="password" name="password" value={formData.password} onChange={handleChange} style={inputStyle} /></td>
+            </tr>
 
-              <input
-                name="degree"
-                type="text"
-                placeholder="Degree (e.g., MBBS, MD)"
-                value={formData.degree}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+            {formData.role === 'Doctor' && (
+              <>
+                <tr>
+                  <td><b>Specialty:</b></td>
+                  <td>
+                    <select name="specialty" value={formData.specialty} onChange={handleChange} style={inputStyle}>
+                      <option value="">Select</option>
+                      <option>Cardiologist</option>
+                      <option>Dermatologist</option>
+                      <option>Psychiatrist</option>
+                      <option>Pediatrician</option>
+                      <option>Orthopedic</option>
+                      <option>Neurologist</option>
+                      <option>General Physician</option>
+                    </select>
+                  </td>
+                </tr>
 
-              <textarea
-                name="about"
-                placeholder="About (brief bio)"
-                value={formData.about}
-                onChange={handleChange}
-                required
-                rows="3"
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
-              />
+                <tr>
+                  <td><b>License No.:</b></td>
+                  <td><input name="licenseNumber" value={formData.licenseNumber} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
 
-              <input
-                name="addressLine1"
-                type="text"
-                placeholder="Address Line 1"
-                value={formData.addressLine1}
-                onChange={handleChange}
-                required
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+                <tr>
+                  <td><b>Experience:</b></td>
+                  <td><input name="experience" type="number" value={formData.experience} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
 
-              <input
-                name="addressLine2"
-                type="text"
-                placeholder="Address Line 2 (optional)"
-                value={formData.addressLine2}
-                onChange={handleChange}
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
+                <tr>
+                  <td><b>Degree:</b></td>
+                  <td><input name="degree" value={formData.degree} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
 
-              <input
-                name="fees"
-                type="number"
-                placeholder="Consultation Fees (₹)"
-                value={formData.fees}
-                onChange={handleChange}
-                required
-                min="0"
-                className="w-full px-4 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              />
-            </>
-          )}
+                <tr>
+                  <td><b>About:</b></td>
+                  <td><textarea name="about" rows="3" value={formData.about} onChange={handleChange} style={inputStyle}></textarea></td>
+                </tr>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className={`w-full py-2 px-4 font-semibold rounded-lg transition-all duration-200 shadow-md ${
-              loading 
-                ? 'bg-gray-600 text-gray-400 cursor-not-allowed' 
-                : 'bg-blue-600 text-white hover:bg-blue-700 hover:shadow-blue-500/30'
-            }`}
-          >
-            {loading ? 'Creating Account...' : 'Create Account'}
-          </button>
-        </form>
+                <tr>
+                  <td><b>Address Line 1:</b></td>
+                  <td><input name="addressLine1" value={formData.addressLine1} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
 
-        <p className="text-center text-sm text-gray-400">
-          Already have an account?{' '}
-          <Link to="/login" className="text-blue-400 hover:underline">
-            Sign in
-          </Link>
-        </p>
-      </div>
+                <tr>
+                  <td><b>Address Line 2:</b></td>
+                  <td><input name="addressLine2" value={formData.addressLine2} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
+
+                <tr>
+                  <td><b>Fees (₹):</b></td>
+                  <td><input name="fees" type="number" value={formData.fees} onChange={handleChange} style={inputStyle} /></td>
+                </tr>
+              </>
+            )}
+
+            <tr>
+              <td colSpan="2" align="center">
+                <button
+                  onClick={handleSubmit}
+                  disabled={loading}
+                  style={{
+                    padding: '8px 30px',
+                    backgroundColor: '#008000',
+                    color: 'white',
+                    border: '3px outset #004d00',
+                    fontSize: '16px',
+                    fontWeight: 'bold',
+                    cursor: loading ? 'not-allowed' : 'pointer'
+                  }}
+                >
+                  {loading ? 'Registering...' : 'Register'}
+                </button>
+              </td>
+            </tr>
+
+            <tr>
+              <td colSpan="2" align="center" style={{ fontSize: '13px' }}>
+                Already have an account?{' '}
+                <Link to="/login" style={{ color: '#0000CD', textDecoration: 'underline' }}>
+                  <u>Login here</u>
+                </Link>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <hr width="60%" style={{ marginTop: '30px' }} />
+        <font size="2" color="gray">© dhairyajangir @ github</font>
+      </center>
+      
     </div>
-  )
-}
+  );
+};
 
-export default Register
+const inputStyle = {
+  width: '95%',
+  padding: '5px',
+  fontSize: '14px',
+  border: '2px inset #999',
+  backgroundColor: '#f5f5dc'
+};
+
+export default Register;

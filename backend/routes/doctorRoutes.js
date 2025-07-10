@@ -4,10 +4,9 @@ import bcrypt from 'bcrypt';
 import multer from 'multer';
 import path from 'path';
 
+const router = express.Router();
 
 // for seed demo doctors
-import doctorModel from '../model/doctorModel.js';
-
 router.post('/seed-demo', async (req, res) => {
     try {
         const demoDoctors = [
@@ -68,7 +67,6 @@ router.post('/seed-demo', async (req, res) => {
 
 
 
-const router = express.Router();
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({

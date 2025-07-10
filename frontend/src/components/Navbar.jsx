@@ -25,91 +25,121 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-gray-900 text-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <Link to="/" className="text-2xl font-semibold text-indigo-400 tracking-tight">
-            BookMyDoc
-          </Link>
+    <div style={{
+      backgroundColor: '#c0c0c0',
+      borderBottom: '3px ridge gray',
+      padding: '10px',
+      fontFamily: 'Verdana, Geneva, sans-serif',
+      fontSize: '14px'
+    }}>
+      <table width="100%">
+        <tbody>
+          <tr>
+            {/* Logo */}
+            <td style={{ width: '30%' }}>
+              <Link to="/" style={{
+                fontWeight: 'bold',
+                fontSize: '18px',
+                textDecoration: 'underline',
+                color: '#000080'
+              }}>
+                ➤ BookMyDoc
+              </Link>
+            </td>
 
-          {/* Links */}
-          <div className="hidden md:flex items-center space-x-6">
-            <NavItem to="/" label="Home" />
-            <NavItem to="/find-doctors" label="Find Doctors" />
-            {!user ? (
-              <>
-                <NavItem to="/login" label="Login" />
-                <Link
-                  to="/register"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition duration-300"
-                >
-                  Signup
-                </Link>
-              </>
-            ) : (
-              <>
-                {user.role === 'doctor' && <NavItem to="/doctor-dashboard" label="Doctor Dashboard" />}
-                {(user.role === 'user' || user.role === 'patient') && (
-                  <NavItem to="/patient-dashboard" label="Patient Dashboard" />
-                )}
+            {/* Navigation Links */}
+            <td style={{ width: '70%', textAlign: 'right' }}>
+              <NavItem to="/" label="Home" />
+              <NavItem to="/find-doctors" label="Find Doctors" />
 
-                {/* Profile Dropdown */}
-                <div className="relative group">
-                  <button className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium bg-gray-800 hover:bg-gray-700 transition duration-300">
-                    <span>{user.name?.split(' ')[0]}</span>
-                    <svg
-                      className="w-4 h-4"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2"
-                      viewBox="0 0 24 24"
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-white text-gray-900 rounded-md shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20">
-                    <div className="px-4 py-2 border-b text-sm">{user.email}</div>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm hover:bg-gray-100 transition"
-                    >
-                      Logout
-                    </button>
-                  </div>
-                </div>
-              </>
-            )}
-          </div>
+              {!user ? (
+                <>
+                  <NavItem to="/login" label="Login" />
+                  <Link
+                    to="/register"
+                    style={{
+                      backgroundColor: '#dcdcdc',
+                      border: '2px outset',
+                      padding: '4px 10px',
+                      textDecoration: 'none',
+                      fontWeight: 'bold',
+                      marginLeft: '10px',
+                      color: 'black'
+                    }}
+                  >
+                    Signup
+                  </Link>
+                </>
+              ) : (
+                <>
+                  {user.role === 'doctor' && <NavItem to="/doctor-dashboard" label="Doctor Dashboard" />}
+                  {(user.role === 'user' || user.role === 'patient') && (
+                    <NavItem to="/patient-dashboard" label="Patient Dashboard" />
+                  )}
 
-          {/* Mobile menu button */}
-          <div className="md:hidden">
-            <button
-              type="button"
-              className="text-gray-300 hover:text-white focus:outline-none transition duration-300"
-            >
-              <svg
-                className="h-6 w-6"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
-              </svg>
-            </button>
-          </div>
-        </div>
-      </div>
-    </nav>
+                  {/* Profile Dropdown */}
+                  <span style={{
+                    marginLeft: '15px',
+                    position: 'relative',
+                    display: 'inline-block'
+                  }}>
+                    <span style={{
+                      fontWeight: 'bold',
+                      border: '2px inset #999',
+                      padding: '4px 8px',
+                      backgroundColor: '#efefef',
+                      cursor: 'default'
+                    }}>
+                      {user.name?.split(' ')[0]} ▼
+                    </span>
+
+                    <div style={{
+                      position: 'absolute',
+                      right: 0,
+                      top: '28px',
+                      backgroundColor: '#fff',
+                      border: '1px solid #999',
+                      padding: '5px',
+                      zIndex: 99,
+                      fontSize: '13px',
+                      width: '180px'
+                    }}>
+                      <div style={{ padding: '5px 10px', borderBottom: '1px solid #ccc' }}>{user.email}</div>
+                      <button
+                        onClick={handleLogout}
+                        style={{
+                          backgroundColor: '#f5f5f5',
+                          border: 'none',
+                          padding: '6px 10px',
+                          width: '100%',
+                          textAlign: 'left',
+                          cursor: 'pointer',
+                          marginTop: '4px'
+                        }}
+                      >
+                        Logout
+                      </button>
+                    </div>
+                  </span>
+                </>
+              )}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 
-// Reusable nav link
 const NavItem = ({ to, label }) => (
   <Link
     to={to}
-    className="text-gray-300 hover:text-white text-sm font-medium transition duration-300 px-3 py-2 rounded-md"
+    style={{
+      marginLeft: '10px',
+      textDecoration: 'none',
+      color: '#000080',
+      fontWeight: 'bold'
+    }}
   >
     {label}
   </Link>

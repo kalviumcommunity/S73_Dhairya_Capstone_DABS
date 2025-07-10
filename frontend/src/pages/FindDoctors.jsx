@@ -1,19 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { User, Stethoscope, MapPin, Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function FindDoctors() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
+  const navigate = useNavigate();
 
-
-  // Use environment variable for API base URL
-  const API_BASE_URL = typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL
-    ? import.meta.env.VITE_API_BASE_URL
-    : (typeof process !== 'undefined' && process.env && process.env.REACT_APP_API_BASE_URL
-      ? process.env.REACT_APP_API_BASE_URL
-      : '');
-  // Demo doctors to show if backend returns none
   const demoDoctors = [
     {
       _id: 'demo1',
@@ -22,16 +15,18 @@ export default function FindDoctors() {
       address: { line1: 'Apollo Hospital, Delhi' },
       experience: '10 years',
       degree: 'MBBS, MD',
-      fees: 800
+      id: 'demo1',
+      fees: 299
     },
     {
       _id: 'demo2',
-      name: 'Dr. Rohan Mehta',
+      name: 'Dr. Dhairya',
       speciality: 'Dermatologist',
-      address: { line1: 'Fortis, Mumbai' },
-      experience: '7 years',
+      address: { line1: 'Galaxy, Universe' },
+      experience: '13 years',
       degree: 'MBBS, DDVL',
-      fees: 600
+      id: 'demo2',
+      fees: 1312
     },
     {
       _id: 'demo3',
@@ -40,33 +35,25 @@ export default function FindDoctors() {
       address: { line1: 'Max Hospital, Bangalore' },
       experience: '12 years',
       degree: 'MBBS, DCH',
-      fees: 700
+      id: 'demo3',
+      fees: 499
+    },
+    {
+      _id: 'demo4',
+      name: 'Dr. Abhinav',
+      speciality: 'Physician',
+      address: { line1: 'CKS, Jaipur' },
+      experience: '7 years',
+      degree: 'MBBS, MD',
+      id: 'demo4',
+      fees: 69
     }
   ];
 
   useEffect(() => {
-    if (!API_BASE_URL) {
-      setDoctors(demoDoctors);
-      setFiltered(demoDoctors);
-      return;
-    }
-    fetch(`${API_BASE_URL}/api/doctors`)
-      .then(res => res.json())
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          setDoctors(data);
-          setFiltered(data);
-        } else {
-          setDoctors(demoDoctors);
-          setFiltered(demoDoctors);
-        }
-      })
-      .catch(() => {
-        setDoctors(demoDoctors);
-        setFiltered(demoDoctors);
-      });
-  }, [API_BASE_URL]);
-
+    setDoctors(demoDoctors);
+    setFiltered(demoDoctors);
+  }, []);
 
   useEffect(() => {
     if (!search) {
@@ -82,65 +69,114 @@ export default function FindDoctors() {
   }, [search, doctors]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-100 via-white to-indigo-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 py-10 px-4">
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-gray-900 dark:text-white mb-10">
-          Find Your Doctor
+    <div style={{
+      fontFamily: 'Times New Roman, serif',
+      backgroundColor: '#fdf5e6',
+      color: '#000',
+      padding: '20px'
+    }}>
+      <center>
+        <h1 style={{
+          fontSize: '36px',
+          textDecoration: 'underline',
+          color: '#00008b'
+        }}>
+          Welcome to Doctor Finder Portal
         </h1>
+        <p><i>Find your nearby medical specialist (ver 1.0)</i></p>
 
-        {/* Search Box */}
-        <div className="flex justify-center mb-10">
-          <div className="relative w-full max-w-xl">
-            <input
-              type="text"
-              placeholder="Search by name or specialty..."
-              value={search}
-              onChange={e => setSearch(e.target.value)}
-              className="w-full px-5 py-3 rounded-2xl border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-400"
-            />
-            <Search className="absolute right-4 top-3 text-gray-400 w-5 h-5" />
-          </div>
-        </div>
+        <input
+          type="text"
+          placeholder="Search by name or specialty..."
+          value={search}
+          onChange={e => setSearch(e.target.value)}
+          style={{
+            fontSize: '16px',
+            padding: '6px',
+            marginBottom: '20px',
+            width: '60%',
+            border: '2px inset gray',
+            backgroundColor: '#fff8dc'
+          }}
+        />
+      </center>
 
-        {/* Doctors Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <hr style={{ border: '1px solid gray', margin: '20px 0' }} />
+
+      <table border="1" width="100%" cellPadding="10" cellSpacing="0" style={{ backgroundColor: '#ffffff' }}>
+        <thead style={{ backgroundColor: '#c0c0c0' }}>
+          <tr>
+            <th>Name</th>
+            <th>Speciality</th>
+            <th>Address</th>
+            <th>Experience</th>
+            <th>Degree</th>
+            <th>Fees (INR)</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
           {filtered.length === 0 && (
-            <div className="col-span-2 text-center text-gray-500 dark:text-gray-400">
-              No doctors found.
-            </div>
+            <tr>
+              <td colSpan="7" align="center">No doctors found.</td>
+            </tr>
           )}
           {filtered.map(doc => (
-            <div
-              key={doc._id}
-              className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-6 flex gap-5 border border-gray-100 dark:border-gray-700 hover:scale-[1.04] transition-shadow transform"
-            >
-              <div className="flex-shrink-0 flex items-center justify-center w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-900">
-                <User className="w-8 h-8 text-indigo-600 dark:text-indigo-400" />
-              </div>
-              <div className="flex-1">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{doc.name}</h2>
-                <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 mt-1">
-                  <Stethoscope className="w-4 h-4" />
-                  <span>{doc.speciality}</span>
-                  <MapPin className="w-4 h-4 ml-3" />
-                  <span>{doc.address?.line1 || 'Not available'}</span>
-                </div>
-                <div className="mt-2 text-gray-500 dark:text-gray-400 text-sm">
-                  Experience: {doc.experience} | Degree: {doc.degree}
-                </div>
-                <div className="mt-2 font-semibold text-indigo-700 dark:text-indigo-400">
-                  Fees: ₹{doc.fees}
-                </div>
-                <a
-                  href={`/book-appointment/${doc._id}`}
-                  className="inline-block mt-4 px-4 py-2 bg-indigo-600 text-white dark:bg-indigo-500 rounded-lg hover:bg-indigo-700 dark:hover:bg-indigo-600 transition"
+            <tr key={doc._id}>
+              <td>{doc.name}</td>
+              <td>{doc.speciality}</td>
+              <td>{doc.address?.line1 || 'N/A'}</td>
+              <td>{doc.experience}</td>
+              <td>{doc.degree}</td>
+              <td>{doc.fees}</td>
+              <td>
+                <button
+                  onClick={() => navigate('/book-appointment', { state: { doctorId: doc._id } })}
+                  style={{
+                    fontSize: '14px',
+                    backgroundColor: '#dcdcdc',
+                    border: '2px outset',
+                    padding: '4px 10px',
+                    cursor: 'pointer'
+                  }}
                 >
-                  Book Appointment
-                </a>
-              </div>
-            </div>
+                  Book
+                </button>
+              </td>
+            </tr>
           ))}
-        </div>
+        </tbody>
+      </table>
+
+      <marquee style={{
+        marginTop: '30px',
+        fontSize: '14px',
+        color: 'gray'
+      }}>
+        Switch to the new version of the webapp. This version is for demo purposes only.
+      </marquee>
+
+      {/* Fixed Button */}
+      <div style={{
+        position: 'fixed',
+        bottom: '25px',
+        right: '20px',
+        zIndex: 999
+      }}>
+        <button
+          onClick={() => window.open('https://github.com/kalviumcommunity/S73_Dhairya_Capstone_DABS/discussions', '_blank')}
+          style={{
+            fontSize: '14px',
+            padding: '8px 14px',
+            border: '2px outset #888',
+            backgroundColor: '#f5f5f5',
+            color: '#000080',
+            fontWeight: 'bold',
+            cursor: 'pointer'
+          }}
+        >
+          📢 <u>Announcement Space</u>
+        </button>
       </div>
     </div>
   );

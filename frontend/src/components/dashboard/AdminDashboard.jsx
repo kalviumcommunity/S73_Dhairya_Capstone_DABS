@@ -1,14 +1,5 @@
 import React from 'react';
-import {
-  Users,
-  UserCheck,
-  Calendar,
-  TrendingUp,
-  Clock,
-  CheckCircle,
-  XCircle,
-  AlertTriangle,
-} from 'lucide-react';
+import { Users, UserCheck, Calendar, TrendingUp, Clock, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
 
 export default function AdminDashboard() {
   const pendingDoctors = [
@@ -66,206 +57,99 @@ export default function AdminDashboard() {
   ];
 
   const quickActions = [
-    {
-      title: 'Manage Doctors',
-      icon: Users,
-      color: 'bg-indigo-600 hover:bg-indigo-700',
-      href: '/manage-doctors',
-    },
-    {
-      title: 'View Patients',
-      icon: UserCheck,
-      color: 'bg-green-600 hover:bg-green-700',
-      href: '/patients',
-    },
-    {
-      title: 'All Appointments',
-      icon: Calendar,
-      color: 'bg-yellow-600 hover:bg-yellow-700',
-      href: '/appointments',
-    },
-    {
-      title: 'Analytics',
-      icon: TrendingUp,
-      color: 'bg-gray-600 hover:bg-gray-700',
-      href: '/analytics',
-    },
+    { title: 'Manage Doctors', icon: Users, href: '/manage-doctors' },
+    { title: 'View Patients', icon: UserCheck, href: '/patients' },
+    { title: 'All Appointments', icon: Calendar, href: '/appointments' },
+    { title: 'Analytics', icon: TrendingUp, href: '/analytics' },
   ];
 
   const getActivityIcon = (type) => {
-    switch (type) {
-      case 'success':
-        return (
-          <CheckCircle className="w-4 h-4 text-green-400" />
-        );
-      case 'warning':
-        return (
-          <AlertTriangle className="w-4 h-4 text-yellow-400" />
-        );
-      case 'error':
-        return <XCircle className="w-4 h-4 text-red-400" />;
-      default:
-        return <Clock className="w-4 h-4 text-blue-400" />;
-    }
+    if (type === 'success') return;
+    if (type === 'warning') return ;
+    if (type === 'error') return ;
+    return ;
   };
 
   return (
-    <div className="min-h-screen bg-[#1D2633] py-10 px-2 text-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Welcome Section */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold text-white mb-2">
-            Admin Dashboard
-          </h1>
-          <p className="text-lg text-gray-300">
-            Monitor and manage the BookMyDoc platform.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Pending Doctor Approvals */}
-          <div className="lg:col-span-2">
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D] flex items-center justify-between">
-                <h2 className="text-2xl font-bold text-white">
-                  Pending Doctor Approvals
-                </h2>
-                <span className="bg-yellow-800 text-yellow-200 text-xs font-medium px-2.5 py-0.5 rounded-full">
-                  {pendingDoctors.length} pending
-                </span>
-              </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  {pendingDoctors.map((doctor) => (
-                    <div
-                      key={doctor.id}
-                      className="flex items-center justify-between p-5 bg-[#2E3B50] rounded-xl shadow hover:bg-[#37485E] transition-colors border border-[#3B4C63]"
-                    >
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-white text-lg">
-                          {doctor.name}
-                        </h3>
-                        <p className="text-sm text-gray-300">
-                          {doctor.specialty} • {doctor.qualification}
-                        </p>
-                        <p className="text-xs text-gray-400">
-                          {doctor.experience} experience • Applied{' '}
-                          {doctor.submittedAt}
-                        </p>
-                      </div>
-                      <div className="flex space-x-2">
-                        <button className="px-3 py-1 bg-green-600 text-white text-sm rounded-lg hover:bg-green-700 transition-colors">
-                          Approve
-                        </button>
-                        <button className="px-3 py-1 bg-red-600 text-white text-sm rounded-lg hover:bg-red-700 transition-colors">
-                          Reject
-                        </button>
-                        <button className="px-3 py-1 bg-gray-600 text-white text-sm rounded-lg hover:bg-gray-700 transition-colors">
-                          Review
-                        </button>
-                      </div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#fff8dc', padding: '20px', fontFamily: 'Times New Roman, serif', color: '#000', border: '3px ridge #999' }}>
+      <center>
+        <h1 style={{ fontSize: '36px', color: '#000080', textDecoration: 'underline' }}>Admin Dashboard</h1>
+        <p>System Control Center</p>
+      </center>
+      <hr style={{ border: '1px solid #ccc', margin: '20px 0' }} />
+      <table width="100%" cellPadding="10" cellSpacing="0">
+        <tbody>
+          <tr>
+            <td width="65%" valign="top">
+              <fieldset style={{ border: '2px groove gray', padding: '10px', backgroundColor: '#ffffff' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#800000' }}>Pending Doctor Approvals ({pendingDoctors.length})</legend>
+                {pendingDoctors.map((doc) => (
+                  <div key={doc.id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+                    <b>{doc.name}</b> — {doc.specialty} ({doc.qualification})<br />
+                    <small>{doc.experience} • Applied: {doc.submittedAt}</small>
+                    <div style={{ marginTop: '8px' }}>
+                      <button style={buttonStyle('green')}>Approve</button>
+                      <button style={buttonStyle('red')}>Reject</button>
+                      <button style={buttonStyle('gray')}>Review</button>
                     </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Quick Actions & Recent Activity */}
-          <div className="space-y-8">
-            {/* Quick Actions */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold text-white">
-                  Quick Actions
-                </h2>
-              </div>
-              <div className="p-6 flex flex-col gap-4">
+                  </div>
+                ))}
+              </fieldset>
+            </td>
+            <td width="35%" valign="top">
+              <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f5f5dc' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Quick Actions</legend>
                 {quickActions.map((action, index) => (
-                  <a
-                    key={index}
-                    href={action.href}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 text-white rounded-lg font-semibold shadow transition-colors ${action.color}`}
-                  >
-                    <action.icon className="w-5 h-5" />
-                    {action.title}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-
-            {/* Recent Activity */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold text-white">
-                  Recent Activity
-                </h2>
-              </div>
-              <div className="p-6 space-y-4">
-                {recentActivity.map((activity, index) => (
-                  <div
-                    key={index}
-                    className="flex items-start space-x-3"
-                  >
-                    {getActivityIcon(activity.type)}
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm text-white">
-                        {activity.action}
-                      </p>
-                      <p className="text-xs text-gray-400">
-                        {activity.user} • {activity.time}
-                      </p>
-                    </div>
+                  <div key={index} style={{ marginBottom: '8px' }}>
+                    <a href={action.href} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#000080', border: '2px outset', padding: '6px 12px', display: 'inline-block', backgroundColor: '#e0e0e0' }}>
+                      <action.icon size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                      {action.title}
+                    </a>
                   </div>
                 ))}
-              </div>
-            </div>
-
-            {/* System Status */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold text-white">
-                  System Status
-                </h2>
-              </div>
-              <div className="p-6 space-y-4">
-                {[
-                  ['Server Status', 'Online', 'green'],
-                  ['Database', 'Connected', 'green'],
-                  ['Payment Gateway', 'Active', 'green'],
-                  ['Email Service', 'Maintenance', 'yellow'],
-                ].map(([label, status, color], idx) => (
-                  <div
-                    key={idx}
-                    className="flex items-center justify-between"
-                  >
-                    <span className="text-gray-300">{label}</span>
-                    <div className="flex items-center">
-                      <div
-                        className={`w-2 h-2 rounded-full mr-2 ${
-                          color === 'green'
-                            ? 'bg-green-400'
-                            : 'bg-yellow-400'
-                        }`}
-                      ></div>
-                      <span
-                        className={`text-sm font-medium ${
-                          color === 'green'
-                            ? 'text-green-400'
-                            : 'text-yellow-400'
-                        }`}
-                      >
-                        {status}
-                      </span>
-                    </div>
+              </fieldset>
+              <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f0f8ff' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Recent Activity</legend>
+                {recentActivity.map((item, index) => (
+                  <div key={index} style={{ marginBottom: '8px' }}>
+                    {getActivityIcon(item.type)}{' '}
+                    <span>{item.action}</span><br />
+                    <small>{item.user} • {item.time}</small>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </fieldset>
+              <fieldset style={{ border: '2px inset #aaa', padding: '10px', backgroundColor: '#f0fff0' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>System Status</legend>
+                <div style={{ marginBottom: '5px' }}>Server Status: <b style={{ color: 'green' }}>Online</b></div>
+                <div style={{ marginBottom: '5px' }}>Database: <b style={{ color: 'green' }}>Connected</b></div>
+                <div style={{ marginBottom: '5px' }}>Payment Gateway: <b style={{ color: 'green' }}>Active</b></div>
+                <div style={{ marginBottom: '5px' }}>Email Service: <b style={{ color: 'orange' }}>Maintenance</b></div>
+              </fieldset>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <hr style={{ marginTop: '30px', border: '1px solid #ccc' }} />
+      <marquee style={{ fontSize: '14px', color: '#000', marginTop: '10px' }}>
+        Admin Panel – Best viewed in new version of the webapp.
+        <span style={{ fontWeight: 'bold', color: '#ff4500' }}> This version is for demo purposes only.</span>
+      </marquee>
     </div>
   );
+}
+
+function buttonStyle(color) {
+  let bg = '#ddd';
+  if (color === 'green') bg = '#ccffcc';
+  if (color === 'red') bg = '#ffcccc';
+  if (color === 'gray') bg = '#eeeeee';
+  return {
+    fontSize: '14px',
+    padding: '6px 10px',
+    marginRight: '6px',
+    border: '2px outset',
+    backgroundColor: bg,
+    cursor: 'pointer',
+    fontFamily: 'Times New Roman, serif'
+  };
 }

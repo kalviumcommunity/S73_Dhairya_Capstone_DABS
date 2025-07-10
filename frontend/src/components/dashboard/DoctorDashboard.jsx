@@ -1,201 +1,102 @@
 import React from 'react';
-import {
-  CalendarCheck,
-  FileText,
-  Stethoscope,
-  MessageSquare,
-  Clock,
-  AlertTriangle,
-  CheckCircle,
-} from 'lucide-react';
+import { CalendarCheck, FileText, Stethoscope, MessageSquare, Clock, CheckCircle, AlertTriangle } from 'lucide-react';
 
 export default function DoctorDashboard() {
   const upcomingAppointments = [
-    {
-      id: '1',
-      patient: 'John Doe',
-      time: '2025-07-07 10:00 AM',
-      reason: 'Routine checkup',
-    },
-    {
-      id: '2',
-      patient: 'Emily Brown',
-      time: '2025-07-07 01:30 PM',
-      reason: 'Flu symptoms',
-    },
-    {
-      id: '3',
-      patient: 'Robert Smith',
-      time: '2025-07-08 09:00 AM',
-      reason: 'Follow-up',
-    },
+    { id: '1', patient: 'John Doe', time: '2025-07-07 10:00 AM', reason: 'Routine checkup' },
+    { id: '2', patient: 'Emily Brown', time: '2025-07-07 01:30 PM', reason: 'Flu symptoms' },
+    { id: '3', patient: 'Robert Smith', time: '2025-07-08 09:00 AM', reason: 'Follow-up' },
   ];
 
   const patientNotes = [
-    {
-      id: '1',
-      patient: 'John Doe',
-      note: 'Advised to monitor blood pressure daily.',
-    },
-    {
-      id: '2',
-      patient: 'Emily Brown',
-      note: 'Prescribed Tamiflu. Follow-up in 3 days.',
-    },
+    { id: '1', patient: 'John Doe', note: 'Advised to monitor blood pressure daily.' },
+    { id: '2', patient: 'Emily Brown', note: 'Prescribed Tamiflu. Follow-up in 3 days.' },
   ];
 
   const recentActivity = [
-    {
-      type: 'info',
-      message: 'Updated profile information',
-      time: '1 hour ago',
-    },
-    {
-      type: 'success',
-      message: 'Submitted patient report for John Doe',
-      time: '3 hours ago',
-    },
-    {
-      type: 'warning',
-      message: 'Missed appointment alert for Jane Roe',
-      time: '5 hours ago',
-    },
+    { type: 'info', message: 'Updated profile information', time: '1 hour ago' },
+    { type: 'success', message: 'Submitted patient report for John Doe', time: '3 hours ago' },
+    { type: 'warning', message: 'Missed appointment alert for Jane Roe', time: '5 hours ago' },
   ];
 
   const quickActions = [
-    {
-      title: 'View Appointments',
-      icon: CalendarCheck,
-      color: 'bg-indigo-600 hover:bg-indigo-700',
-      href: '/doctor/appointments',
-    },
-    {
-      title: 'Write Notes',
-      icon: FileText,
-      color: 'bg-green-600 hover:bg-green-700',
-      href: '/doctor/notes',
-    },
-    {
-      title: 'Start Consultation',
-      icon: Stethoscope,
-      color: 'bg-yellow-600 hover:bg-yellow-700',
-      href: '/doctor/consultation',
-    },
-    {
-      title: 'Messages',
-      icon: MessageSquare,
-      color: 'bg-gray-600 hover:bg-gray-700',
-      href: '/doctor/messages',
-    },
+    { title: 'View Appointments', icon: CalendarCheck, href: '/doctor/appointments' },
+    { title: 'Write Notes', icon: FileText, href: '/doctor/notes' },
+    { title: 'Start Consultation', icon: Stethoscope, href: '/doctor/consultation' },
+    { title: 'Messages', icon: MessageSquare, href: '/doctor/messages' },
   ];
 
   const getIcon = (type) => {
-    switch (type) {
-      case 'success':
-        return <CheckCircle className="w-4 h-4 text-green-400" />;
-      case 'warning':
-        return <AlertTriangle className="w-4 h-4 text-yellow-400" />;
-      default:
-        return <Clock className="w-4 h-4 text-blue-400" />;
-    }
+    if (type === 'success') return ;
+    if (type === 'warning') return ;
+    return ;
   };
 
   return (
-    <div className="min-h-screen bg-[#1D2633] py-10 px-2 text-white">
-      <div className="max-w-7xl mx-auto">
-        {/* Welcome Section */}
-        <div className="mb-10 text-center">
-          <h1 className="text-4xl font-extrabold text-white mb-2">
-            Doctor Dashboard
-          </h1>
-          <p className="text-lg text-gray-300">
-            Your upcoming appointments, notes, and activities.
-          </p>
-        </div>
+    <div style={{ minHeight: '100vh', backgroundColor: '#fdf5e6', padding: '20px', fontFamily: 'Times New Roman, serif', color: '#000', border: '3px ridge #999' }}>
+      <center>
+        <h1 style={{ fontSize: '36px', color: '#006400', textDecoration: 'underline' }}>Doctor Dashboard</h1>
+        <p>Appointment Overview & Patient Notes</p>
+      </center>
+      <hr style={{ border: '1px solid #ccc', margin: '20px 0' }} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {/* Main Column */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Appointments */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-2xl font-bold">Upcoming Appointments</h2>
-              </div>
-              <div className="p-6 space-y-4">
+      <table width="100%" cellPadding="10" cellSpacing="0">
+        <tbody>
+          <tr>
+            <td width="65%" valign="top">
+              <fieldset style={{ border: '2px groove gray', padding: '10px', backgroundColor: '#ffffff' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#8b0000' }}>Upcoming Appointments</legend>
                 {upcomingAppointments.map((appt) => (
-                  <div
-                    key={appt.id}
-                    className="p-4 bg-[#2E3B50] rounded-xl shadow border border-[#3B4C63]"
-                  >
-                    <h3 className="text-lg font-semibold text-white">{appt.patient}</h3>
-                    <p className="text-sm text-gray-300">{appt.reason}</p>
-                    <p className="text-xs text-gray-400">{appt.time}</p>
+                  <div key={appt.id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+                    <b>{appt.patient}</b> - {appt.reason}<br />
+                    <small>{appt.time}</small>
                   </div>
                 ))}
-              </div>
-            </div>
+              </fieldset>
 
-            {/* Patient Notes */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold">Recent Patient Notes</h2>
-              </div>
-              <div className="p-6 space-y-4">
+              <fieldset style={{ border: '2px groove gray', padding: '10px', backgroundColor: '#ffffff', marginTop: '20px' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#8b0000' }}>Recent Patient Notes</legend>
                 {patientNotes.map((note) => (
-                  <div
-                    key={note.id}
-                    className="p-4 bg-[#2E3B50] rounded-xl shadow border border-[#3B4C63]"
-                  >
-                    <h4 className="text-md font-semibold text-white">{note.patient}</h4>
-                    <p className="text-sm text-gray-300">{note.note}</p>
+                  <div key={note.id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f5f5f5' }}>
+                    <b>{note.patient}</b><br />
+                    <span>{note.note}</span>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
+              </fieldset>
+            </td>
 
-          {/* Sidebar */}
-          <div className="space-y-8">
-            {/* Quick Actions */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold">Quick Actions</h2>
-              </div>
-              <div className="p-6 flex flex-col gap-4">
-                {quickActions.map((action, i) => (
-                  <a
-                    key={i}
-                    href={action.href}
-                    className={`w-full flex items-center justify-center gap-2 px-4 py-3 text-white rounded-lg font-semibold shadow transition-colors ${action.color}`}
-                  >
-                    <action.icon className="w-5 h-5" />
-                    {action.title}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            {/* Recent Activity */}
-            <div className="bg-[#263143] rounded-2xl shadow-xl border border-[#2F3B4D]">
-              <div className="p-6 border-b border-[#2F3B4D]">
-                <h2 className="text-xl font-bold">Recent Activity</h2>
-              </div>
-              <div className="p-6 space-y-4">
-                {recentActivity.map((activity, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    {getIcon(activity.type)}
-                    <div className="flex-1">
-                      <p className="text-sm">{activity.message}</p>
-                      <p className="text-xs text-gray-400">{activity.time}</p>
-                    </div>
+            <td width="35%" valign="top">
+              <fieldset style={{ border: '2px inset #aaa', padding: '10px', backgroundColor: '#f0fff0' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Quick Actions</legend>
+                {quickActions.map((action, index) => (
+                  <div key={index} style={{ marginBottom: '8px' }}>
+                    <a href={action.href} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#000080', border: '2px outset', padding: '6px 12px', display: 'inline-block', backgroundColor: '#e0e0e0' }}>
+                      <action.icon size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                      {action.title}
+                    </a>
                   </div>
                 ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+              </fieldset>
+
+              <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginTop: '20px', backgroundColor: '#f0f8ff' }}>
+                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Recent Activity</legend>
+                {recentActivity.map((item, index) => (
+                  <div key={index} style={{ marginBottom: '8px' }}>
+                    {getIcon(item.type)} {item.message}<br />
+                    <small>{item.time}</small>
+                  </div>
+                ))}
+              </fieldset>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <hr style={{ marginTop: '30px', border: '1px solid #ccc' }} />
+      <marquee style={{ fontSize: '14px', color: '#000', marginTop: '10px' }}>
+        Doctor Panel – Best viewed in new version of the webapp. 
+        <span style={{ fontWeight: 'bold', color: '#ff4500' }}>This version is for demo purposes only.</span>
+      </marquee>
     </div>
   );
 }
-
