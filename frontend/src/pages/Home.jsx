@@ -212,7 +212,7 @@ const Home = () => {
               textDecoration: 'underline',
               fontSize: '24px'
             }}>
-              Contact the supreme master
+              Contact the supreme leader
             </h3>
             <p>Write an email if you like the vibes.</p>
           </div>
@@ -249,7 +249,7 @@ const Home = () => {
         fontSize: '14px',
         marginTop: '20px'
       }}>
-        Switch to the new version of the webapp. This version is for demo purposes only. | Visit the modern portal at <u>https://github.com/dhairyajangir/CuraLink</u>
+        Switch to the new version of the webapp. This version is for demo purposes only. Visit the serious version at <u>https://github.com/dhairyajangir/CuraLink</u>
       </marquee>
 
       {/* Fixed Button */}

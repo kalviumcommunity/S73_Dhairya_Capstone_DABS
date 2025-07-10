@@ -117,7 +117,7 @@ const Login = () => {
             {error && (
               <tr>
                 <td colSpan="2" style={{ backgroundColor: '#ffcccc', color: 'darkred', fontWeight: 'bold', textAlign: 'center' }}>
-                  <blink>Oops! there's an error in login. Contact the supreme master</blink>
+                  <blink>Oops! there's an error in login. Contact the supreme leader.</blink>
                 </td>
               </tr>
             )}

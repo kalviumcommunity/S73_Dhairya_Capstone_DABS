@@ -153,7 +153,7 @@ export default function FindDoctors() {
         fontSize: '14px',
         color: 'gray'
       }}>
-        Switch to the new version of the webapp. This version is for demo purposes only.
+        Switch to the new version of the webapp. This version is for demo purposes only. Visit the serious version at <u>https://github.com/dhairyajangir/CuraLink</u>
       </marquee>
 
       {/* Fixed Button */}

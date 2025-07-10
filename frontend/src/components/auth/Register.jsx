@@ -139,7 +139,7 @@ const Register = () => {
             {error && (
               <tr>
                 <td colSpan="2" style={{ backgroundColor: '#ffcccc', color: 'darkred', fontWeight: 'bold', textAlign: 'center' }}>
-                  Oops! there's an error in registration. Contact the supreme master
+                  Oops! there's an error in registration. Contact the supreme leader.
                 </td>
               </tr>
             )}
@@ -268,7 +268,7 @@ const Register = () => {
         <hr width="60%" style={{ marginTop: '30px' }} />
         <font size="2" color="gray">© dhairyajangir @ github</font>
       </center>
-      
+
     </div>
   );
 };
