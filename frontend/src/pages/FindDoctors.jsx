@@ -10,7 +10,7 @@ export default function FindDoctors() {
   const demoDoctors = [
     {
       _id: 'demo1',
-      name: 'Dr. Ayesha Sharma',
+      name: 'Dr. Ansh',
       speciality: 'Cardiologist',
       address: { line1: 'Apollo Hospital, Delhi' },
       experience: '10 years',
@@ -30,7 +30,7 @@ export default function FindDoctors() {
     },
     {
       _id: 'demo3',
-      name: 'Dr. Priya Singh',
+      name: 'Dr. Ashish',
       speciality: 'Pediatrician',
       address: { line1: 'Max Hospital, Bangalore' },
       experience: '12 years',
@@ -46,7 +46,7 @@ export default function FindDoctors() {
       experience: '7 years',
       degree: 'MBBS, MD',
       id: 'demo4',
-      fees: 69
+      fees: 610
     }
   ];
 
