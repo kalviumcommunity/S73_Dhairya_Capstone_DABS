@@ -186,13 +186,23 @@ const Register = () => {
                   <td>
                     <select name="specialty" value={formData.specialty} onChange={handleChange} style={inputStyle}>
                       <option value="">Select</option>
-                      <option>Cardiologist</option>
-                      <option>Dermatologist</option>
-                      <option>Psychiatrist</option>
-                      <option>Pediatrician</option>
-                      <option>Orthopedic</option>
-                      <option>Neurologist</option>
-                      <option>General Physician</option>
+                      <option value="Cardiologist">Cardiologist</option>
+                      <option value="Dermatologist">Dermatologist</option>
+                      <option value="Psychiatrist">Psychiatrist</option>
+                      <option value="Pediatrician">Pediatrician</option>
+                      <option value="Orthopedic">Orthopedic</option>
+                      <option value="Neurologist">Neurologist</option>
+                      <option value="General Physician">General Physician</option>
+                      <option value="Endocrinologist">Endocrinologist</option>
+                      <option value="Gastroenterologist">Gastroenterologist</option>
+                      <option value="Oncologist">Oncologist</option>
+                      <option value="Pulmonologist">Pulmonologist</option>
+                      <option value="Rheumatologist">Rheumatologist</option>
+                      <option value="Ophthalmologist">Ophthalmologist</option>
+                      <option value="Urologist">Urologist</option>
+                      <option value="ENT Specialist">ENT Specialist</option>
+                      <option value="Nephrologist">Nephrologist</option>
+                      <option value="Allergist">Allergist</option>
                     </select>
                   </td>
                 </tr>
