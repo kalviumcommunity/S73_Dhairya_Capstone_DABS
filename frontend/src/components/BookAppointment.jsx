@@ -45,7 +45,7 @@ export default function BookAppointment() {
       experience: '7 years',
       degree: 'MBBS, MD',
       id: 'demo4',
-      fees: 69
+      fees: 610
     }
   ];
 
