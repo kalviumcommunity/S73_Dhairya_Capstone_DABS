@@ -43,25 +43,21 @@ const Home = () => {
             fontSize: '26px',
             textDecoration: 'underline'
           }}>
-            Book your Doctor
+            Book your Doctor Appointment Online
           </h2>
 
           <h3 style={{
             color: '#00008b',
             fontSize: '22px'
           }}>
-            Appointment Online
-          </h3>
-
-          <p style={{ fontSize: '16px' }}>
             Tap into quantum health – our doctors might not be radioactive, but they are brilliant!
-          </p>
-
+          </h3>
+          
           <ul style={{ fontSize: '14px', lineHeight: '1.6' }}>
             <li>🩺 24/7 Specialist Availability</li>
-            <li>💾 Secure Medical Records (floppy-disk style!)</li>
+            <li>💾 Secure Medical Records </li>
             <li>💊 Prescriptions faster than dial-up</li>
-            <li>🖱️ Click & Cure from your CRT monitor</li>
+            <li>🖱️ Click & Cure </li>
           </ul>
           <p style={{ fontSize: '16px', marginTop: '10px' }}>
             <strong>Ready to book your appointment?</strong> 
