@@ -40,19 +40,23 @@ const Login = () => {
         throw new Error('Invalid response from server');
       }
 
+      const userWithRole = { ...user, role: user.role };
+
       try {
-        localStorage.setItem('user', JSON.stringify(user));
+        localStorage.setItem('user', JSON.stringify(userWithRole));
         localStorage.setItem('token', token);
       } catch {
-        sessionStorage.setItem('user', JSON.stringify(user));
+        sessionStorage.setItem('user', JSON.stringify(userWithRole));
         sessionStorage.setItem('token', token);
       }
 
-      if (user.role === 'doctor') {
+      window.dispatchEvent(new Event('userChanged'));
+
+      if (userWithRole.role === 'doctor') {
         navigate('/doctor-dashboard');
-      } else if (user.role === 'user' || user.role === 'patient') {
+      } else if (userWithRole.role === 'patient') {
         navigate('/patient-dashboard');
-      } else if (user.role === 'admin') {
+      } else if (userWithRole.role === 'admin') {
         navigate('/admin-dashboard');
       } else {
         navigate('/');
@@ -85,11 +89,12 @@ const Login = () => {
       padding: '30px'
     }}>
       <center>
-        <marquee behavior="alternate" scrollamount="8" style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>
+        <marquee behavior="alternate" scrollAmount="8" style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>
           Welcome to Login Portal
         </marquee>
 
         <hr width="60%" />
+        <br />
 
         <table
           border="2"
@@ -110,6 +115,28 @@ const Login = () => {
             </tr>
           </thead>
           <tbody>
+            <tr>
+              <td colSpan="2" style={{
+                backgroundColor: '#f0ffff',
+                border: '2px dotted navy',
+                padding: '10px',
+                fontSize: '14px'
+              }}>
+                <b><u>Demo Accounts</u></b> (Password: <code>password123</code>)
+                <ul style={{ marginTop: '6px', marginBottom: '0px', paddingLeft: '20px' }}>
+                  <li onClick={() => setEmail('admin@bookmydoc.com')} style={{ color: 'red', cursor: 'pointer' }}>
+                    admin@bookmydoc.com - <i>Admin</i>
+                  </li>
+                  <li onClick={() => setEmail('dr.dhairya@galaxy.com')} style={{ color: 'navy', cursor: 'pointer' }}>
+                    dr.dhairya@galaxy.com - <i>Doctor</i>
+                  </li>
+                  <li onClick={() => setEmail('dhairya@email.com')} style={{ color: 'green', cursor: 'pointer' }}>
+                    dhairya@email.com - <i>Patient</i>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+
             <tr>
               <td colSpan="2"><i>Sign in to manage your appointments</i></td>
             </tr>
@@ -199,28 +226,9 @@ const Login = () => {
           </tbody>
         </table>
 
-        <div style={{
-          marginTop: '25px',
-          width: '480px',
-          border: '2px dotted navy',
-          backgroundColor: '#f0ffff',
-          padding: '12px'
-        }}>
-          <b><u>Demo Accounts</u></b> (Password: <code>password123</code>)
-          <ul style={{ textAlign: 'left' }}>
-            <li onClick={() => setEmail('dr.dhairya@hospital.com')} style={{ color: 'navy', cursor: 'pointer' }}>
-              dr.dhairya@hospital.com - <i>Doctor</i>
-            </li>
-            <li onClick={() => setEmail('dhairya@email.com')} style={{ color: 'green', cursor: 'pointer' }}>
-              dhairya@email.com - <i>Patient</i>
-            </li>
-          </ul>
-        </div>
-
         <hr width="60%" style={{ marginTop: '30px' }} />
         <font size="2" color="gray">© dhairyajangir @ github</font>
       </center>
-
     </div>
   );
 };

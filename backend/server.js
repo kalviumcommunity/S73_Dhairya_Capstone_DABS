@@ -22,23 +22,22 @@ const app = express()
 const PORT = process.env.PORT || 5050
 
 // middleware
+app.use(cors({
+  origin: [
+    'http://localhost:5173',
+    'https://bookmydoc-frontend-dm5l.onrender.com'
+  ],
+  credentials: true,
+}));
 app.use(express.json());
 
 // Serve static files for uploaded images
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
-
 // api endpoints
 app.use('/api/users', userRoutes)
 app.use('/api/doctors', doctorRoutes) 
 app.use('/api/appointments', appointmentRoutes)
-
-
-app.use(cors({
-  origin: ['https://bookmydoc-frontend-dm5l.onrender.com'],
-  credentials: true
-}));
-
 
 app.get('/',(req,res)=>{
     res.send('Pong!')

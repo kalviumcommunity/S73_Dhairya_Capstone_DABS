@@ -6,99 +6,122 @@ const Home = () => {
   return (
     <div style={{
       minHeight: '100vh',
-      backgroundImage: 'linear-gradient(to bottom, #fffff0, #fdfde3)',
-      fontFamily: 'Times New Roman, serif',
+      backgroundImage: 'url(https://www.transparenttextures.com/patterns/white-wall-3.png)',
+      fontFamily: 'Verdana, Arial, sans-serif',
       padding: '20px',
-      color: '#000',
-      border: '3px ridge gray',
-      boxShadow: 'inset 0 0 10px #aaa'
+      color: '#000080',
+      border: '5px double #666',
+      boxShadow: 'inset 0 0 15px #999',
+      backgroundColor: '#fffff0'
     }}>
-      
-      {/* Header */}
+
       <center>
         <h1 style={{
-          fontSize: '38px',
-          color: '#0000cc',
+          fontSize: '42px',
+          color: '#0033cc',
           textDecoration: 'underline',
-          textShadow: '1px 1px 1px #aaa'
+          textShadow: '2px 2px #ccc',
         }}>
           Welcome to BookMyDoc Portal
         </h1>
         <p><i>Inspired by Websites from the year 1999</i></p>
       </center>
+      <br />
 
-      <hr style={{ marginTop: '20px', borderColor: '#ccc' }} />
+      <marquee scrollAmount="6" style={{
+        color: '#000',
+        fontWeight: 'bold',
+        backgroundColor: '#d3d3d3',
+        padding: '10px 20px',
+        fontSize: '16px',
+        border: '2px solid #999',
+        fontFamily: 'Verdana, sans-serif',
+        letterSpacing: '0.5px'
+      }}>
+        🌐 Need a Doctor? Why go and dial, When You Can Click! | 🔬 AI + Stethoscope = Dr. Quantum Awaits | ⏱️ Instant Booking. Trusted Care.
+      </marquee>
+      
+      <hr style={{ marginTop: '20px', borderColor: '#999', borderStyle: 'dashed' }} />
 
-      {/* Main Layout */}
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'flex-start'
       }}>
-        
-        {/* Left Column */}
+
         <div style={{ width: '48%' }}>
           <h2 style={{
             color: '#b22222',
-            fontSize: '26px',
-            textDecoration: 'underline'
+            fontSize: '28px',
+            textDecoration: 'underline',
+            textShadow: '1px 1px #fff'
           }}>
-            Book your Doctor Appointment Online
+            Book your Doctor Appointment Online!
           </h2>
 
           <h3 style={{
             color: '#00008b',
-            fontSize: '22px'
+            fontSize: '18px',
+            fontWeight: 'bold',
           }}>
             Tap into quantum health – our doctors might not be radioactive, but they are brilliant!
           </h3>
-          
-          <ul style={{ fontSize: '14px', lineHeight: '1.6' }}>
+
+          <br />
+
+          <ul style={{ fontSize: '18px', lineHeight: '1.6' }}>
             <li>🩺 24/7 Specialist Availability</li>
-            <li>💾 Secure Medical Records </li>
-            <li>💊 Prescriptions faster than dial-up</li>
-            <li>🖱️ Click & Cure </li>
+            <li>💾 Secure Medical Records</li>
+            <li>💊 Faster Prescriptions</li>
+            <li>🖱️ Click, Cure and Celebrate</li>
           </ul>
-          <p style={{ fontSize: '16px', marginTop: '10px' }}>
-            <strong>Ready to book your appointment?</strong> 
+
+          <br />
+
+          <p style={{ fontSize: '15px', marginTop: '10px', fontWeight: 'bold' }}>
+            Your virtual doctor awaits, Book now!
           </p>
           <Link to="/register">
             <button style={{
               marginTop: '12px',
               fontSize: '16px',
-              padding: '10px 20px',
-              backgroundColor: '#e0e0e0',
-              border: '2px outset',
+              padding: '10px 25px',
+              backgroundColor: '#c0c0c0',
+              border: '2px outset #999',
               cursor: 'pointer',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              color: '#000',
+              boxShadow: 'inset 1px 1px 0px #fff, inset -1px -1px 0px #666'
             }}>
-              ➜ Get Started
+              ➜ Ready to heal? Click here!
             </button>
           </Link>
-          <br />
-          <br />
-          {/* Table of Conditions */}
+
+          <br /><br />
+
           <div style={{
             maxHeight: '750px',
             overflowY: 'auto',
             marginTop: '20px',
-            border: '2px solid #999',
-            backgroundColor: '#fefefe',
-            fontSize: '13px'
+            border: '3px groove #999',
+            backgroundColor: '#fff',
+            fontSize: '16px'
           }}>
             <table
               border="1"
               width="90%"
               cellPadding="5"
-              style={{ margin: '10px auto', backgroundColor: '#fefefe' }}
+              style={{ margin: '10px auto', backgroundColor: '#fffff0', borderCollapse: 'collapse' }}
             >
               <thead style={{
-                backgroundColor: '#d0e4fe',
+                backgroundColor: '#b0c4de',
                 position: 'sticky',
-                top: 0
+                top: 0,
+                color: '#000',
+                textAlign: 'left'
               }}>
                 <tr>
-                  <th colSpan="2">Trending Conditions</th>
+                  <th colSpan="2">Modern Trending Conditions</th>
                 </tr>
               </thead>
               <tbody>
@@ -124,12 +147,13 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Right Column */}
-        <div style={{ width: '48%', textAlign: 'left' }}>
+        <div style={{ width: '48%' }}>
           <p style={{
-            fontSize: '22px',
+            fontSize: '20px',
             color: '#444',
-            marginTop: '10px'
+            backgroundColor: '#eeeeee',
+            padding: '5px',
+            border: '2px inset #ccc'
           }}>
             <strong>Dr. Quantum – Your AI-powered specialist</strong>
           </p>
@@ -137,38 +161,29 @@ const Home = () => {
             src={doctorImage}
             alt="Doctor Quantum"
             style={{
-              width: '520px',
+              width: '100%',
               height: 'auto',
-              padding: '10px',
-              // border: '3px groove #666',
-              // backgroundColor: '#fff8dc'
+              border: '4px ridge #666',
+              backgroundColor: '#f0f0f0',
+              padding: '5px'
             }}
           />
         </div>
       </div>
 
-      {/* Secure Label */}
-      <p style={{
-        fontSize: '12px',
-        marginTop: '10px',
-        color: '#555'
-      }}>
-        <b>100% Secure</b> - Powered by Y2K Protocols™
-      </p>
 
-      <hr style={{ marginTop: '20px', borderColor: '#ccc' }} />
+      <hr style={{ marginTop: '20px', borderColor: '#999', borderStyle: 'dashed' }} />
 
-      {/* About Us */}
       <div style={{
         marginTop: '30px',
         padding: '15px',
-        border: '2px dashed #999',
+        border: '3px dotted #888',
         backgroundColor: '#fffaf0',
         fontSize: '15px',
         lineHeight: '1.6'
       }}>
         <h2 style={{
-          fontSize: '24px',
+          fontSize: '22px',
           color: '#00008b',
           textDecoration: 'underline'
         }}>
@@ -183,18 +198,15 @@ const Home = () => {
         </p>
       </div>
 
-      {/* Footer */}
       <div style={{
         marginTop: '40px',
         padding: '20px',
         backgroundColor: '#fffaf0',
         border: '2px dashed #999',
-        fontFamily: 'Times New Roman, serif',
+        fontFamily: 'Verdana, Arial, sans-serif',
         fontSize: '14px',
         color: '#333'
       }}>
-        
-        {/* Newsletter */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -206,18 +218,16 @@ const Home = () => {
             <h3 style={{
               color: '#00008b',
               textDecoration: 'underline',
-              fontSize: '24px'
+              fontSize: '20px'
             }}>
               Contact the supreme leader
             </h3>
             <p>Write an email if you like the vibes.</p>
           </div>
-
         </div>
 
         <hr style={{ borderTop: '1px dashed #ccc', marginBottom: '20px' }} />
 
-        {/* Contact Info */}
         <div style={{
           display: 'flex',
           flexWrap: 'wrap',
@@ -232,44 +242,31 @@ const Home = () => {
             <p><b>X:</b> <a href="https://x.com/DhairyaJangir">x/DhairyaJangir</a></p>
           </div>
         </div>
-
-        <hr style={{ borderTop: '1px dashed #ccc', margin: '20px 0' }} />
-
       </div>
-
-      <hr style={{ marginTop: '30px', borderColor: '#ccc' }} />
-
-      {/* Marquee Banner */}
-      <marquee style={{
-        color: '#444',
+      
+      <p style={{
         fontSize: '14px',
-        marginTop: '20px'
+        marginTop: '10px',
+        color: '#333',
+        textAlign: 'center',
+        padding: '10px',
+        backgroundColor: '#f0f8ff',
+        border: '2px solid #ccc',
+        borderRadius: '5px'
       }}>
-        Switch to the new version of the webapp. This version is for demo purposes only. Visit the serious version at <u>https://github.com/dhairyajangir/CuraLink</u>
-      </marquee>
+        <b>100% Secure</b> - Powered by Y2K Protocols™
+      </p>
 
-      {/* Fixed Button */}
-      <div style={{
-        position: 'fixed',
-        bottom: '25px',
-        right: '20px',
-        zIndex: 999
+      <marquee style={{
+        color: '#000',
+        fontSize: '14px',
+        marginTop: '20px',
+        backgroundColor: '#ffd',
+        borderTop: '2px solid #ccc',
+        padding: '5px 0'
       }}>
-        <button
-          onClick={() => window.open('https://github.com/kalviumcommunity/S73_Dhairya_Capstone_DABS/discussions', '_blank')}
-          style={{
-            fontSize: '14px',
-            padding: '8px 14px',
-            border: '2px outset #888',
-            backgroundColor: '#f5f5f5',
-            color: '#000080',
-            fontWeight: 'bold',
-            cursor: 'pointer'
-          }}
-        >
-          📢 <u>Announcement Space</u>
-        </button>
-      </div>
+        Switch to the new version of the webapp. This version is for demo purposes only. Visit the serious version at <a href="https://github.com/dhairyajangir/CuraLink">https://github.com/dhairyajangir/CuraLink</a>
+      </marquee>
     </div>
   );
 };

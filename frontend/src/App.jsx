@@ -9,6 +9,8 @@ import DoctorDashboard from './components/dashboard/DoctorDashboard'
 import PatientDashboard from './components/dashboard/PatientDashboard'
 import AdminDashboard from './components/dashboard/AdminDashboard'
 
+import PrivateRoute from './components/auth/PrivateRoute'
+
 function App() {
   return (
     <Router>
@@ -18,9 +20,23 @@ function App() {
         <Route path="/find-doctors" element={<FindDoctors />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
+        
+        <Route path="/doctor-dashboard" element={
+          <PrivateRoute allowedRoles={['doctor']}>
+            <DoctorDashboard />
+          </PrivateRoute>
+        } />
+        <Route path="/patient-dashboard" element={
+          <PrivateRoute allowedRoles={['user','patient']}>
+            <PatientDashboard />
+          </PrivateRoute>
+        } />
+        <Route path="/admin-dashboard" element={
+          <PrivateRoute allowedRoles={['admin']}>
+            <AdminDashboard />
+          </PrivateRoute>
+        } />
+        
         <Route path="/book-appointment" element={<BookAppointment />} />
       </Routes>
     </Router>

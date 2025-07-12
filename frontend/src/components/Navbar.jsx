@@ -5,22 +5,24 @@ const Navbar = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const stored = localStorage.getItem('user');
-    setUser(stored ? JSON.parse(stored) : null);
-
-    const syncUser = () => {
-      const updated = localStorage.getItem('user');
-      setUser(updated ? JSON.parse(updated) : null);
+    const updateUser = () => {
+      const stored = localStorage.getItem('user');
+      setUser(stored ? JSON.parse(stored) : null);
     };
-
-    window.addEventListener('storage', syncUser);
-    return () => window.removeEventListener('storage', syncUser);
+    updateUser();
+    window.addEventListener('storage', updateUser);
+    window.addEventListener('userChanged', updateUser);
+    return () => {
+      window.removeEventListener('storage', updateUser);
+      window.removeEventListener('userChanged', updateUser);
+    };
   }, []);
 
   const handleLogout = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
     setUser(null);
+    window.dispatchEvent(new Event('userChanged'));
     window.location.href = '/login';
   };
 

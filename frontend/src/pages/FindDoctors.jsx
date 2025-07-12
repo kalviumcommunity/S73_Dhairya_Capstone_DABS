@@ -70,20 +70,36 @@ export default function FindDoctors() {
 
   return (
     <div style={{
-      fontFamily: 'Times New Roman, serif',
-      backgroundColor: '#fdf5e6',
-      color: '#000',
-      padding: '20px'
+      fontFamily: 'Verdana, Arial, sans-serif',
+      backgroundImage: 'url(https://www.transparenttextures.com/patterns/white-wall-3.png)',
+      backgroundColor: '#fffff0',
+      minHeight: '100vh',
+      padding: '30px',
+      color: '#000080',
+      border: '4px double #666',
+      boxShadow: 'inset 0 0 12px #999'
     }}>
       <center>
         <h1 style={{
-          fontSize: '36px',
+          fontSize: '42px',
+          color: '#0033cc',
           textDecoration: 'underline',
-          color: '#00008b'
+          textShadow: '2px 2px #ccc'
         }}>
-          Welcome to Doctor Finder Portal
+          Doctor Finder 
         </h1>
-        <p><i>Find your nearby medical specialist (ver 1.0)</i></p>
+        <p><i>Find your nearby medical specialist</i></p>
+
+        <marquee scrollAmount="5" style={{
+          backgroundColor: '#d3d3d3',
+          padding: '10px',
+          fontWeight: 'bold',
+          border: '2px dashed #999',
+          margin: '20px 0',
+          color: '#000'
+        }}>
+          🩺 Need a doctor in a hurry? Enter your search above and scroll back to the future!
+        </marquee>
 
         <input
           type="text"
@@ -92,71 +108,84 @@ export default function FindDoctors() {
           onChange={e => setSearch(e.target.value)}
           style={{
             fontSize: '16px',
-            padding: '6px',
-            marginBottom: '20px',
+            padding: '8px',
+            margin: '10px 0 20px',
             width: '60%',
             border: '2px inset gray',
-            backgroundColor: '#fff8dc'
+            backgroundColor: '#fff8dc',
+            boxShadow: 'inset 2px 2px 5px #ddd'
           }}
         />
       </center>
 
-      <hr style={{ border: '1px solid gray', margin: '20px 0' }} />
+      <hr style={{ border: '2px dashed #999', margin: '20px 0' }} />
 
-      <table border="1" width="100%" cellPadding="10" cellSpacing="0" style={{ backgroundColor: '#ffffff' }}>
-        <thead style={{ backgroundColor: '#c0c0c0' }}>
-          <tr>
-            <th>Name</th>
-            <th>Speciality</th>
-            <th>Address</th>
-            <th>Experience</th>
-            <th>Degree</th>
-            <th>Fees (INR)</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filtered.length === 0 && (
+      <div style={{ overflowX: 'auto' }}>
+        <table border="1" width="100%" cellPadding="10" cellSpacing="0" style={{
+          backgroundColor: '#ffffff',
+          borderCollapse: 'collapse',
+          boxShadow: '3px 3px 10px #ccc',
+          fontSize: '16px'
+        }}>
+          <thead style={{ backgroundColor: '#dcdcdc', color: '#000' }}>
             <tr>
-              <td colSpan="7" align="center">No doctors found.</td>
+              <th>Name</th>
+              <th>Speciality</th>
+              <th>Address</th>
+              <th>Experience</th>
+              <th>Degree</th>
+              <th>Fees (INR)</th>
+              <th>Action</th>
             </tr>
-          )}
-          {filtered.map(doc => (
-            <tr key={doc._id}>
-              <td>{doc.name}</td>
-              <td>{doc.speciality}</td>
-              <td>{doc.address?.line1 || 'N/A'}</td>
-              <td>{doc.experience}</td>
-              <td>{doc.degree}</td>
-              <td>{doc.fees}</td>
-              <td>
-                <button
-                  onClick={() => navigate('/book-appointment', { state: { doctorId: doc._id } })}
-                  style={{
-                    fontSize: '14px',
-                    backgroundColor: '#dcdcdc',
-                    border: '2px outset',
-                    padding: '4px 10px',
-                    cursor: 'pointer'
-                  }}
-                >
-                  Book
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {filtered.length === 0 && (
+              <tr>
+                <td colSpan="7" align="center">No doctors found.</td>
+              </tr>
+            )}
+            {filtered.map(doc => (
+              <tr key={doc._id} style={{ textAlign: 'center' }}>
+                <td>{doc.name}</td>
+                <td>{doc.speciality}</td>
+                <td>{doc.address?.line1 || 'N/A'}</td>
+                <td>{doc.experience}</td>
+                <td>{doc.degree}</td>
+                <td>{doc.fees}</td>
+                <td>
+                  <button
+                    onClick={() => navigate('/book-appointment', { state: { doctorId: doc._id } })}
+                    style={{
+                      fontSize: '14px',
+                      backgroundColor: '#e0ffff',
+                      border: '2px outset',
+                      padding: '6px 12px',
+                      cursor: 'pointer',
+                      fontWeight: 'bold',
+                      boxShadow: 'inset 1px 1px 0px #fff, inset -1px -1px 0px #666',
+                      color: '#000'
+                    }}
+                  >
+                    Book
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       <marquee style={{
         marginTop: '30px',
         fontSize: '14px',
-        color: 'gray'
+        backgroundColor: '#fffacd',
+        borderTop: '2px solid #ccc',
+        padding: '8px 0',
+        color: '#000'
       }}>
-        Switch to the new version of the webapp. This version is for demo purposes only. Visit the serious version at <u>https://github.com/dhairyajangir/CuraLink</u>
+        This version is for demo purposes only. Visit the serious version at <a href="https://github.com/dhairyajangir/CuraLink">https://github.com/dhairyajangir/CuraLink</a>
       </marquee>
 
-      {/* Fixed Button */}
       <div style={{
         position: 'fixed',
         bottom: '25px',
@@ -167,12 +196,13 @@ export default function FindDoctors() {
           onClick={() => window.open('https://github.com/kalviumcommunity/S73_Dhairya_Capstone_DABS/discussions', '_blank')}
           style={{
             fontSize: '14px',
-            padding: '8px 14px',
-            border: '2px outset #888',
-            backgroundColor: '#f5f5f5',
+            padding: '10px 16px',
+            border: '3px outset #888',
+            backgroundColor: '#f5f5dc',
             color: '#000080',
             fontWeight: 'bold',
-            cursor: 'pointer'
+            cursor: 'pointer',
+            boxShadow: 'inset 1px 1px 0px #fff, inset -1px -1px 0px #444'
           }}
         >
           📢 <u>Announcement Space</u>
