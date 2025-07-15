@@ -24,7 +24,7 @@ const Home = () => {
         }}>
           Welcome to BookMyDoc Portal
         </h1>
-        <p><i>Inspired by Websites from the year 1999</i></p>
+        <p><i>Works best in CRT monitor</i></p>
       </center>
       <br />
 
