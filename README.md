@@ -1,10 +1,18 @@
 <h1 align="center">Doctor Appointment Booking System (DABS)</h1>
 
 <p align="center">
-  <a href="https://bookmydoc-frontend-dm5l.onrender.com" target="_blank" rel="noopener noreferrer">
+  <a href="https://dabs-bookmydoc.onrender.com" target="_blank" rel="noopener noreferrer">
     <img src="https://github.com/user-attachments/assets/5791c35a-fad2-49a4-ab2a-e1597b98f92d" alt="logo" width="150"/>
   </a>
 </p>
+
+<table width="100%" align="right">
+  <tr>
+    <td align="right">
+      <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
+    </td>
+  </tr>
+</table>
 
 <!--
 <p align="left">
@@ -12,19 +20,12 @@
     <img src="https://img.shields.io/badge/Better%20Version-%F0%9F%A5%9A%20-pink?style=for-the-badge&logo=github" alt="Easter Egg Button"/>
   </a>
 </p>
--->
-
-<!--
-<table width="100%" align="right">
-  <tr>
+    <td align="left">
+      <a href="https://dabs-bookmydoc.onrender.com"><strong>LIVE</strong></a>
+    </td>
     <td align="left">
       <a href="https://bookmydoc-frontend-dm5l.onrender.com"><strong>LIVE</strong></a>
     </td>
-    <td align="right">
-      <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
-    </td>
-  </tr>
-</table>
 -->
 
 
