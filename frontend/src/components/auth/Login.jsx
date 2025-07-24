@@ -29,7 +29,7 @@ const Login = () => {
         throw new Error('Please fill in all fields');
       }
 
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await axios.post(`${apiBase}/users/login`, {

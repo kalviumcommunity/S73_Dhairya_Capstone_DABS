@@ -11,7 +11,7 @@ export default function AdminDashboard() {
 
   const fetchPendingDoctors = async () => {
     try {
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await fetch(`${apiBase}/doctors/pending/approval`);
@@ -26,7 +26,7 @@ export default function AdminDashboard() {
 
   const handleApproval = async (doctorId, approved) => {
     try {
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await fetch(`${apiBase}/doctors/${doctorId}/approve`, {

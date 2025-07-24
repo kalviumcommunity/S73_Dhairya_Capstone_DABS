@@ -1,5 +1,5 @@
 import React from 'react';
-import { CalendarCheck, FileText, Stethoscope, MessageSquare, Clock, CheckCircle, AlertTriangle } from 'lucide-react';
+import { CalendarCheck, FileText, Stethoscope, MessageSquare} from 'lucide-react';
 
 export default function DoctorDashboard() {
   const upcomingAppointments = [

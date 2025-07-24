@@ -19,7 +19,7 @@ export default function PatientDashboard() {
     if (user && user.role === 'user') {
       const fetchAppointments = async () => {
         try {
-          const API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+          const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com';
           const res = await fetch(`${API_BASE_URL}/api/appointments/user/${user._id}`);
           const all = await res.json();
           const today = new Date();
