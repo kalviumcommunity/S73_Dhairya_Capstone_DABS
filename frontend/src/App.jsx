@@ -38,6 +38,10 @@ function App() {
         } />
         
         <Route path="/book-appointment" element={<BookAppointment />} />
+        {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+        {/* <Route path="/doctor-dashboard" element={<DoctorDashboard />} /> */}
+        {/* <Route path="/patient-dashboard" element={<PatientDashboard />} /> */}
+
       </Routes>
     </Router>
   )

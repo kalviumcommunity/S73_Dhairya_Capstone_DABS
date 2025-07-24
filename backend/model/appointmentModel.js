@@ -1,4 +1,7 @@
-import mongoose from "mongoose"
+// Updated backend/appointmentModel.js
+// Added paymentMethod and status fields.
+
+import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
     userId: { type: String, required: true },
@@ -11,8 +14,10 @@ const appointmentSchema = new mongoose.Schema({
     date: { type: Number, required: true },
     cancelled: { type: Boolean, default: false },
     payment: { type: Boolean, default: false },
-    isCompleted: { type: Boolean, default: false }
-})
+    isCompleted: { type: Boolean, default: false },
+    paymentMethod: { type: String, default: 'demo' },
+    status: { type: String, default: 'confirmed' }
+});
 
-const appointmentModel = mongoose.models.appointment || mongoose.model("appointment", appointmentSchema)
-export default appointmentModel
+const appointmentModel = mongoose.models.appointment || mongoose.model("appointment", appointmentSchema);
+export default appointmentModel;

@@ -1,8 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Login = () => {
+  useEffect(() => {
+    if (typeof document !== 'undefined' && !document.getElementById('blinker-keyframes')) {
+      const style = document.createElement('style');
+      style.id = 'blinker-keyframes';
+      style.innerHTML = `@keyframes blinker { 50% { opacity: 0; } }`;
+      document.head.appendChild(style);
+    }
+  }, []);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -20,17 +29,14 @@ const Login = () => {
         throw new Error('Please fill in all fields');
       }
 
-      const API_BASE_URL = window.location.origin.includes('localhost')
-        ? 'http://localhost:5000'
-        : window.location.origin;
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      if (!apiBase.endsWith('/api')) apiBase += '/api';
 
-      const response = await axios.post(`${API_BASE_URL}/api/users/login`, {
+      const response = await axios.post(`${apiBase}/users/login`, {
         email,
         password
       }, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         timeout: 10000,
       });
 
@@ -40,36 +46,42 @@ const Login = () => {
         throw new Error('Invalid response from server');
       }
 
-      const userWithRole = { ...user, role: user.role };
-
       try {
-        localStorage.setItem('user', JSON.stringify(userWithRole));
+        localStorage.setItem('user', JSON.stringify(user));
         localStorage.setItem('token', token);
       } catch {
-        sessionStorage.setItem('user', JSON.stringify(userWithRole));
+        sessionStorage.setItem('user', JSON.stringify(user));
         sessionStorage.setItem('token', token);
       }
 
       window.dispatchEvent(new Event('userChanged'));
 
-      if (userWithRole.role === 'doctor') {
-        navigate('/doctor-dashboard');
-      } else if (userWithRole.role === 'patient') {
-        navigate('/patient-dashboard');
-      } else if (userWithRole.role === 'admin') {
-        navigate('/admin-dashboard');
-      } else {
-        navigate('/');
+       if (user.role === 'doctor' && user.approved === false) {
+        alert('Your account is pending admin approval. Please wait for approval.');
+        return;
       }
+
+      switch (user.role) {
+        case 'admin':
+          navigate('/admin-dashboard');
+          break;
+        case 'doctor':
+          navigate('/doctor-dashboard');
+          break;
+        case 'patient':
+        default:
+          navigate('/patient-dashboard');
+          break;
+      }
+
+
     } catch (error) {
       if (error.response) {
         setError(error.response.data?.message || `Server error: ${error.response.status}`);
       } else if (error.request) {
         setError('Unable to connect to server. Please check your connection.');
-      } else if (error.message) {
-        setError(error.message);
       } else {
-        setError('Login failed. Please try again.');
+        setError(error.message || 'Login failed. Please try again.');
       }
     } finally {
       setLoading(false);
@@ -89,7 +101,7 @@ const Login = () => {
       padding: '30px'
     }}>
       <center>
-        <marquee behavior="alternate" scrollAmount="8" style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>
+        <marquee behavior="alternate" scrollamount="8" style={{ color: 'blue', fontSize: '24px', fontWeight: 'bold' }}>
           Welcome to Login Portal
         </marquee>
 
@@ -124,8 +136,8 @@ const Login = () => {
               }}>
                 <b><u>Demo Accounts</u></b> (Password: <code>password123</code>)
                 <ul style={{ marginTop: '6px', marginBottom: '0px', paddingLeft: '20px' }}>
-                  <li onClick={() => setEmail('admin@bookmydoc.com')} style={{ color: 'red', cursor: 'pointer' }}>
-                    admin@bookmydoc.com - <i>Admin</i>
+                  <li onClick={() => setEmail('dhairya@bookmydoc.com')} style={{ color: 'red', cursor: 'pointer' }}>
+                    dhairya @bookmydoc.com - <i>Admin</i>
                   </li>
                   <li onClick={() => setEmail('dr.dhairya@galaxy.com')} style={{ color: 'navy', cursor: 'pointer' }}>
                     dr.dhairya@galaxy.com - <i>Doctor</i>
@@ -143,8 +155,18 @@ const Login = () => {
 
             {error && (
               <tr>
-                <td colSpan="2" style={{ backgroundColor: '#ffcccc', color: 'darkred', fontWeight: 'bold', textAlign: 'center' }}>
-                  <blink>Oops! there's an error in login. Contact the supreme leader.</blink>
+                <td colSpan="2" style={{
+                  backgroundColor: '#ffcccc',
+                  color: 'darkred',
+                  fontWeight: 'bold',
+                  textAlign: 'center'
+                }}>
+                  <span style={{
+                    animation: 'blinker 1s linear infinite',
+                    color: 'red',
+                  }}>
+                    Oops! there's an error in login. Contact the supreme leader.
+                  </span>
                 </td>
               </tr>
             )}

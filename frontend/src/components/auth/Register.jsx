@@ -47,13 +47,13 @@ const Register = () => {
         }
       }
 
-      const API_BASE_URL = window.location.origin.includes('localhost')
-        ? 'http://localhost:5000'
-        : window.location.origin;
+      // Ensure API_BASE_URL always ends with /api for consistency
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const endpoint = role === 'Doctor'
-        ? `${API_BASE_URL}/api/users/register-doctor`
-        : `${API_BASE_URL}/api/users`;
+        ? `${apiBase}/users/register-doctor`
+        : `${apiBase}/users`;
 
       const payload = role === 'Doctor'
         ? {

@@ -5,55 +5,68 @@ export default function FindDoctors() {
   const [doctors, setDoctors] = useState([]);
   const [search, setSearch] = useState('');
   const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  const demoDoctors = [
-    {
-      _id: 'demo1',
-      name: 'Dr. Ansh',
-      speciality: 'Cardiologist',
-      address: { line1: 'Apollo Hospital, Delhi' },
-      experience: '10 years',
-      degree: 'MBBS, MD',
-      id: 'demo1',
-      fees: 299
-    },
-    {
-      _id: 'demo2',
-      name: 'Dr. Dhairya',
-      speciality: 'Dermatologist',
-      address: { line1: 'Galaxy, Universe' },
-      experience: '13 years',
-      degree: 'MBBS, DDVL',
-      id: 'demo2',
-      fees: 1312
-    },
-    {
-      _id: 'demo3',
-      name: 'Dr. Ashish',
-      speciality: 'Pediatrician',
-      address: { line1: 'Max Hospital, Bangalore' },
-      experience: '12 years',
-      degree: 'MBBS, DCH',
-      id: 'demo3',
-      fees: 499
-    },
-    {
-      _id: 'demo4',
-      name: 'Dr. Abhinav',
-      speciality: 'Physician',
-      address: { line1: 'CKS, Jaipur' },
-      experience: '7 years',
-      degree: 'MBBS, MD',
-      id: 'demo4',
-      fees: 610
-    }
-  ];
-
   useEffect(() => {
-    setDoctors(demoDoctors);
-    setFiltered(demoDoctors);
+    fetchDoctors();
   }, []);
+
+  const fetchDoctors = async () => {
+    try {
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      if (!apiBase.endsWith('/api')) apiBase += '/api';
+
+      const response = await fetch(`${apiBase}/doctors`);
+      const doctorsData = await response.json();
+      setDoctors(doctorsData);
+      setFiltered(doctorsData);
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      const demoDoctors = [
+        {
+          _id: 'demo1',
+          name: 'Dr. Ansh',
+          speciality: 'Cardiologist',
+          address: { line1: 'Apollo Hospital, Earth-199999' },
+          experience: '10 years',
+          degree: 'MBBS, MD',
+          fees: 299
+        },
+        {
+          _id: 'demo2',
+          name: 'Dr. Dhairya',
+          speciality: 'Neurologist',
+          address: { line1: 'Galaxy, Earth-616' },
+          experience: '13 years',
+          degree: 'MBBS, MD',
+          fees: 1312
+        },
+        {
+          _id: 'demo3',
+          name: 'Dr. Ashish',
+          speciality: 'Pediatrician',
+          address: { line1: 'Max Hospital, Earth-58163' },
+          experience: '12 years',
+          degree: 'MBBS, DCH',
+          fees: 499
+        },
+        {
+          _id: 'demo4',
+          name: 'Dr. Abhinav',
+          speciality: 'Physician',
+          address: { line1: 'CKS, Earth-811' },
+          experience: '7 years',
+          degree: 'MBBS, MD',
+          fees: 610
+        }
+      ];
+      setDoctors(demoDoctors);
+      setFiltered(demoDoctors);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (!search) {
@@ -67,6 +80,31 @@ export default function FindDoctors() {
       );
     }
   }, [search, doctors]);
+
+  const handleBookAppointment = (doctorId) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (!user) {
+      alert('Please login to book an appointment');
+      navigate('/login');
+      return;
+    }
+    navigate('/book-appointment', { state: { doctorId } });
+  };
+
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh',
+        backgroundColor: '#fffff0',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        fontFamily: 'Verdana, Arial, sans-serif'
+      }}>
+        <p style={{ fontSize: '20px', color: '#000080' }}>Loading doctors...</p>
+      </div>
+    );
+  }
 
   return (
     <div style={{
@@ -134,7 +172,7 @@ export default function FindDoctors() {
               <th>Address</th>
               <th>Experience</th>
               <th>Degree</th>
-              <th>Fees (INR)</th>
+              <th>Fees</th>
               <th>Action</th>
             </tr>
           </thead>
@@ -151,10 +189,10 @@ export default function FindDoctors() {
                 <td>{doc.address?.line1 || 'N/A'}</td>
                 <td>{doc.experience}</td>
                 <td>{doc.degree}</td>
-                <td>{doc.fees}</td>
+                <td>₹{doc.fees}</td>
                 <td>
                   <button
-                    onClick={() => navigate('/book-appointment', { state: { doctorId: doc._id } })}
+                    onClick={() => handleBookAppointment(doc._id)}
                     style={{
                       fontSize: '14px',
                       backgroundColor: '#e0ffff',

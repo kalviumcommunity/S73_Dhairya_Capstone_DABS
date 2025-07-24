@@ -1,33 +1,53 @@
-import React from 'react';
-import { Users, UserCheck, Calendar, TrendingUp, Clock, CheckCircle, XCircle, AlertTriangle } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Users, UserCheck, Calendar, TrendingUp } from 'lucide-react';
 
 export default function AdminDashboard() {
-  const pendingDoctors = [
-    {
-      id: '1',
-      name: 'Dr. Emma Johnson',
-      specialty: 'Pediatrics',
-      experience: '8 years',
-      qualification: 'MD, FAAP',
-      submittedAt: '2024-01-20',
-    },
-    {
-      id: '2',
-      name: 'Dr. Michael Chen',
-      specialty: 'Neurology',
-      experience: '12 years',
-      qualification: 'MD, PhD',
-      submittedAt: '2024-01-21',
-    },
-    {
-      id: '3',
-      name: 'Dr. Lisa Rodriguez',
-      specialty: 'Orthopedics',
-      experience: '6 years',
-      qualification: 'MD, MS',
-      submittedAt: '2024-01-22',
-    },
-  ];
+  const [pendingDoctors, setPendingDoctors] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPendingDoctors();
+  }, []);
+
+  const fetchPendingDoctors = async () => {
+    try {
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      if (!apiBase.endsWith('/api')) apiBase += '/api';
+
+      const response = await fetch(`${apiBase}/doctors/pending/approval`);
+      const doctors = await response.json();
+      setPendingDoctors(doctors);
+    } catch (error) {
+      console.error('Error fetching pending doctors:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleApproval = async (doctorId, approved) => {
+    try {
+      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      if (!apiBase.endsWith('/api')) apiBase += '/api';
+
+      const response = await fetch(`${apiBase}/doctors/${doctorId}/approve`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ approved }),
+      });
+
+      if (response.ok) {
+        alert(approved ? 'Doctor approved successfully!' : 'Doctor application rejected.');
+        fetchPendingDoctors();
+      } else {
+        alert('Error processing request');
+      }
+    } catch (error) {
+      console.error('Error updating doctor status:', error);
+      alert('Error processing request');
+    }
+  };
 
   const recentActivity = [
     {
@@ -63,13 +83,6 @@ export default function AdminDashboard() {
     { title: 'Analytics', icon: TrendingUp, href: '/analytics' },
   ];
 
-  const getActivityIcon = (type) => {
-    if (type === 'success') return;
-    if (type === 'warning') return ;
-    if (type === 'error') return ;
-    return ;
-  };
-
   return (
     <div style={{ minHeight: '100vh', backgroundColor: '#fff8dc', padding: '20px', fontFamily: 'Times New Roman, serif', color: '#000', border: '3px ridge #999' }}>
       <center>
@@ -82,18 +95,26 @@ export default function AdminDashboard() {
           <tr>
             <td width="65%" valign="top">
               <fieldset style={{ border: '2px groove gray', padding: '10px', backgroundColor: '#ffffff' }}>
-                <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#800000' }}>Pending Doctor Approvals ({pendingDoctors.length})</legend>
-                {pendingDoctors.map((doc) => (
-                  <div key={doc.id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0' }}>
-                    <b>{doc.name}</b> — {doc.specialty} ({doc.qualification})<br />
-                    <small>{doc.experience} • Applied: {doc.submittedAt}</small>
-                    <div style={{ marginTop: '8px' }}>
-                      <button style={buttonStyle('green')}>Approve</button>
-                      <button style={buttonStyle('red')}>Reject</button>
-                      <button style={buttonStyle('gray')}>Review</button>
+                <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#800000' }}>
+                  Pending Doctor Approvals ({pendingDoctors.length})
+                </legend>
+                {loading ? (
+                  <p>Loading pending doctors...</p>
+                ) : pendingDoctors.length === 0 ? (
+                  <p>No pending doctor approvals.</p>
+                ) : (
+                  pendingDoctors.map((doc) => (
+                    <div key={doc._id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0' }}>
+                      <b>{doc.name}</b> — {doc.speciality || 'Specialty Unknown'} ({doc.degree || 'N/A'})<br />
+                      <small>{doc.experience || '0 years'} • Email: {doc.email}</small>
+                      <div style={{ marginTop: '8px' }}>
+                        <button onClick={() => handleApproval(doc._id, true)} style={buttonStyle('green')}>Approve</button>
+                        <button onClick={() => handleApproval(doc._id, false)} style={buttonStyle('red')}>Reject</button>
+                        <button style={buttonStyle('gray')}>Review</button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))
+                )}
               </fieldset>
             </td>
             <td width="35%" valign="top">
@@ -112,7 +133,6 @@ export default function AdminDashboard() {
                 <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Recent Activity</legend>
                 {recentActivity.map((item, index) => (
                   <div key={index} style={{ marginBottom: '8px' }}>
-                    {getActivityIcon(item.type)}{' '}
                     <span>{item.action}</span><br />
                     <small>{item.user} • {item.time}</small>
                   </div>

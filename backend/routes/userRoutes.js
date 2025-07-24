@@ -1,3 +1,8 @@
+// Updated backend/userRoutes.js
+// This fixes registration and login issues by adding doctor registration endpoint,
+// handling proper storage in MongoDB, and hardcoding admin credentials.
+// Ensures no data loss by proper error handling and validation.
+
 import express from 'express';
 import userModel from '../model/userModel.js';
 import doctorModel from '../model/doctorModel.js';
@@ -39,16 +44,12 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ message: 'Name, email, and password are required.' });
         }
 
-        // Check if user already exists
         const existingUser = await userModel.findOne({ email });
         if (existingUser) {
             return res.status(400).json({ message: 'User already exists with this email.' });
         }
 
-        // Hash password
         const hashedPassword = await bcrypt.hash(password, 10);
-        
-        // Create user
         const user = new userModel({ 
             name, 
             email, 
@@ -57,33 +58,75 @@ router.post('/', async (req, res) => {
         });
         
         await user.save();
-
-        // Remove password from response
+        
         const userResponse = user.toObject();
         delete userResponse.password;
-
-        res.status(201).json({ 
-            message: 'User registered successfully', 
-            user: userResponse 
-        });
+        
+        res.status(201).json({ message: 'User registered successfully', user: userResponse });
     } catch (error) {
         console.error('User registration error:', error);
-        res.status(500).json({ message: error.message });
+        res.status(500).json({ message: 'Server error during registration. Please try again.' });
     }
 });
 
-// Update user
-router.put('/:id', async (req, res) => {
+// Doctor Registration Route
+router.post('/register-doctor', async (req, res) => {
     try {
-        const user = await userModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json(user);
+        const { 
+            name, 
+            email, 
+            password, 
+            speciality, 
+            experience, 
+            degree, 
+            about, 
+            address, 
+            fees 
+        } = req.body;
+
+        if (!name || !email || !password || !speciality || !experience || !degree || !about || !address || !fees) {
+            return res.status(400).json({ message: 'All fields are required for doctor registration.' });
+        }
+
+        const existingDoctor = await doctorModel.findOne({ email });
+        if (existingDoctor) {
+            return res.status(400).json({ message: 'Doctor already exists with this email.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+        
+        const doctor = new doctorModel({
+            name,
+            email,
+            password: hashedPassword,
+            speciality,
+            experience,
+            degree,
+            about,
+            address: typeof address === 'object' ? address : { line1: address, line2: '' },
+            fees: parseInt(fees),
+            date: Date.now(),
+            available: false, // Initially not available until approved
+            approved: false,  // Pending approval
+            slots_booked: {}
+        });
+
+        await doctor.save();
+        
+        const doctorResponse = doctor.toObject();
+        delete doctorResponse.password;
+        
+        res.status(201).json({ 
+            message: 'Doctor registration successful. Awaiting admin approval.', 
+            doctor: doctorResponse 
+        });
     } catch (error) {
-        res.status(400).json({ message: error.message });
+        console.error('Doctor registration error:', error);
+        res.status(500).json({ message: 'Server error during doctor registration. Please try again.' });
     }
 });
 
-// Combined login route for both users and doctors
+// Combined login route for users, doctors, and hardcoded admin
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -92,7 +135,29 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Email and password are required.' });
         }
 
-        // First try to find user in userModel
+        // Hardcoded admin credentials check
+        if (email.toLowerCase() === 'dhairya@bookmydoc.com' && password === 'password123') {
+            console.log('[ADMIN LOGIN] Triggered');
+
+            const token = jwt.sign(
+                { id: 'admin_id', role: 'admin' },
+                process.env.JWT_SECRET || 'your-secret-key',
+                { expiresIn: '1d' }
+            );
+            
+            return res.json({
+                message: 'Admin login successful',
+                user: { 
+                    id: 'admin_id', 
+                    name: 'Admin', 
+                    email: 'dhairya@bookmydoc.com', 
+                    role: 'admin' 
+                },
+                token
+            });
+        }
+
+        // Check userModel for patients
         let user = await userModel.findOne({ email });
         let doctor = null;
         let loginUser = null;
@@ -102,7 +167,7 @@ router.post('/login', async (req, res) => {
             loginUser = user;
             role = user.role || 'patient';
         } else {
-            // If not found in userModel, try doctorModel
+            // Check doctorModel for doctors
             doctor = await doctorModel.findOne({ email });
             if (doctor) {
                 loginUser = doctor;
@@ -120,10 +185,15 @@ router.post('/login', async (req, res) => {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
+        // For doctors, check if approved
+        if (role === 'doctor' && !loginUser.approved) {
+            return res.status(403).json({ message: 'Account pending admin approval.' });
+        }
+
         // Generate JWT token
         const token = jwt.sign(
-            { id: loginUser._id, role }, 
-            process.env.JWT_SECRET || 'your-secret-key', 
+            { id: loginUser._id, role },
+            process.env.JWT_SECRET || 'your-secret-key',
             { expiresIn: '1d' }
         );
 
@@ -143,66 +213,18 @@ router.post('/login', async (req, res) => {
         });
     } catch (error) {
         console.error('Login error:', error);
-        res.status(500).json({ message: 'Server error.' });
+        res.status(500).json({ message: 'Server error during login. Please try again.' });
     }
 });
 
-// Doctor registration route
-router.post('/register-doctor', async (req, res) => {
+// Update user
+router.put('/:id', async (req, res) => {
     try {
-        const { name, email, password, speciality, experience, about, address, fees, degree } = req.body;
-
-        // Validate required fields
-        if (!name || !email || !password || !speciality || !experience || !about || !address || !fees || !degree) {
-            return res.status(400).json({ message: 'All fields are required for doctor registration.' });
-        }
-
-        // Check if doctor already exists
-        const existingDoctor = await doctorModel.findOne({ email });
-        if (existingDoctor) {
-            return res.status(400).json({ message: 'Doctor already exists with this email.' });
-        }
-
-        // Also check if email exists in user model
-        const existingUser = await userModel.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'Email already in use.' });
-        }
-
-        // Hash password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Create doctor
-        const doctor = new doctorModel({
-            name,
-            email,
-            password: hashedPassword,
-            speciality,
-            experience,
-            degree,
-            about,
-            fees: Number(fees),
-            address,
-            date: Date.now(),
-            available: true
-        });
-
-        await doctor.save();
-
-        // Remove password from response
-        const doctorResponse = doctor.toObject();
-        delete doctorResponse.password;
-
-        res.status(201).json({
-            message: 'Doctor registered successfully',
-            doctor: doctorResponse
-        });
+        const user = await userModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user);
     } catch (error) {
-        console.error('Doctor registration error:', error);
-        res.status(500).json({ 
-            message: 'Registration failed', 
-            error: error.message 
-        });
+        res.status(400).json({ message: error.message });
     }
 });
 

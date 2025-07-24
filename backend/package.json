@@ -23,7 +23,7 @@
     "middleware": "^1.0.0",
     "mongoose": "^8.16.2",
     "multer": "^1.4.5-lts.1",
-    "nodemon": "^3.1.9",
+    "nodemon": "^3.1.10",
     "react-router-dom": "^7.6.3",
     "validator": "^13.12.0"
   }

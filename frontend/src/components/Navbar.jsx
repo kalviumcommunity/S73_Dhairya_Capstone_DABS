@@ -3,15 +3,18 @@ import { useEffect, useState } from 'react';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   useEffect(() => {
     const updateUser = () => {
       const stored = localStorage.getItem('user');
       setUser(stored ? JSON.parse(stored) : null);
     };
+
     updateUser();
     window.addEventListener('storage', updateUser);
     window.addEventListener('userChanged', updateUser);
+
     return () => {
       window.removeEventListener('storage', updateUser);
       window.removeEventListener('userChanged', updateUser);
@@ -26,13 +29,28 @@ const Navbar = () => {
     window.location.href = '/login';
   };
 
+  const getDashboardLink = () => {
+    if (!user) return '/';
+    switch (user.role) {
+      case 'admin':
+        return '/admin-dashboard';
+      case 'doctor':
+        return '/doctor-dashboard';
+      case 'patient':
+      case 'user':
+      default:
+        return '/patient-dashboard';
+    }
+  };
+
   return (
     <div style={{
       backgroundColor: '#c0c0c0',
       borderBottom: '3px ridge gray',
       padding: '10px',
       fontFamily: 'Verdana, Geneva, sans-serif',
-      fontSize: '14px'
+      fontSize: '14px',
+      position: 'relative'
     }}>
       <table width="100%">
         <tbody>
@@ -74,54 +92,59 @@ const Navbar = () => {
                 </>
               ) : (
                 <>
-                  {user.role === 'doctor' && <NavItem to="/doctor-dashboard" label="Doctor Dashboard" />}
-                  {(user.role === 'user' || user.role === 'patient') && (
-                    <NavItem to="/patient-dashboard" label="Patient Dashboard" />
-                  )}
+                  <NavItem to={getDashboardLink()} label="Dashboard" />
 
                   {/* Profile Dropdown */}
-                  <span style={{
-                    marginLeft: '15px',
-                    position: 'relative',
-                    display: 'inline-block'
-                  }}>
+                  <span
+                    onClick={() => setShowDropdown(!showDropdown)}
+                    style={{
+                      marginLeft: '15px',
+                      position: 'relative',
+                      display: 'inline-block',
+                      cursor: 'pointer'
+                    }}
+                  >
                     <span style={{
                       fontWeight: 'bold',
                       border: '2px inset #999',
                       padding: '4px 8px',
-                      backgroundColor: '#efefef',
-                      cursor: 'default'
+                      backgroundColor: '#efefef'
                     }}>
                       {user.name?.split(' ')[0]} ▼
                     </span>
 
-                    <div style={{
-                      position: 'absolute',
-                      right: 0,
-                      top: '28px',
-                      backgroundColor: '#fff',
-                      border: '1px solid #999',
-                      padding: '5px',
-                      zIndex: 99,
-                      fontSize: '13px',
-                      width: '180px'
-                    }}>
-                      <div style={{ padding: '5px 10px', borderBottom: '1px solid #ccc' }}>{user.email}</div>
-                      <button
-                        onClick={handleLogout}
-                        style={{
-                          backgroundColor: '#f5f5f5',
-                          border: 'none',
-                          padding: '6px 10px',
-                          width: '100%',
-                          textAlign: 'left',
-                          cursor: 'pointer',
-                          marginTop: '4px'
-                        }}
-                      >
-                        Logout
-                      </button>
-                    </div>
+                    {showDropdown && (
+                      <div style={{
+                        position: 'absolute',
+                        right: 0,
+                        top: '28px',
+                        backgroundColor: '#fff',
+                        border: '1px solid #999',
+                        padding: '5px',
+                        zIndex: 99,
+                        fontSize: '13px',
+                        width: '180px',
+                        boxShadow: '2px 2px 6px rgba(0,0,0,0.2)'
+                      }}>
+                        <div style={{ padding: '5px 10px', borderBottom: '1px solid #ccc' }}>
+                          {user.email}
+                        </div>
+                        <button
+                          onClick={handleLogout}
+                          style={{
+                            backgroundColor: '#f5f5f5',
+                            border: 'none',
+                            padding: '6px 10px',
+                            width: '100%',
+                            textAlign: 'left',
+                            cursor: 'pointer',
+                            marginTop: '4px'
+                          }}
+                        >
+                          Logout
+                        </button>
+                      </div>
+                    )}
                   </span>
                 </>
               )}
