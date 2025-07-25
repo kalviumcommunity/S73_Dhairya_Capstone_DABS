@@ -6,13 +6,9 @@
   </a>
 </p>
 
-<table width="100%" align="right">
-  <tr>
-    <td align="right">
-      <a href="https://s73-dhairya-capstone-dabs-1.onrender.com"><strong>BACKEND</strong></a>
-    </td>
-  </tr>
-</table>
+
+| <div align="left">[**BACKEND**](https://s73-dhairya-capstone-dabs-1.onrender.com/)</div> |
+|---|
 
 <!--
 <p align="left">
