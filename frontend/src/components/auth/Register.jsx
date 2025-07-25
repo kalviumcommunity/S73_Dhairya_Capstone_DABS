@@ -48,7 +48,7 @@ const Register = () => {
       }
 
       // Ensure API_BASE_URL always ends with /api for consistency
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
+      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const endpoint = role === 'Doctor'

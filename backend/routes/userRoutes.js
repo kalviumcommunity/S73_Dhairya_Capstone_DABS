@@ -1,8 +1,3 @@
-// Updated backend/userRoutes.js
-// This fixes registration and login issues by adding doctor registration endpoint,
-// handling proper storage in MongoDB, and hardcoding admin credentials.
-// Ensures no data loss by proper error handling and validation.
-
 import express from 'express';
 import userModel from '../model/userModel.js';
 import doctorModel from '../model/doctorModel.js';
@@ -10,32 +5,9 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 const router = express.Router();
-
-// Middleware to parse JSON payloads
 router.use(express.json());
 
-// Get all users
-router.get('/', async (req, res) => {
-    try {
-        const users = await userModel.find();
-        res.json(users);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Get user by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const user = await userModel.findById(req.params.id);
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
-// Create new user (Patient) - Patient Registration
+// Patient Registration
 router.post('/', async (req, res) => {
     try {
         const { name, email, password, role = 'patient' } = req.body;
@@ -69,7 +41,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Doctor Registration Route
+// Doctor Registration
 router.post('/register-doctor', async (req, res) => {
     try {
         const { 
@@ -106,8 +78,8 @@ router.post('/register-doctor', async (req, res) => {
             address: typeof address === 'object' ? address : { line1: address, line2: '' },
             fees: parseInt(fees),
             date: Date.now(),
-            available: false, // Initially not available until approved
-            approved: false,  // Pending approval
+            available: false,
+            approved: false,
             slots_booked: {}
         });
 
@@ -126,7 +98,7 @@ router.post('/register-doctor', async (req, res) => {
     }
 });
 
-// Combined login route for users, doctors, and hardcoded admin
+// Combined login route
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -135,10 +107,23 @@ router.post('/login', async (req, res) => {
             return res.status(400).json({ message: 'Email and password are required.' });
         }
 
-        // Hardcoded admin credentials check
-        if (email.toLowerCase() === 'dhairya@bookmydoc.com' && password === 'password123') {
-            console.log('[ADMIN LOGIN] Triggered');
+        let user = await userModel.findOne({ email });
+        let doctor = null;
+        let loginUser = null;
+        let role = null;
 
+        if (user) {
+            loginUser = user;
+            role = user.role || 'patient';
+        } else {
+            doctor = await doctorModel.findOne({ email });
+            if (doctor) {
+                loginUser = doctor;
+                role = 'doctor';
+            }
+        }
+        
+        if (email.toLowerCase() === 'dhairya@bookmydoc.com' && password === 'password123') {
             const token = jwt.sign(
                 { id: 'admin_id', role: 'admin' },
                 process.env.JWT_SECRET || 'your-secret-key',
@@ -157,47 +142,26 @@ router.post('/login', async (req, res) => {
             });
         }
 
-        // Check userModel for patients
-        let user = await userModel.findOne({ email });
-        let doctor = null;
-        let loginUser = null;
-        let role = null;
-
-        if (user) {
-            loginUser = user;
-            role = user.role || 'patient';
-        } else {
-            // Check doctorModel for doctors
-            doctor = await doctorModel.findOne({ email });
-            if (doctor) {
-                loginUser = doctor;
-                role = 'doctor';
-            }
-        }
 
         if (!loginUser) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // Verify password
         const isMatch = await bcrypt.compare(password, loginUser.password);
         if (!isMatch) {
             return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
-        // For doctors, check if approved
         if (role === 'doctor' && !loginUser.approved) {
             return res.status(403).json({ message: 'Account pending admin approval.' });
         }
 
-        // Generate JWT token
         const token = jwt.sign(
             { id: loginUser._id, role },
             process.env.JWT_SECRET || 'your-secret-key',
             { expiresIn: '1d' }
         );
 
-        // Remove password from response
         const userResponse = loginUser.toObject();
         delete userResponse.password;
 
@@ -214,17 +178,6 @@ router.post('/login', async (req, res) => {
     } catch (error) {
         console.error('Login error:', error);
         res.status(500).json({ message: 'Server error during login. Please try again.' });
-    }
-});
-
-// Update user
-router.put('/:id', async (req, res) => {
-    try {
-        const user = await userModel.findByIdAndUpdate(req.params.id, req.body, { new: true });
-        if (!user) return res.status(404).json({ message: 'User not found' });
-        res.json(user);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
     }
 });
 

@@ -32,7 +32,7 @@ export default function BookAppointment() {
 
   const fetchDoctorById = async (id) => {
     try {
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
+      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await fetch(`${apiBase}/doctors/${id}`);
@@ -68,7 +68,7 @@ export default function BookAppointment() {
         status: 'confirmed'
       };
 
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'http://localhost:5000/api';
+      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await fetch(`${apiBase}/appointments`, {

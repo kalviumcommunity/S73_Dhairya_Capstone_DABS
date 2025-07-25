@@ -21,14 +21,20 @@ const __dirname = path.dirname(__filename);
 const app = express()
 const PORT = process.env.PORT || 5050
 
-// middleware
-app.use(cors({
+
+// --- START: NEW CORS CONFIGURATION ---
+const corsOptions = {
   origin: [
-    'http://localhost:5173',
-    'https://bookmydoc-frontend-dm5l.onrender.com'
+    'http://localhost:5173', // For local development
+    'https://dabs-bookmydoc.onrender.com' // Deployed frontend
   ],
-  credentials: true,
-}));
+  methods: "GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS", // Explicitly allow all methods
+  allowedHeaders: "Content-Type,Authorization", // Explicitly allow required headers
+  credentials: true
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+// --- END: NEW CORS CONFIGURATION ---
 app.use(express.json());
 
 // Serve static files for uploaded images

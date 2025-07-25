@@ -14,7 +14,7 @@ export default function FindDoctors() {
 
   const fetchDoctors = async () => {
     try {
-      let apiBase = process.env.REACT_APP_API_BASE_URL || 'https://dabs-bookmydoc.onrender.com/api';
+      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       if (!apiBase.endsWith('/api')) apiBase += '/api';
 
       const response = await fetch(`${apiBase}/doctors`);
