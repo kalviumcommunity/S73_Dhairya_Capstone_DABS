@@ -60,7 +60,7 @@ const Navbar = () => {
               <Link to="/" style={{
                 fontWeight: 'bold',
                 fontSize: '18px',
-                textDecoration: 'bold',
+                textDecoration: 'none',
                 color: '#000080'
               }}>
                 ➤ BookMyDoc
