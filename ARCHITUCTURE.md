@@ -120,7 +120,7 @@ S73_Dhairya_Capstone_DABS/
 │   │   ├── appointmentRoutes.js
 │   │   ├── doctorRoutes.js
 │   │   └── userRoutes.js
-│   ├── seedDemoUsers.js                  # Demo data seeding script (optional)
+│   ├── seedDemoUsers.js                  # Demo data seeding script
 │   ├── server.js                         # Entry point of the backend server
 │   ├── .env                              # Backend environment variables
 │   ├── .gitignore
@@ -130,35 +130,48 @@ S73_Dhairya_Capstone_DABS/
 ├── frontend/                             # Frontend app - React + Vite + Tailwind
 │   ├── public/
 │   ├── src/
-│   │   ├── assets/                       # Static assets (e.g., logos, images)
+│   │   ├── assets/                       # Static assets like logos, icons, etc.
 │   │   ├── components/                   # Reusable UI components
-│   │   │   ├── auth/                     # Login & Registration
+│   │   │   ├── auth/                     # Auth-related components
 │   │   │   │   ├── Login.jsx
-│   │   │   │   └── Register.jsx
-│   │   │   ├── dashboard/                # Dashboards by user role
+│   │   │   │   ├── Register.jsx
+│   │   │   │   └── PrivateRoute.jsx      # Protected route logic
+│   │   │   ├── dashboard/                # Dashboards based on user roles
 │   │   │   │   ├── AdminDashboard.jsx
 │   │   │   │   ├── DoctorDashboard.jsx
-│   │   │   │   └── PatientDashboard.jsx
+│   │   │   │   ├── PatientDashboard.jsx
+│   │   │   │   └── BookAppointment.jsx
 │   │   │   ├── Home.jsx
 │   │   │   └── Navbar.jsx
-│   │   ├── pages/                        # Route-level pages
+│   │   ├── pages/                        # Main route-level views/pages
+│   │   │   ├── AllAppointments.jsx
+│   │   │   ├── DoctorAppointments.jsx
 │   │   │   ├── FindDoctors.jsx
-│   │   │   └── Home.jsx
-│   │   ├── App.jsx                       # Main app component
+│   │   │   ├── Home.jsx
+│   │   │   ├── ManageDoctors.jsx
+│   │   │   ├── ViewPatients.jsx
+│   │   │   └── WriteNotes.jsx
+│   │   ├── App.jsx                       # Main app wrapper with routing
 │   │   ├── App.css
 │   │   ├── index.css
-│   │   └── main.jsx                      # Entry point for React
+│   │   └── main.jsx                      # ReactDOM entry point
 │   ├── .env                              # Frontend environment variables
 │   ├── .gitignore
 │   ├── index.html
 │   ├── package.json
 │   ├── package-lock.json
 │   ├── postcss.config.js
+|   ├── README.md
 │   ├── tailwind.config.js
 │   ├── vite.config.js
 │   └── eslint.config.js
 │
-├── README.md                             # Project overview and setup guide
+├── .eslintrc.js                          # Root ESLint config (if not inside frontend/)
+├── README.md                             # Main project overview
+├── ARCHITECTURE.md                       # System/component architecture
+├── SECURITY.md                           # Security policies or practices
+├── LICENSE                               # License file
+
 ```
 
 ---
