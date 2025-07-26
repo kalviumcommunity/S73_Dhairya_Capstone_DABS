@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Calendar, Clock } from 'lucide-react';
+// import { Calendar, Clock } from 'lucide-react';
 
 // Fake localStorage getter
 function getUser() {
