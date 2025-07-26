@@ -5,7 +5,7 @@
 import express from 'express';
 import doctorModel from '../model/doctorModel.js';
 // import bcrypt from 'bcrypt';
-// import multer from 'multer';
+import multer from 'multer';
 // import path from 'path';
 
 const router = express.Router();

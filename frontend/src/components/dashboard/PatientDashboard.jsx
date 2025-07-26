@@ -16,19 +16,29 @@ export default function PatientDashboard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (user && user.role === 'user') {
+    // Set user from localStorage on component mount
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    setUser(storedUser);
+
+    // ** FIX: Check for storedUser and storedUser.id before fetching **
+    if (storedUser && storedUser.id) {
       const fetchAppointments = async () => {
         try {
           const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-          const res = await fetch(`${API_BASE_URL}/api/appointments/user/${user._id}`);
-          const all = await res.json();
+          // ** FIX: Use storedUser.id to fetch appointments **
+          const res = await fetch(`${API_BASE_URL}/api/appointments/user/${storedUser.id}`);
+          if (!res.ok) {
+            throw new Error('Failed to fetch appointments');
+          }
+          const allAppointments = await res.json();
           const today = new Date();
-          const filtered = all
-            .filter(a => new Date(a.slotDate) >= today)
-            .sort((a, b) => new Date(a.slotDate) - new Date(b.slotDate))
-            .slice(0, 3);
+          today.setHours(0, 0, 0, 0); 
+          const filtered = allAppointments
+            .filter(a => !a.cancelled && new Date(a.slotDate) >= today)
+            .sort((a, b) => new Date(a.slotDate) - new Date(b.slotDate));
           setUpcomingAppointments(filtered);
-        } catch {
+        } catch (error) {
+          console.error("Error fetching appointments:", error);
           setUpcomingAppointments([]);
         } finally {
           setLoading(false);
@@ -38,7 +48,7 @@ export default function PatientDashboard() {
     } else {
       setLoading(false);
     }
-  }, [user]);
+  }, []);
 
   const quickActions = [
     {
