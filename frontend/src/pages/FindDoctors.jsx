@@ -13,52 +13,61 @@ export default function FindDoctors() {
   }, []);
 
   const fetchDoctors = async () => {
+    setLoading(true);
+    const demoDoctors = [
+      {
+        _id: 'demo1',
+        name: 'Dr. Ansh',
+        speciality: 'Cardiologist',
+        address: { line1: 'Apollo Hospital, Earth-199999' },
+        experience: '10 years',
+        degree: 'MBBS, MD',
+        fees: 299
+      },
+      {
+        _id: 'demo2',
+        name: 'Dr. Dhairya',
+        speciality: 'Neurologist',
+        address: { line1: 'Galaxy, Earth-616' },
+        experience: '13 years',
+        degree: 'MBBS, MD',
+        fees: 1312
+      },
+      {
+        _id: 'demo3',
+        name: 'Dr. Ashish',
+        speciality: 'Pediatrician',
+        address: { line1: 'Max Hospital, Earth-58163' },
+        experience: '12 years',
+        degree: 'MBBS, DCH',
+        fees: 499
+      },
+      {
+        _id: 'demo4',
+        name: 'Dr. Abhinav',
+        speciality: 'Physician',
+        address: { line1: 'CKS, Earth-811' },
+        experience: '7 years',
+        degree: 'MBBS, MD',
+        fees: 610
+      }
+    ];
+
     try {
       const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       const response = await fetch(`${API_BASE_URL}/api/doctors`);
       const doctorsData = await response.json();
-      setDoctors(doctorsData);
-      setFiltered(doctorsData);
+
+      // Show demo doctors if the database returns no approved doctors
+      if (response.ok && doctorsData && doctorsData.length > 0) {
+        setDoctors(doctorsData);
+        setFiltered(doctorsData);
+      } else {
+        setDoctors(demoDoctors);
+        setFiltered(demoDoctors);
+      }
     } catch (error) {
       console.error('Error fetching doctors:', error);
-      const demoDoctors = [
-        {
-          _id: 'demo1',
-          name: 'Dr. Ansh',
-          speciality: 'Cardiologist',
-          address: { line1: 'Apollo Hospital, Earth-199999' },
-          experience: '10 years',
-          degree: 'MBBS, MD',
-          fees: 299
-        },
-        {
-          _id: 'demo2',
-          name: 'Dr. Dhairya',
-          speciality: 'Neurologist',
-          address: { line1: 'Galaxy, Earth-616' },
-          experience: '13 years',
-          degree: 'MBBS, MD',
-          fees: 1312
-        },
-        {
-          _id: 'demo3',
-          name: 'Dr. Ashish',
-          speciality: 'Pediatrician',
-          address: { line1: 'Max Hospital, Earth-58163' },
-          experience: '12 years',
-          degree: 'MBBS, DCH',
-          fees: 499
-        },
-        {
-          _id: 'demo4',
-          name: 'Dr. Abhinav',
-          speciality: 'Physician',
-          address: { line1: 'CKS, Earth-811' },
-          experience: '7 years',
-          degree: 'MBBS, MD',
-          fees: 610
-        }
-      ];
       setDoctors(demoDoctors);
       setFiltered(demoDoctors);
     } finally {

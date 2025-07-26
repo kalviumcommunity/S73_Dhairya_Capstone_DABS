@@ -53,6 +53,7 @@ const Register = () => {
         ? `${API_BASE_URL}/api/users/register-doctor`
         : `${API_BASE_URL}/api/users`;
 
+
       const payload = role === 'Doctor'
         ? {
             name: `${formData.firstName} ${formData.lastName}`,
@@ -74,6 +75,9 @@ const Register = () => {
             password: formData.password,
             role: 'patient'
           };
+
+      // Debug: log the payload being sent
+      console.log('Registering with payload:', payload);
 
       await axios.post(endpoint, payload, {
         headers: { 'Content-Type': 'application/json' },
