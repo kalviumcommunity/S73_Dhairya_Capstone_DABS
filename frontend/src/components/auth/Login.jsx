@@ -29,10 +29,11 @@ const Login = () => {
         throw new Error('Please fill in all fields');
       }
 
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await axios.post(`${apiBase}/users/login`, {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      const LOGIN_ENDPOINT = '/api/users/login';
+      const fullApiUrl = `${API_BASE_URL}${LOGIN_ENDPOINT}`;
+      console.log(`Attempting to login at: ${fullApiUrl}`);
+      const response = await axios.post(fullApiUrl, {
         email,
         password
       }, {
@@ -155,18 +156,8 @@ const Login = () => {
 
             {error && (
               <tr>
-                <td colSpan="2" style={{
-                  backgroundColor: '#ffcccc',
-                  color: 'darkred',
-                  fontWeight: 'bold',
-                  textAlign: 'center'
-                }}>
-                  <span style={{
-                    animation: 'blinker 1s linear infinite',
-                    color: 'red',
-                  }}>
-                    Oops! there's an error in login. Contact the supreme leader.
-                  </span>
+                <td colSpan="2" style={{ backgroundColor: '#ffcccc', color: 'darkred', fontWeight: 'bold', textAlign: 'center' }}>
+                  Oops! there's an error in registration. Contact the supreme leader.
                 </td>
               </tr>
             )}

@@ -32,10 +32,8 @@ export default function BookAppointment() {
 
   const fetchDoctorById = async (id) => {
     try {
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await fetch(`${apiBase}/doctors/${id}`);
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/doctors/${id}`);
       if (response.ok) {
         const doctorData = await response.json();
         setDoctor(doctorData);
@@ -68,10 +66,8 @@ export default function BookAppointment() {
         status: 'confirmed'
       };
 
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await fetch(`${apiBase}/appointments`, {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/appointments`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(appointmentData)

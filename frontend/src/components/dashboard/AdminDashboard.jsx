@@ -10,15 +10,21 @@ export default function AdminDashboard() {
   }, []);
 
   const fetchPendingDoctors = async () => {
+    setLoading(true);
     try {
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await fetch(`${apiBase}/doctors/pending/approval`);
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      // *** FIX: Corrected the endpoint URL by removing "/approval" ***
+      const response = await fetch(`${API_BASE_URL}/api/doctors/pending`);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch pending doctors: ${response.statusText}`);
+      }
+      
       const doctors = await response.json();
       setPendingDoctors(doctors);
     } catch (error) {
       console.error('Error fetching pending doctors:', error);
+      setPendingDoctors([]); // Clear the list on error
     } finally {
       setLoading(false);
     }
@@ -26,54 +32,36 @@ export default function AdminDashboard() {
 
   const handleApproval = async (doctorId, approved) => {
     try {
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await fetch(`${apiBase}/doctors/${doctorId}/approve`, {
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/doctors/${doctorId}/approve`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
+          // If your approval route is protected, you'll need an Authorization header
+          // 'Authorization': `Bearer ${localStorage.getItem('token')}`
         },
         body: JSON.stringify({ approved }),
       });
 
       if (response.ok) {
         alert(approved ? 'Doctor approved successfully!' : 'Doctor application rejected.');
-        fetchPendingDoctors();
+        fetchPendingDoctors(); // Refresh the list after an action
       } else {
-        alert('Error processing request');
+        const errorData = await response.json();
+        alert(`Error processing request: ${errorData.message}`);
       }
     } catch (error) {
       console.error('Error updating doctor status:', error);
-      alert('Error processing request');
+      alert('An error occurred while updating the doctor status.');
     }
   };
 
+  // ... (recentActivity and quickActions arrays remain the same) ...
   const recentActivity = [
-    {
-      action: 'New doctor registration',
-      user: 'Dr. Sarah Wilson',
-      time: '2 hours ago',
-      type: 'info',
-    },
-    {
-      action: 'Patient complaint resolved',
-      user: 'John Doe',
-      time: '4 hours ago',
-      type: 'success',
-    },
-    {
-      action: 'Payment dispute',
-      user: 'Dr. Mike Johnson',
-      time: '6 hours ago',
-      type: 'warning',
-    },
-    {
-      action: 'System maintenance completed',
-      user: 'System',
-      time: '1 day ago',
-      type: 'info',
-    },
+    { action: 'New doctor registration', user: 'Dr. Sarah Wilson', time: '2 hours ago', type: 'info' },
+    { action: 'Patient complaint resolved', user: 'John Doe', time: '4 hours ago', type: 'success' },
+    { action: 'Payment dispute', user: 'Dr. Mike Johnson', time: '6 hours ago', type: 'warning' },
+    { action: 'System maintenance completed', user: 'System', time: '1 day ago', type: 'info' },
   ];
 
   const quickActions = [
@@ -94,7 +82,7 @@ export default function AdminDashboard() {
         <tbody>
           <tr>
             <td width="65%" valign="top">
-              <fieldset style={{ border: '2px groove gray', padding: '10px', backgroundColor: '#ffffff' }}>
+              <fieldset style={{ border: '2px groove gray', padding: '15px', backgroundColor: '#ffffff' }}>
                 <legend style={{ fontWeight: 'bold', fontSize: '20px', color: '#800000' }}>
                   Pending Doctor Approvals ({pendingDoctors.length})
                 </legend>
@@ -103,14 +91,18 @@ export default function AdminDashboard() {
                 ) : pendingDoctors.length === 0 ? (
                   <p>No pending doctor approvals.</p>
                 ) : (
+                  // *** FIX: Improved display of doctor details for clarity ***
                   pendingDoctors.map((doc) => (
-                    <div key={doc._id} style={{ border: '1px solid #999', marginBottom: '10px', padding: '10px', backgroundColor: '#f0f0f0' }}>
-                      <b>{doc.name}</b> — {doc.speciality || 'Specialty Unknown'} ({doc.degree || 'N/A'})<br />
-                      <small>{doc.experience || '0 years'} • Email: {doc.email}</small>
-                      <div style={{ marginTop: '8px' }}>
+                    <div key={doc._id} style={{ border: '1px solid #999', marginBottom: '15px', padding: '15px', backgroundColor: '#f0f0f0', lineHeight: '1.6' }}>
+                      <h4 style={{ margin: '0 0 10px 0', fontSize: '18px', color: '#333' }}>{doc.name}</h4>
+                      <p style={{ margin: 0 }}><strong>Speciality:</strong> {doc.speciality || 'N/A'}</p>
+                      <p style={{ margin: 0 }}><strong>Degree:</strong> {doc.degree || 'N/A'} | <strong>Experience:</strong> {doc.experience || '0'} years</p>
+                      <p style={{ margin: 0 }}><strong>Email:</strong> {doc.email}</p>
+                      <p style={{ margin: 0 }}><strong>About:</strong> {doc.about || 'No description provided.'}</p>
+                      <p style={{ margin: 0 }}><strong>Address:</strong> {doc.address?.line1 || 'N/A'}</p>
+                      <div style={{ marginTop: '12px' }}>
                         <button onClick={() => handleApproval(doc._id, true)} style={buttonStyle('green')}>Approve</button>
                         <button onClick={() => handleApproval(doc._id, false)} style={buttonStyle('red')}>Reject</button>
-                        <button style={buttonStyle('gray')}>Review</button>
                       </div>
                     </div>
                   ))
@@ -118,33 +110,34 @@ export default function AdminDashboard() {
               </fieldset>
             </td>
             <td width="35%" valign="top">
-              <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f5f5dc' }}>
-                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Quick Actions</legend>
-                {quickActions.map((action, index) => (
-                  <div key={index} style={{ marginBottom: '8px' }}>
-                    <a href={action.href} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#000080', border: '2px outset', padding: '6px 12px', display: 'inline-block', backgroundColor: '#e0e0e0' }}>
-                      <action.icon size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
-                      {action.title}
-                    </a>
-                  </div>
-                ))}
-              </fieldset>
-              <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f0f8ff' }}>
-                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Recent Activity</legend>
-                {recentActivity.map((item, index) => (
-                  <div key={index} style={{ marginBottom: '8px' }}>
-                    <span>{item.action}</span><br />
-                    <small>{item.user} • {item.time}</small>
-                  </div>
-                ))}
-              </fieldset>
-              <fieldset style={{ border: '2px inset #aaa', padding: '10px', backgroundColor: '#f0fff0' }}>
-                <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>System Status</legend>
-                <div style={{ marginBottom: '5px' }}>Server Status: <b style={{ color: 'green' }}>Online</b></div>
-                <div style={{ marginBottom: '5px' }}>Database: <b style={{ color: 'green' }}>Connected</b></div>
-                <div style={{ marginBottom: '5px' }}>Payment Gateway: <b style={{ color: 'green' }}>Active</b></div>
-                <div style={{ marginBottom: '5px' }}>Email Service: <b style={{ color: 'orange' }}>Maintenance</b></div>
-              </fieldset>
+               {/* --- The rest of the component remains the same --- */}
+               <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f5f5dc' }}>
+                 <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Quick Actions</legend>
+                 {quickActions.map((action, index) => (
+                   <div key={index} style={{ marginBottom: '8px' }}>
+                     <a href={action.href} style={{ textDecoration: 'none', fontWeight: 'bold', color: '#000080', border: '2px outset', padding: '6px 12px', display: 'inline-block', backgroundColor: '#e0e0e0' }}>
+                       <action.icon size={16} style={{ marginRight: '6px', verticalAlign: 'middle' }} />
+                       {action.title}
+                     </a>
+                   </div>
+                 ))}
+               </fieldset>
+               <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f0f8ff' }}>
+                 <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Recent Activity</legend>
+                 {recentActivity.map((item, index) => (
+                   <div key={index} style={{ marginBottom: '8px' }}>
+                     <span>{item.action}</span><br />
+                     <small>{item.user} • {item.time}</small>
+                   </div>
+                 ))}
+               </fieldset>
+               <fieldset style={{ border: '2px inset #aaa', padding: '10px', backgroundColor: '#f0fff0' }}>
+                 <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>System Status</legend>
+                 <div style={{ marginBottom: '5px' }}>Server Status: <b style={{ color: 'green' }}>Online</b></div>
+                 <div style={{ marginBottom: '5px' }}>Database: <b style={{ color: 'green' }}>Connected</b></div>
+                 <div style={{ marginBottom: '5px' }}>Payment Gateway: <b style={{ color: 'green' }}>Active</b></div>
+                 <div style={{ marginBottom: '5px' }}>Email Service: <b style={{ color: 'orange' }}>Maintenance</b></div>
+               </fieldset>
             </td>
           </tr>
         </tbody>

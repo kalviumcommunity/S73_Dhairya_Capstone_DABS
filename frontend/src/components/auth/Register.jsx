@@ -9,7 +9,7 @@ const Register = () => {
     email: '',
     password: '',
     role: 'Patient',
-    specialty: '',
+    speciality: '',
     licenseNumber: '',
     experience: '',
     degree: '',
@@ -41,26 +41,24 @@ const Register = () => {
       }
 
       if (role === 'Doctor') {
-        const { specialty, experience, degree, about, addressLine1, fees } = formData;
-        if (!specialty || !experience || !degree || !about || !addressLine1 || !fees) {
+        const { speciality, experience, degree, about, addressLine1, fees } = formData;
+        if (!speciality || !experience || !degree || !about || !addressLine1 || !fees) {
           throw new Error('Please fill in all required doctor fields.');
         }
       }
 
       // Ensure API_BASE_URL always ends with /api for consistency
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
       const endpoint = role === 'Doctor'
-        ? `${apiBase}/users/register-doctor`
-        : `${apiBase}/users`;
+        ? `${API_BASE_URL}/api/users/register-doctor`
+        : `${API_BASE_URL}/api/users`;
 
       const payload = role === 'Doctor'
         ? {
             name: `${formData.firstName} ${formData.lastName}`,
             email: formData.email,
             password: formData.password,
-            speciality: formData.specialty,
+            speciality: formData.speciality,
             experience: formData.experience,
             degree: formData.degree,
             about: formData.about,
@@ -182,9 +180,9 @@ const Register = () => {
             {formData.role === 'Doctor' && (
               <>
                 <tr>
-                  <td><b>Specialty:</b></td>
+                  <td><b>Speciality:</b></td>
                   <td>
-                    <select name="specialty" value={formData.specialty} onChange={handleChange} style={inputStyle}>
+                    <select name="speciality" value={formData.speciality} onChange={handleChange} style={inputStyle}>
                       <option value="">Select</option>
                       <option value="Cardiologist">Cardiologist</option>
                       <option value="Dermatologist">Dermatologist</option>

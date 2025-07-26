@@ -14,10 +14,8 @@ export default function FindDoctors() {
 
   const fetchDoctors = async () => {
     try {
-      let apiBase = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
-      if (!apiBase.endsWith('/api')) apiBase += '/api';
-
-      const response = await fetch(`${apiBase}/doctors`);
+      const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://s73-dhairya-capstone-dabs-1.onrender.com';
+      const response = await fetch(`${API_BASE_URL}/api/doctors`);
       const doctorsData = await response.json();
       setDoctors(doctorsData);
       setFiltered(doctorsData);
