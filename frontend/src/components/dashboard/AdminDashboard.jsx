@@ -24,7 +24,7 @@ export default function AdminDashboard() {
       setPendingDoctors(doctors);
     } catch (error) {
       console.error('Error fetching pending doctors:', error);
-      setPendingDoctors([]); // Clear the list on error
+      setPendingDoctors([]); 
     } finally {
       setLoading(false);
     }
@@ -110,7 +110,6 @@ export default function AdminDashboard() {
               </fieldset>
             </td>
             <td width="35%" valign="top">
-               {/* --- The rest of the component remains the same --- */}
                <fieldset style={{ border: '2px inset #aaa', padding: '10px', marginBottom: '20px', backgroundColor: '#f5f5dc' }}>
                  <legend style={{ fontWeight: 'bold', fontSize: '18px' }}>Quick Actions</legend>
                  {quickActions.map((action, index) => (
