@@ -44,11 +44,16 @@ router.get('/:id', async (req, res) => {
 
 // Get pending doctors for admin approval
 router.get('/pending', async (req, res) => {
+    console.log("Attempting to fetch pending doctors..."); // Log when the function starts
     try {
         const pendingDoctors = await doctorModel.find({ approved: false });
+        console.log(`Found ${pendingDoctors.length} pending doctors.`); // Log how many were found
         res.json(pendingDoctors);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+        // *** THIS IS THE IMPORTANT PART ***
+        // Log the full error to the console for debugging on Render
+        console.error("!!! CRITICAL ERROR fetching pending doctors:", error); 
+        res.status(500).json({ message: "Server failed to fetch pending doctors.", error: error.message });
     }
 });
 
@@ -109,7 +114,5 @@ router.patch('/:id/availability', async (req, res) => {
         res.status(400).json({ message: error.message });
     }
 });
-
-// Other routes like seed-demo, get by specialty, etc., remain as is...
 
 export default router;
