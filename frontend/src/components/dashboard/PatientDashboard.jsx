@@ -11,7 +11,7 @@ function getUser() {
 }
 
 export default function PatientDashboard() {
-  const user = getUser();
+  const [user, setUser] = useState(getUser());
   const [upcomingAppointments, setUpcomingAppointments] = useState([]);
   const [loading, setLoading] = useState(true);
 
