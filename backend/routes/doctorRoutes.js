@@ -31,17 +31,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Get doctor by ID
-router.get('/:id', async (req, res) => {
-    try {
-        const doctor = await doctorModel.findById(req.params.id);
-        if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
-        res.json(doctor);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-});
-
+// FIX: Move /pending route above /:id route
 // Get pending doctors for admin approval
 router.get('/pending', async (req, res) => {
     console.log("Attempting to fetch pending doctors..."); // Log when the function starts
@@ -54,6 +44,18 @@ router.get('/pending', async (req, res) => {
         // Log the full error to the console for debugging on Render
         console.error("!!! CRITICAL ERROR fetching pending doctors:", error); 
         res.status(500).json({ message: "Server failed to fetch pending doctors.", error: error.message });
+    }
+});
+
+// Get doctor by ID (now after /pending)
+router.get('/:id', async (req, res) => {
+    try {
+        const doctor = await doctorModel.findById(req.params.id);
+        if (!doctor) return res.status(404).json({ message: 'Doctor not found' });
+        res.json(doctor);
+    } catch (error) {
+        console.error(`Error fetching doctor by ID ${req.params.id}:`, error);
+        res.status(500).json({ message: error.message });
     }
 });
 
