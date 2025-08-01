@@ -15,6 +15,7 @@ import ViewPatients from './pages/ViewPatients';
 import AllAppointments from './pages/AllAppointments';
 import DoctorAppointments from './pages/DoctorAppointments';
 import WriteNotes from './pages/WriteNotes';
+import NotFound from './pages/NotFound'; // Import the new component
 
 function App() {
   return (
@@ -26,11 +27,11 @@ function App() {
         <Route path="/find-doctors" element={<FindDoctors />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        
+
         {/* Patient Routes */}
         <Route path="/patient-dashboard" element={<PrivateRoute allowedRoles={['patient']}><PatientDashboard /></PrivateRoute>} />
         <Route path="/book-appointment" element={<PrivateRoute allowedRoles={['patient']}><BookAppointment /></PrivateRoute>} />
-        
+
         {/* Doctor Routes */}
         <Route path="/doctor-dashboard" element={<PrivateRoute allowedRoles={['doctor']}><DoctorDashboard /></PrivateRoute>} />
         <Route path="/doctor/appointments" element={<PrivateRoute allowedRoles={['doctor']}><DoctorAppointments /></PrivateRoute>} />
@@ -41,17 +42,9 @@ function App() {
         <Route path="/manage-doctors" element={<PrivateRoute allowedRoles={['admin']}><ManageDoctors /></PrivateRoute>} />
         <Route path="/patients" element={<PrivateRoute allowedRoles={['admin']}><ViewPatients /></PrivateRoute>} />
         <Route path="/appointments" element={<PrivateRoute allowedRoles={['admin']}><AllAppointments /></PrivateRoute>} />
-
-        {/* For Testing purposes */}
-        {/* <Route path="/book-appointment" element={<BookAppointment />} />
-        <Route path="/admin-dashboard" element={<AdminDashboard />} />
-        <Route path="/doctor-dashboard" element={<DoctorDashboard />} />
-        <Route path="/patient-dashboard" element={<PatientDashboard />} />
-        <Route path="/manage-doctors" element={<ManageDoctors />} />
-        <Route path="/view-patients" element={<ViewPatients />} />
-        <Route path="/appointments" element={<AllAppointments />} />
-        <Route path="/doctor-appointments" element={<DoctorAppointments />} />
-        <Route path="/doctor/notes" element={<WriteNotes />} /> */}
+        
+        {/* Catch-all 404 Route */}
+        <Route path="*" element={<NotFound />} />
 
       </Routes>
     </Router>
