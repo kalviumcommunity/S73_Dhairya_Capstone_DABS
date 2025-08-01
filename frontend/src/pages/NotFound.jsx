@@ -28,6 +28,7 @@ export default function NotFound() {
       <p style={{ marginTop: '20px' }}>
         Maybe it's hiding with the lost floppy disks and dial-up modems.
       </p>
+      
       <div style={{ marginTop: '40px' }}>
         <Link to="/" style={{
           textDecoration: 'none',
