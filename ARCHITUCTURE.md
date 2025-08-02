@@ -109,68 +109,73 @@ flowchart TD
 
 ```
 S73_Dhairya_Capstone_DABS/
-├── backend/                              # Backend server - Node.js + Express + MongoDB
+├── .github/
+│   └── workflows/
+│       └── eslint.yml                  # GitHub Actions for linting
+│
+├── backend/                            # Backend - Node.js + Express + MongoDB
 │   ├── config/
-│   │   └── mongodb.js                    # MongoDB connection logic
-│   ├── model/                            # Mongoose models
+│   │   └── mongodb.js                  # MongoDB connection config
+│   ├── model/                          # Mongoose schemas/models
 │   │   ├── appointmentModel.js
 │   │   ├── doctorModel.js
 │   │   └── userModel.js
-│   ├── routes/                           # API routes
+│   ├── routes/                         # API route definitions
 │   │   ├── appointmentRoutes.js
 │   │   ├── doctorRoutes.js
 │   │   └── userRoutes.js
-│   ├── seedDemoUsers.js                  # Demo data seeding script
-│   ├── server.js                         # Entry point of the backend server
-│   ├── .env                              # Backend environment variables
+│   ├── seedDemoUsers.js                # Script to seed dummy user data
+│   ├── server.js                       # Main Express app/server entry point
+│   ├── .env                            # Backend environment variables
 │   ├── .gitignore
 │   ├── package.json
 │   └── package-lock.json
 │
-├── frontend/                             # Frontend app - React + Vite + Tailwind
+├── frontend/                           # Frontend - React + Vite + Tailwind
 │   ├── public/
 │   ├── src/
-│   │   ├── assets/                       # Static assets like logos, icons, etc.
-│   │   ├── components/                   # Reusable UI components
-│   │   │   ├── auth/                     # Auth-related components
+│   │   ├── assets/                     # Logos, icons, images, etc.
+│   │   ├── components/                 # Reusable UI components
+│   │   │   ├── auth/                   # Authentication components
 │   │   │   │   ├── Login.jsx
 │   │   │   │   ├── Register.jsx
-│   │   │   │   └── PrivateRoute.jsx      # Protected route logic
-│   │   │   ├── dashboard/                # Dashboards based on user roles
+│   │   │   │   └── PrivateRoute.jsx
+│   │   │   ├── dashboard/              # Dashboards by role
 │   │   │   │   ├── AdminDashboard.jsx
 │   │   │   │   ├── DoctorDashboard.jsx
 │   │   │   │   ├── PatientDashboard.jsx
 │   │   │   │   └── BookAppointment.jsx
 │   │   │   ├── Home.jsx
 │   │   │   └── Navbar.jsx
-│   │   ├── pages/                        # Main route-level views/pages
+│   │   ├── pages/                      # Page components for routing
 │   │   │   ├── AllAppointments.jsx
 │   │   │   ├── DoctorAppointments.jsx
 │   │   │   ├── FindDoctors.jsx
 │   │   │   ├── Home.jsx
 │   │   │   ├── ManageDoctors.jsx
+│   │   │   ├── NotFound.jsx
 │   │   │   ├── ViewPatients.jsx
 │   │   │   └── WriteNotes.jsx
-│   │   ├── App.jsx                       # Main app wrapper with routing
+│   │   ├── App.jsx                     # App wrapper + routing
 │   │   ├── App.css
 │   │   ├── index.css
-│   │   └── main.jsx                      # ReactDOM entry point
-│   ├── .env                              # Frontend environment variables
+│   │   └── main.jsx                    # React entry point
+│   ├── .env                            # Frontend environment variables
 │   ├── .gitignore
-│   ├── index.html
+│   ├── index.html                      # Vite HTML template
 │   ├── package.json
 │   ├── package-lock.json
-│   ├── postcss.config.js
-|   ├── README.md
-│   ├── tailwind.config.js
-│   ├── vite.config.js
-│   └── eslint.config.js
+│   ├── postcss.config.js              # Tailwind PostCSS plugin config
+│   ├── tailwind.config.js             # Tailwind customization
+│   ├── vite.config.js                 # Vite dev/build config
+│   ├── eslint.config.js               # ESLint for frontend
+│   └── README.md
 │
-├── .eslintrc.js                          # Root ESLint config (if not inside frontend/)
-├── README.md                             # Main project overview
-├── ARCHITECTURE.md                       # System/component architecture
-├── SECURITY.md                           # Security policies or practices
-├── LICENSE                               # License file
+├── .eslintrc.js                        # Root ESLint (if shared across full-stack)
+├── ARCHITECTURE.md                     # High-level architecture/design decisions
+├── README.md                           # Project overview, setup, instructions
+├── SECURITY.md                         # Security policies, practices, or disclosures
+└── LICENSE                             # Open source license
 
 ```
 
