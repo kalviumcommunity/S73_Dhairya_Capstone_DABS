@@ -11,7 +11,7 @@
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/S73_Dhairya_Capstone_DABS.git
+   git clone https://github.com/dhairyajangir/S73_Dhairya_Capstone_DABS.git
    cd frontend
    ```
 
@@ -38,51 +38,55 @@
 ## Folder Structure
 
 ```
-frontend/                                # React + Vite  based frontend
+frontend/                                # React + Vite based frontend
 ├── public/                              
 │
-├── src/                                 # Source code for frontend
-│   ├── assets/                          # Images, logos, icons
-│
-│   ├── components/                      # Reusable UI components and layouts
+├── src/                                 # Source code
+│   ├── assets/                          # Static assets (images, logos, etc.)
+│   
+│   ├── components/                      # Reusable components and UI logic
 │   │   ├── auth/                        # Authentication components
-│   │   │   ├── Login.jsx                # User login form
-│   │   │   ├── Register.jsx             # User registration form
-│   │   │   └── PrivateRoute.jsx         # Route protection based on auth
+│   │   │   ├── Login.jsx
+│   │   │   ├── PrivateRoute.jsx
+│   │   │   └── Register.jsx
 │   │   │
-│   │   ├── dashboard/                   # Role-specific dashboard components
-│   │   │   ├── AdminDashboard.jsx       # Admin landing page/dashboard
-│   │   │   ├── DoctorDashboard.jsx      # Doctor's dashboard
-│   │   │   ├── PatientDashboard.jsx     # Patient's dashboard
-│   │   │   └── BookAppointment.jsx      # Appointment booking view
+│   │   ├── dashboard/                   # Dashboard views for each role
+│   │   │   ├── AdminDashboard.jsx
+│   │   │   ├── DoctorDashboard.jsx
+│   │   │   ├── PatientDashboard.jsx
+│   │   │   └── BookAppointment.jsx
 │   │   │
 │   │   ├── Home.jsx                     # Home section reusable view
-│   │   └── Navbar.jsx                   # Top navigation bar
-│
-│   ├── pages/                           # Full pages mapped to routes
-│   │   ├── AllAppointments.jsx          # All appointments (admin/patient)
-│   │   ├── DoctorAppointments.jsx       # Appointments for doctor
-│   │   ├── FindDoctors.jsx              # Search doctors
-│   │   ├── Home.jsx                     # Home page
-│   │   ├── ManageDoctors.jsx            # Admin control to add/remove doctors
-│   │   ├── ViewPatients.jsx             # Doctor panel for patient history
-│   │   └── WriteNotes.jsx               # Doctor notes on patient visits
-│
-│   ├── App.jsx                          # Main App component with routing config
+│   │   └── Navbar.jsx                   # Navigation bar
+│   
+│   ├── pages/                           # Pages mapped to routes
+│   │   ├── AllAppointments.jsx
+│   │   ├── DoctorAppointments.jsx
+│   │   ├── FindDoctors.jsx
+│   │   ├── Home.jsx
+│   │   ├── ManageDoctors.jsx
+│   │   ├── NotFound.jsx
+│   │   ├── ViewPatients.jsx
+│   │   └── WriteNotes.jsx
+│   
+│   ├── App.jsx                          # Root App component and routing
 │   ├── App.css                          # Global styles
-│   ├── index.css                        # Base CSS loaded by Vite
-│   └── main.jsx                         # Entry point for React (ReactDOM render)
+│   ├── index.css                        # Vite base styles
+│   └── main.jsx                         # ReactDOM entry point
 │
-├── .env                                 # Environment variables (frontend-only)
-├── .gitignore
+├── .env                                 # Environment variables
+├── .gitignore                           # Git ignore config
 ├── index.html                           # HTML template served by Vite
-├── package.json                         # Project metadata and dependencies
-├── package-lock.json
-├── README.md      
-├── postcss.config.js                    # PostCSS setup for Tailwind
-├── tailwind.config.js                   # TailwindCSS customizations
-├── vite.config.js                       # Vite development/build configuration
-└── eslint.config.js                     # ESLint configuration for frontend
+├── package.json                         # Project metadata & scripts
+├── package-lock.json                    # Lockfile for npm dependencies
+├── postcss.config.js                    # Tailwind/PostCSS config
+├── tailwind.config.js                   # Tailwind customization
+├── vite.config.js                       # Vite build/dev config
+├── eslint.config.js                     # ESLint base config
+├── .eslintrc.js                         # Additional ESLint overrides
+├── ARCHITECTURE.md                      # App design decisions
+├── LICENSE                              # License file
+├── README.md                            # Project overview and guide
 
 ```
 ---
