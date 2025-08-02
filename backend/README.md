@@ -24,8 +24,8 @@ This is the backend for the **BookMyDoc** project, a full-stack MERN application
     ```
 4.  **Create a `.env` file** in the `backend/` directory and add the following environment variables:
     ```env
-    MONGODB_URI=mongodb+srv://dhairyajangirs73:capstone@cluster0.7xari.mongodb.net/bookMyDoc
-    JWT_SECRET=159ccb28c5b311b20df6442120d726a9ec0784d7ccd9d52168e3f168f148ebbdcbb18a6b0543147ecd3a7cf94a82c98f09dfbf7d40f4f257fd4e6c9757528993
+    MONGODB_URI=<your_mongo_uri_for_testing>
+    JWT_SECRET=<your_jwt_for_testing>
     ```
 5.  **Start the server**:
     ```bash
