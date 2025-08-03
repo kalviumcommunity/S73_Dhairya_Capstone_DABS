@@ -106,42 +106,25 @@ router.post('/login', async (req, res) => {
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required.' });
         }
-
-        let user = await userModel.findOne({ email });
-        let doctor = null;
-        let loginUser = null;
-        let role = null;
-
-        if (user) {
-            loginUser = user;
-            role = user.role || 'patient';
-        } else {
-            doctor = await doctorModel.findOne({ email });
-            if (doctor) {
-                loginUser = doctor;
-                role = 'doctor';
-            }
-        }
         
+        // Handle hardcoded admin login first
         if (email.toLowerCase() === 'dhairya@bookmydoc.com' && password === 'password123') {
-            const token = jwt.sign(
-                { id: 'admin_id', role: 'admin' },
-                process.env.JWT_SECRET || 'your-secret-key',
-                { expiresIn: '1d' }
-            );
-            
+            const token = jwt.sign({ id: 'admin_id', role: 'admin' }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1d' });
             return res.json({
                 message: 'Admin login successful',
-                user: { 
-                    id: 'admin_id', 
-                    name: 'Admin', 
-                    email: 'dhairya@bookmydoc.com', 
-                    role: 'admin' 
-                },
+                user: { id: 'admin_id', name: 'Admin', email: 'dhairya@bookmydoc.com', role: 'admin' },
                 token
             });
         }
 
+        // **OPTIMIZATION: Find user and doctor in parallel**
+        const [user, doctor] = await Promise.all([
+            userModel.findOne({ email }),
+            doctorModel.findOne({ email })
+        ]);
+
+        const loginUser = user || doctor;
+        const role = user ? 'patient' : (doctor ? 'doctor' : null);
 
         if (!loginUser) {
             return res.status(401).json({ message: 'Invalid email or password.' });
@@ -156,23 +139,14 @@ router.post('/login', async (req, res) => {
             return res.status(403).json({ message: 'Account pending admin approval.' });
         }
 
-        const token = jwt.sign(
-            { id: loginUser._id, role },
-            process.env.JWT_SECRET || 'your-secret-key',
-            { expiresIn: '1d' }
-        );
+        const token = jwt.sign({ id: loginUser._id, role }, process.env.JWT_SECRET || 'your-secret-key', { expiresIn: '1d' });
 
         const userResponse = loginUser.toObject();
         delete userResponse.password;
 
         res.json({
             message: 'Login successful',
-            user: { 
-                id: loginUser._id, 
-                name: loginUser.name, 
-                email: loginUser.email, 
-                role 
-            },
+            user: { id: loginUser._id, name: loginUser.name, email: loginUser.email, role },
             token
         });
     } catch (error) {

@@ -1,11 +1,8 @@
-// Updated backend/appointmentModel.js
-// Added paymentMethod and status fields.
-
 import mongoose from "mongoose";
 
 const appointmentSchema = new mongoose.Schema({
-    userId: { type: String, required: true },
-    docId: { type: String, required: true },
+    userId: { type: String, required: true, index: true }, // Added index for faster lookups
+    docId: { type: String, required: true, index: true }, // Added index for faster lookups
     slotDate: { type: String, required: true },
     slotTime: { type: String, required: true },
     userData: { type: Object, required: true },

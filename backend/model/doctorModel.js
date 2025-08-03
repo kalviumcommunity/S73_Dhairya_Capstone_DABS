@@ -1,11 +1,8 @@
-// Updated backend/doctorModel.js
-// Added approved field and slots_booked as object.
-
 import mongoose from "mongoose";
 
 const doctorSchema = new mongoose.Schema({
     name: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, index: true }, // Added index for faster lookups
     password: { type: String, required: true },
     speciality: { type: String, required: true },
     degree: { type: String, required: true },
@@ -18,7 +15,7 @@ const doctorSchema = new mongoose.Schema({
     },
     date: { type: Number, required: true },
     available: { type: Boolean, default: false },
-    approved: { type: Boolean, default: false },
+    approved: { type: Boolean, default: false, index: true }, // Added index for faster filtering
     slots_booked: { type: Object, default: {} }
 });
 
