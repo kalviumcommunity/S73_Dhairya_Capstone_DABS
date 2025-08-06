@@ -47,7 +47,7 @@ The **BookMyDoc** (formerly QuickDoc) is a full-stack web application built usin
 <table width="100%" align="left">
   <tr>
     <td align="center">React.js (responsive UI)</td>
-    <td align="center">Tailwind CSS (styling)</td>
+    <td align="center">CSS (styling)</td>
     <td align="center">React Router (navigation)</td>
     <td align="center">Redux Toolkit (state mgmt)</td>
   </tr>
